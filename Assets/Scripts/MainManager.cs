@@ -99,6 +99,7 @@ public class MainManager : MonoBehaviour
 
 
 	public const int START_LIFE = 2;
+	public const int INIT_GATHATICKET = 10;
 
 
 	private State state;
@@ -182,7 +183,8 @@ public class MainManager : MonoBehaviour
 		this.LoadCharacter ();
 
 		// For Debug.
-		gachaTicket = 10;
+		//gachaTicket = 10;
+		//PlayerPrefs.DeleteKey(Data.RECORD_GACHATICKET);
 	}
 
 
@@ -503,7 +505,13 @@ public class MainManager : MonoBehaviour
 	{
 		int record = PlayerPrefs.GetInt (Data.RECORD_CHARACTER);
 		selectCharacter = PlayerPrefs.GetInt (Data.RECORD_CHARACTER_SELECT);
-		gachaTicket = PlayerPrefs.GetInt (Data.RECORD_GACHATICKET);
+
+		// ガチャチケットが保存されていない.
+		if (!PlayerPrefs.HasKey (Data.RECORD_GACHATICKET)) {
+			gachaTicket = INIT_GATHATICKET;
+		} else {
+			gachaTicket = PlayerPrefs.GetInt (Data.RECORD_GACHATICKET);
+		}
 
 		character [0] = 1;
 		if ((record & 0x00000010) > 0)
