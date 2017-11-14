@@ -344,11 +344,13 @@ public class TitleManager : MonoBehaviour
 
 		public void lottery(int n)
 		{
+			UnityEngine.Random.InitState ((int)Time.time);
+
 			int start = UnityEngine.Random.Range (0, n - 5);
 			int randomNum = UnityEngine.Random.Range (0, n);
 			int hit = n / (n / 5);
 
-			Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
+			//Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
 			// あたり.
 			if (randomNum >= start && randomNum < start + hit) {
 				selectedGachaNumber = UnityEngine.Random.Range (0, Data.CHARACTER_MAX - 1);
@@ -671,10 +673,10 @@ public class TitleManager : MonoBehaviour
 
 		goSelectCharacterButtonStart	.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStart ());
 		goSelectCharacterButtonGacha	.GetComponent<Button> ().onClick.AddListener (() => OnGacha ());
-		goSelectCharacterButtonPlayAds	.GetComponent<Button> ().onClick.AddListener (() => OnExtraItemButtonMovie ());
+		goSelectCharacterButtonPlayAds	.GetComponent<Button> ().onClick.AddListener (() => ShowAdsMovie ());
 		goSelectCharacterButtonBack		.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Menu, false));
 		goGachaResultButtonGacha		.GetComponent<Button> ().onClick.AddListener (() => OnGacha ());
-		goGachaResultButtonPlayAds		.GetComponent<Button> ().onClick.AddListener (() => OnExtraItemButtonMovie ());
+		goGachaResultButtonPlayAds		.GetComponent<Button> ().onClick.AddListener (() => ShowAdsMovie ());
 		goGachaResultButtonBack			.GetComponent<Button> ().onClick.AddListener (() => OnGachaResultBackButton ());
 
 		goCharacter = new List<GameObject> ();
@@ -1240,7 +1242,7 @@ public class TitleManager : MonoBehaviour
 	// ガチャ結果で表示するキャラクター or ハート.
 	private void ChangeSprite()
 	{
-		Debug.Log (gacha.selectedGachaNumber);
+		//Debug.Log (gacha.selectedGachaNumber);
 		if (gacha.selectedGachaNumber == -1) {
 			string uri = "Textures/hart";
 			Debug.Log (uri);
@@ -1287,6 +1289,7 @@ public class TitleManager : MonoBehaviour
 						MainManager.Instance.GetCharacter (gacha.selectedGachaNumber);
 					}
 					// 結果へ.
+					ShowAdsBanner();
 					SoundManager.Instance.PlaySe (SoundManager.SeName.SE_RESULT);
 					goGachaResult.SetActive (true);
 					goGachaStart.SetActive (!goGachaResult.activeSelf);
@@ -1327,6 +1330,7 @@ public class TitleManager : MonoBehaviour
 		}
 	}
 
+	// キャラクター名、日本語 or ¥英語.
 	private void ChangeCharacterName()
 	{
 		for (int i = 0; i < Data.CHARACTER_MAX; i++) {
@@ -1341,6 +1345,28 @@ public class TitleManager : MonoBehaviour
 		goSelectCharacterGachaTicket.GetComponent<Text> ().text = MainManager.Instance.gachaTicket.ToString();
 		goGachaResultGachaTicketText.GetComponent<Text> ().text = Language.sentence [Language.GACHA_RESULT_GACHATICKETTEXT];
 		goGachaResultGachaTicket.GetComponent<Text> ().text = MainManager.Instance.gachaTicket.ToString();
+	}
+
+	// ガチャチケットを獲得するための動画視聴.
+	private void ShowAdsMovie()
+	{
+		UnityEngine.Random.InitState ((int)Time.time);
+		MainManager.Instance.ShowInterstitial (() => {
+			MainManager.Instance.gachaTicket += 5;
+			ReflashGachaTicket();
+		});
+	}
+
+	// バナーが出たらガチャチケット１枚.
+	private void ShowAdsBanner()
+	{
+		UnityEngine.Random.InitState ((int)Time.time);
+		if(UnityEngine.Random.Range(0,100) < 5) {
+			MainManager.Instance.ShowInterstitial (() => {
+				MainManager.Instance.gachaTicket += 1;
+				ReflashGachaTicket();
+			});
+		}
 	}
 
 	private void CheckBackKey ()
