@@ -494,7 +494,7 @@ public class GameManager : MonoBehaviour
 	private List<Chip> chipList;
 	private Player player;
 	private List<Enemy> enemyList;
-	private List<Weapon> weaponList;
+	private List<Weapon> enemyWeaponList;
 	private List<Item> itemList;
 	private List<Bonus> bonusList;
 	private List<Hakaima.Light> lightList;
@@ -502,7 +502,7 @@ public class GameManager : MonoBehaviour
 	private List<GroupChip> groupChipList;
 	private GroupPlayer groupPlayer;
 	private List<GroupEnemy> groupEnemyList;
-	private List<GroupWeapon> groupWeaponList;
+	private List<GroupWeapon> groupEnemyWeaponList;
 	private List<GroupItem> groupItemList;
 	private List<GroupBonus> groupBonusList;
 	private List<GroupLight> groupLightList;
@@ -595,7 +595,7 @@ public class GameManager : MonoBehaviour
 		groupChipList	= new List<GroupChip> ();
 		groupPlayer		= new GroupPlayer ();
 		groupEnemyList	= new List<GroupEnemy> ();
-		groupWeaponList = new List<GroupWeapon> ();
+		groupEnemyWeaponList = new List<GroupWeapon> ();
 		groupItemList	= new List<GroupItem> ();
 		groupBonusList	= new List<GroupBonus> ();
 		groupLightList	= new List<GroupLight> ();
@@ -882,7 +882,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		weaponList = new List<Weapon> ();
+		enemyWeaponList = new List<Weapon> ();
 
 		itemList = new List<Item> ();
 		for (int i = 0; i < cellList.Count; i++) {
@@ -1471,11 +1471,11 @@ public class GameManager : MonoBehaviour
 													if (isWeapon) {
 														Weapon weapon = new Weapon ();
 														weapon.Init ((Weapon.Compass)enemy.compass, enemy.positionX, enemy.positionY);
-														weaponList.Add (weapon);
+														enemyWeaponList.Add (weapon);
 														GroupWeapon groupWeapon = new GroupWeapon ();
 														groupWeapon.gameObject = Instantiate (goOriginWeapon) as GameObject;
 														groupWeapon.gameObjectImage = groupWeapon.gameObject.transform.Find ("Image").gameObject;
-														groupWeaponList.Add (groupWeapon);
+														groupEnemyWeaponList.Add (groupWeapon);
 														SoundManager.Instance.PlaySe (SoundManager.SeName.SE_TOUCH);
 													}
 													groupEnemy.weaponCount++;
@@ -1539,7 +1539,7 @@ public class GameManager : MonoBehaviour
 					chipList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					player.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE);
 					enemyList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
-					weaponList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
+					enemyWeaponList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					bonusList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					numberList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					groupPlayer.lifeup.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE);
@@ -1873,8 +1873,8 @@ public class GameManager : MonoBehaviour
 													SoundManager.Instance.PlaySe (SoundManager.SeName.SE_BUMP);
 												}
 											}
-											for (int i = 0; i < weaponList.Count; i++) {
-												Weapon weapon = weaponList [i];
+											for (int i = 0; i < enemyWeaponList.Count; i++) {
+												Weapon weapon = enemyWeaponList [i];
 												if (Math.Abs (weapon.positionX - player.positionX) < weapon.size * weapon.scaleX && Math.Abs (weapon.positionY - player.positionY) < weapon.size * weapon.scaleY) {
 													player.Damage ();
 													ownerItemList.Find (obj => obj.type == Item.Type.Sandal).state = OwnerItem.State.NoHave;
@@ -2067,12 +2067,12 @@ public class GameManager : MonoBehaviour
 						break;
 					}
 
-					for (int i = 0; i < weaponList.Count;) {
-						Weapon weapon = weaponList [i];
+					for (int i = 0; i < enemyWeaponList.Count;) {
+						Weapon weapon = enemyWeaponList [i];
 						if (weapon.isEnd) {
-							Destroy (groupWeaponList [i].gameObject);
-							weaponList.RemoveAt (i);
-							groupWeaponList.RemoveAt (i);
+							Destroy (groupEnemyWeaponList [i].gameObject);
+							enemyWeaponList.RemoveAt (i);
+							groupEnemyWeaponList.RemoveAt (i);
 							continue;
 						}
 						i++;
@@ -2704,9 +2704,9 @@ public class GameManager : MonoBehaviour
 			}
 		}
 		{
-			for (int i = 0; i < weaponList.Count; i++) {
-				Weapon weapon = weaponList [i];
-				GroupWeapon groupWeapon = groupWeaponList [i];
+			for (int i = 0; i < enemyWeaponList.Count; i++) {
+				Weapon weapon = enemyWeaponList [i];
+				GroupWeapon groupWeapon = groupEnemyWeaponList [i];
 				if (groupWeapon.gameObject.activeSelf != weapon.visible) {
 					groupWeapon.gameObject.SetActive (weapon.visible);
 				}
