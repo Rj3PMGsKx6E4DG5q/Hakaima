@@ -130,6 +130,8 @@ public class ResourceManager : MonoBehaviour
 	public Dictionary<int, Sprite> spritePlayerList;
 	[HideInInspector]
 	public Sprite spriteUpperPlayer;
+	[HideInInspector]
+	public Sprite spritePlayerWeapon;
 
 	[HideInInspector]
 	public Dictionary<int, Sprite> spriteEnemyList;
@@ -368,6 +370,7 @@ public class ResourceManager : MonoBehaviour
 		};
 
 		spriteUpperPlayer = Resources.Load<Sprite> (string.Format ("Textures/upper_player{0}",	charaId));
+		spritePlayerWeapon = Resources.Load<Sprite> (string.Format ("Textures/player{0}_weapon", charaId));
 	}
 
 
