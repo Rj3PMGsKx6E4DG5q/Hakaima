@@ -1561,6 +1561,7 @@ public class GameManager : MonoBehaviour
 						case Enemy.State.Fall:
 							{
 								bool isDie = false;
+								bool isDamage = false;
 								switch (enemy.state) {
 								case Enemy.State.Wait:
 									{
@@ -1708,13 +1709,20 @@ public class GameManager : MonoBehaviour
 												groupEnemy.dieTime = 0;
 												PlayerPrefs.SetInt (Data.RECORD_ENEMY_DIE_TO_TOMB, PlayerPrefs.GetInt (Data.RECORD_ENEMY_DIE_TO_TOMB) + 1);
 											} else {
-												groupEnemy.invincibleTime = 5;
-												enemy.SetBlind (true, Color.white);
-												if (groupEnemy.isBoss)
-												if (groupEnemy.lifeCount == 1)
-													groupEnemy.angryTime = Data.GetStageData (MainManager.Instance.stage).limitTime;
-
+												isDamage = true;
 											}
+										}
+									}
+								}
+								for (int j = 0; j < playerWeaponList.Count; j++) {
+									Weapon weapon = playerWeaponList [j];
+									if (Math.Abs (weapon.positionX - enemy.positionX) < weapon.size * weapon.scaleX && Math.Abs (weapon.positionY - enemy.positionY) < weapon.size * weapon.scaleY) {
+										if (groupEnemy.lifeCount == 0) {
+											isDie = true;
+											groupEnemy.dieType = GroupEnemy.DieType.Tomb;
+											groupEnemy.dieTime = 0;
+										} else {
+											isDamage = true;
 										}
 									}
 								}
@@ -1753,6 +1761,12 @@ public class GameManager : MonoBehaviour
 											appearEnemyPersonTime = APPEAR_ENEMY_PERSON_TIME_COEFFICIENT * (2 + (int)(UnityEngine.Random.value * 2));
 										}
 									}
+								} else if (isDamage) {
+									groupEnemy.invincibleTime = 5;
+									enemy.SetBlind (true, Color.white);
+									if (groupEnemy.isBoss)
+									if (groupEnemy.lifeCount == 1)
+										groupEnemy.angryTime = Data.GetStageData (MainManager.Instance.stage).limitTime;
 								}
 							}
 							break;
