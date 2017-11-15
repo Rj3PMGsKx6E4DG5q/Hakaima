@@ -493,6 +493,7 @@ public class GameManager : MonoBehaviour
 
 	private List<Chip> chipList;
 	private Player player;
+	private List<Weapon> playerWeaponList;
 	private List<Enemy> enemyList;
 	private List<Weapon> enemyWeaponList;
 	private List<Item> itemList;
@@ -501,6 +502,7 @@ public class GameManager : MonoBehaviour
 
 	private List<GroupChip> groupChipList;
 	private GroupPlayer groupPlayer;
+	private List<GroupWeapon> groupPlayerWeaponList;
 	private List<GroupEnemy> groupEnemyList;
 	private List<GroupWeapon> groupEnemyWeaponList;
 	private List<GroupItem> groupItemList;
@@ -882,6 +884,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
+		playerWeaponList = new List<Weapon> ();
 		enemyWeaponList = new List<Weapon> ();
 
 		itemList = new List<Item> ();
@@ -1539,6 +1542,7 @@ public class GameManager : MonoBehaviour
 					chipList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					player.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE);
 					enemyList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
+					playerWeaponList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					enemyWeaponList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					bonusList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
 					numberList.ForEach (obj => obj.Move (Data.DELTA_TIME, Data.TARGET_FRAME_RATE));
@@ -2067,6 +2071,16 @@ public class GameManager : MonoBehaviour
 						break;
 					}
 
+					for (int i = 0; i < playerWeaponList.Count;) {
+						Weapon weapon = playerWeaponList [i];
+						if (weapon.isEnd) {
+							Destroy (groupPlayerWeaponList [i].gameObject);
+							playerWeaponList.RemoveAt (i);
+							groupPlayerWeaponList.RemoveAt (i);
+							continue;
+						}
+						i++;
+					}
 					for (int i = 0; i < enemyWeaponList.Count;) {
 						Weapon weapon = enemyWeaponList [i];
 						if (weapon.isEnd) {
@@ -2488,7 +2502,7 @@ public class GameManager : MonoBehaviour
 							goHelpArrowRight = goHelp.transform.Find ("ArrowRight").gameObject;
 							goHelpArrowLeft = goHelp.transform.Find ("ArrowLeft").gameObject;
 							goHelpArrowRight.GetComponent<Button> ().onClick.AddListener (() => OnHelpNextPage ());
-							goHelpArrowLeft	.GetComponent<Button> ().onClick.AddListener (() => OnHelpPrevPage ());
+							goHelpArrowLeft.GetComponent<Button> ().onClick.AddListener (() => OnHelpPrevPage ());
 
 							Destroy (goHelp.transform.Find ("Com").gameObject);
 							Destroy (goHelp.transform.Find ("Logo").gameObject);
@@ -2704,6 +2718,32 @@ public class GameManager : MonoBehaviour
 			}
 		}
 		{
+			for (int i = 0; i < playerWeaponList.Count; i++) {
+				Weapon weapon = playerWeaponList [i];
+				GroupWeapon groupWeapon = groupPlayerWeaponList [i];
+				if (groupWeapon.gameObject.activeSelf != weapon.visible) {
+					groupWeapon.gameObject.SetActive (weapon.visible);
+				}
+				if (weapon.visible) {
+					if (groupWeapon.gameObject.transform.parent != goLayerList [weapon.layer].transform) {
+						groupWeapon.gameObject.transform.SetParent (goLayerList [weapon.layer].transform);
+					}
+					if (groupWeapon.gameObject.transform.localPosition.x != weapon.positionX || groupWeapon.gameObject.transform.localPosition.y != weapon.positionY) {
+						groupWeapon.gameObject.transform.localPosition = new Vector3 (weapon.positionX, weapon.positionY);
+					}
+					if (groupWeapon.gameObjectImage.transform.localScale.x != weapon.scaleX || groupWeapon.gameObjectImage.transform.localScale.y != weapon.scaleY) {
+						groupWeapon.gameObjectImage.transform.localScale = new Vector3 (weapon.scaleX, weapon.scaleY);
+					}
+					if (groupWeapon.gameObjectImage.transform.localRotation.z != weapon.rotation) {
+						groupWeapon.gameObjectImage.transform.localRotation = Quaternion.Euler (new Vector3 (0, 0, weapon.rotation));
+					}
+					if (groupWeapon.gameObjectImage.GetComponent<Image> ().sprite != ResourceManager.Instance.spritePlayerWeapon) {
+						groupWeapon.gameObjectImage.GetComponent<Image> ().sprite = ResourceManager.Instance.spritePlayerWeapon;
+					}
+				}
+			}
+		}
+		{
 			for (int i = 0; i < enemyWeaponList.Count; i++) {
 				Weapon weapon = enemyWeaponList [i];
 				GroupWeapon groupWeapon = groupEnemyWeaponList [i];
@@ -2723,8 +2763,8 @@ public class GameManager : MonoBehaviour
 					if (groupWeapon.gameObjectImage.transform.localRotation.z != weapon.rotation) {
 						groupWeapon.gameObjectImage.transform.localRotation = Quaternion.Euler (new Vector3 (0, 0, weapon.rotation));
 					}
-					if (groupWeapon.gameObjectImage.GetComponent<Image> ().sprite != ResourceManager.Instance.spriteWeapon) {
-						groupWeapon.gameObjectImage.GetComponent<Image> ().sprite = ResourceManager.Instance.spriteWeapon;
+					if (groupWeapon.gameObjectImage.GetComponent<Image> ().sprite != ResourceManager.Instance.spriteEnemyWeapon) {
+						groupWeapon.gameObjectImage.GetComponent<Image> ().sprite = ResourceManager.Instance.spriteEnemyWeapon;
 					}
 				}
 			}

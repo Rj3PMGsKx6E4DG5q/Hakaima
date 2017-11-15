@@ -135,6 +135,8 @@ public class ResourceManager : MonoBehaviour
 
 	[HideInInspector]
 	public Dictionary<int, Sprite> spriteEnemyList;
+	[HideInInspector]
+	public Sprite spriteEnemyWeapon;
 	[SerializeField]
 	public Sprite spriteWeapon;
 
@@ -392,6 +394,9 @@ public class ResourceManager : MonoBehaviour
 		spriteEnemyList.Add ((int)enemyType * SPRITE_MULTI_TYPE + (int)Enemy.Compass.Bottom		* SPRITE_MULTI_COMPASS + Enemy.IMAGE_0, Resources.Load<Sprite> (string.Format ("Textures/enemy_{0}_bottom_0",	enemyType.ToString ().ToLower ())));
 		spriteEnemyList.Add ((int)enemyType * SPRITE_MULTI_TYPE + (int)Enemy.Compass.Bottom		* SPRITE_MULTI_COMPASS + Enemy.IMAGE_1, Resources.Load<Sprite> (string.Format ("Textures/enemy_{0}_bottom_1",	enemyType.ToString ().ToLower ())));
 		spriteEnemyList.Add ((int)enemyType * SPRITE_MULTI_TYPE + (int)Enemy.Compass.Bottom		* SPRITE_MULTI_COMPASS + Enemy.IMAGE_2, Resources.Load<Sprite> (string.Format ("Textures/enemy_{0}_bottom_2",	enemyType.ToString ().ToLower ())));
+
+		if (enemyType == Enemy.Type.Tengu)
+			spriteEnemyWeapon = Resources.Load<Sprite> ("Textures/enemy_weapon");
 	}
 	
 }
