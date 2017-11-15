@@ -526,6 +526,18 @@ public class MainManager : MonoBehaviour
 			character [5] = 1;
 	}
 
+	public bool IsWeaponCharacter (int num)
+	{
+		switch (num) {
+		case 2:
+		case 3:
+		case 4:
+			return true;
+		}
+		return false;
+	}
+
+
 	private static IEnumerator RequestData ()
 	{
 		WWW www;

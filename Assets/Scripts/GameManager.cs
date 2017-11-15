@@ -597,6 +597,7 @@ public class GameManager : MonoBehaviour
 		groupChipList	= new List<GroupChip> ();
 		groupPlayer		= new GroupPlayer ();
 		groupEnemyList	= new List<GroupEnemy> ();
+		groupPlayerWeaponList = new List<GroupWeapon> ();
 		groupEnemyWeaponList = new List<GroupWeapon> ();
 		groupItemList	= new List<GroupItem> ();
 		groupBonusList	= new List<GroupBonus> ();
@@ -1314,7 +1315,7 @@ public class GameManager : MonoBehaviour
 													}
 													return tombChipList;
 												};
-									
+												
 												List<Chip> list = new List<Chip> ();
 												list = getTombChipList (chip1, list);
 												for (int i = 0; i < list.Count; i++) {
@@ -1364,6 +1365,16 @@ public class GameManager : MonoBehaviour
 													PlayerPrefs.SetInt (Data.RECORD_MAX_TOMB_COLLAPSE, list.Count - 1);
 												}
 											}
+										}
+										if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter)) {
+											Weapon weapon = new Weapon ();
+											weapon.Init ((Weapon.Compass)player.compass, player.positionX, player.positionY);
+											playerWeaponList.Add (weapon);
+											GroupWeapon groupWeapon = new GroupWeapon ();
+											groupWeapon.gameObject = Instantiate (goOriginWeapon) as GameObject;
+											groupWeapon.gameObjectImage = groupWeapon.gameObject.transform.Find ("Image").gameObject;
+											groupPlayerWeaponList.Add (groupWeapon);
+											SoundManager.Instance.PlaySe (SoundManager.SeName.SE_TOUCH);
 										}
 									}
 								}
@@ -1717,6 +1728,7 @@ public class GameManager : MonoBehaviour
 								for (int j = 0; j < playerWeaponList.Count; j++) {
 									Weapon weapon = playerWeaponList [j];
 									if (Math.Abs (weapon.positionX - enemy.positionX) < weapon.size * weapon.scaleX && Math.Abs (weapon.positionY - enemy.positionY) < weapon.size * weapon.scaleY) {
+										groupEnemy.lifeCount--;
 										if (groupEnemy.lifeCount == 0) {
 											isDie = true;
 											groupEnemy.dieType = GroupEnemy.DieType.Tomb;
