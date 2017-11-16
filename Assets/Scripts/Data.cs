@@ -181,6 +181,7 @@ public class Data
 	public const string SOUND_MUTE						= "sound_mute";
 
 	public const string MY_LIFE							= "my_life";
+	public const string MY_WEAPON						= "my_weapon";
 
 	public const string LOGIN_NAME						= "login_name";
 	public const string LOGIN_PASSWORD					= "login_password";

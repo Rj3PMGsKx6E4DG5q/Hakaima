@@ -70,6 +70,9 @@ public class Language
 	public const int YOUGOTCHARA					= 64;
 	public const int LIFEIS1UP						= 65;
 	public const int GACHA_RESULT_GACHATICKETTEXT	= 66;
+	public const int GACHA_LOTTERY_CHARA			= 67;
+	public const int GACHA_LOTTERY_LIFE				= 68;
+	public const int GACHA_SKIP						= 69;
 
 
 	public static Dictionary<int, string> sentence = sentenceJa;
@@ -139,6 +142,9 @@ public class Language
 		{YOUGOTCHARA,					"キャラを獲得しました！"},
 		{LIFEIS1UP,						"残機が１つ増えました。"},
 		{GACHA_RESULT_GACHATICKETTEXT,	"持っているガチャチケット数"},
+		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 5%"},
+		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 95%"},
+		{GACHA_SKIP,					"タップでスキップ出来ます"},
 	};
 
 	public static Dictionary<int, string> sentenceEn = new Dictionary<int, string> (){
@@ -206,5 +212,8 @@ public class Language
 		{YOUGOTCHARA,					"You got a character！"},
 		{LIFEIS1UP,						"Life is 1UP."},
 		{GACHA_RESULT_GACHATICKETTEXT,	"You have Gacha Ticket."},
+		{GACHA_LOTTERY_CHARA,			"Lottery of Character 5%"},
+		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 95%"},
+		{GACHA_SKIP,					"Tap to skip"},
 	};
 }

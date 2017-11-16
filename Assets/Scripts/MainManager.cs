@@ -99,6 +99,7 @@ public class MainManager : MonoBehaviour
 
 
 	public const int START_LIFE = 2;
+	public const int START_WEAPON = 0;
 	public const int INIT_GATHATICKET = 10;
 
 
@@ -125,6 +126,23 @@ public class MainManager : MonoBehaviour
 			PlayerPrefs.SetInt (Data.MY_LIFE, value);
 		}
 	}
+
+	public int weapon {
+		get {
+			return PlayerPrefs.GetInt (Data.MY_WEAPON);
+		}
+		set {
+			// For Debug.
+			//if (PlayerPrefs.HasKey (Data.MY_WEAPON)) {
+			//	PlayerPrefs.DeleteKey (Data.MY_WEAPON);
+			//	value = 15;
+			//}
+			if (value > 99)
+				value = 99;
+			PlayerPrefs.SetInt (Data.MY_WEAPON, value);
+		}
+	}
+
 	[HideInInspector]
 	public bool isLogin;
 	public LoginInformation loginInfo;
@@ -328,6 +346,7 @@ public class MainManager : MonoBehaviour
 		this.score = 0;
 		if (this.life < START_LIFE)
 			this.life = START_LIFE;
+		this.weapon = START_WEAPON;
 
 		this.state = State.Game;
 		this.time = 0;
@@ -335,9 +354,10 @@ public class MainManager : MonoBehaviour
 
 
 
-	public void CurrentStage (int life)
+	public void CurrentStage (int life, int weapon)
 	{
 		this.life = life;
+		this.weapon = weapon;
 
 		this.state = State.Game;
 		this.time = 0;
@@ -345,7 +365,7 @@ public class MainManager : MonoBehaviour
 
 
 
-	public void NextStage (int life)
+	public void NextStage (int life, int weapon)
 	{
 		if (this.isTutorial) {
 			this.isTutorial = false;
@@ -354,6 +374,7 @@ public class MainManager : MonoBehaviour
 			this.stage = (stage + 1) % Data.stageDataList.Count;
 		}
 		this.life = life;
+		this.weapon = weapon;
 
 		this.state = State.Game;
 		this.time = 0;
@@ -371,11 +392,12 @@ public class MainManager : MonoBehaviour
 
 
 
-	public void SelectStage (int stage, int life)
+	public void SelectStage (int stage, int life, int weapon)
 	{
 		this.stage = stage;
 		this.score = 0;
 		this.life = life;
+		this.weapon = weapon;
 		
 		this.state = State.Game;
 		this.time = 0;
@@ -536,7 +558,6 @@ public class MainManager : MonoBehaviour
 		}
 		return false;
 	}
-
 
 	private static IEnumerator RequestData ()
 	{

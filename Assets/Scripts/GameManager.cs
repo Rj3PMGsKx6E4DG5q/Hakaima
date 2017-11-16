@@ -131,7 +131,41 @@ public class GameManager : MonoBehaviour
 			this.pre = -1;
 		}
 	}
-	
+
+	private class MyWeapon
+	{
+		private const int MAX = 99;
+		private int _pre;
+
+		public int now {
+			get {
+				return MainManager.Instance.weapon;
+			}
+			set {
+				if (value < 0)
+					value = 0;
+				else if (value > MAX)
+					value = MAX;
+				MainManager.Instance.weapon = value;
+			}
+		}
+
+		public int pre {
+			get {
+				return this._pre;
+			}
+			set {
+				this._pre = value;
+			}
+		}
+
+		public MyWeapon (int value)
+		{
+			this.now = value;
+			this.pre = -1;
+		}
+	}
+
 	
 	private class RemainingTime
 	{
@@ -513,6 +547,7 @@ public class GameManager : MonoBehaviour
 	private bool isPause;
 	private Score score;
 	private Life life;
+	private MyWeapon myWeapon;
 	private RemainingTime remainingTime;
 	private List<OwnerItem> ownerItemList;
 	private List<Number> numberList;
@@ -523,6 +558,7 @@ public class GameManager : MonoBehaviour
 	private GameObject goScore;
 	private GameObject goScoreHigh;
 	private GameObject goLife;
+	private GameObject goMyWeapon;
 	private GameObject goRemainingTime;
 	private GameObject goCompletion;
 	private GameObject goCompletionText;
@@ -628,6 +664,7 @@ public class GameManager : MonoBehaviour
 		goScore					= transform.Find ("UI/Information/Score/PlayerScore(Value)").gameObject;
 		goScoreHigh				= transform.Find ("UI/Information/Score/HiScore(Value)").gameObject;
 		goLife					= transform.Find ("UI/Information/Life").gameObject;
+		goMyWeapon				= transform.Find ("UI/Information/ThrowWepon/Remaining").gameObject;
 		goRemainingTime			= transform.Find ("UI/Information/Time").gameObject;
 		goCompletion			= transform.Find ("UI/Information/Completion").gameObject;
 		goCompletionText		= transform.Find ("UI/Information/Completion/Text").gameObject;
@@ -798,7 +835,7 @@ public class GameManager : MonoBehaviour
 		});
 		goDebug.transform.Find ("NextStage").GetComponent<Button> ().onClick.AddListener (() => {
 			keepCellList = null;
-			MainManager.Instance.NextStage (life.now);
+			MainManager.Instance.NextStage (life.now, myWeapon.now);
 		});
 
 		OnDebugDamageClick ();
@@ -813,6 +850,7 @@ public class GameManager : MonoBehaviour
 	{
 		score = new Score (MainManager.Instance.score, MainManager.Instance.scoreHigh);
 		life = new Life (MainManager.Instance.life);
+		myWeapon = new MyWeapon (MainManager.Instance.weapon);
 		remainingTime = new RemainingTime (MainManager.Instance.isTutorial ? 0 : Data.GetStageData (MainManager.Instance.stage).limitTime);
 
 		if (MainManager.Instance.isTutorial)
@@ -1004,9 +1042,22 @@ public class GameManager : MonoBehaviour
 		ResourceManager.Instance.SetAllEnemy ();
 		ResourceManager.Instance.SetPlayer (MainManager.Instance.selectCharacter);
 		transform.Find ("UI/Information/Face").GetComponent<Image>().sprite = ResourceManager.Instance.spriteUpperPlayer;
+		SetWeapon ();
 	}
 
+	private void SetWeapon()
+	{
+		GameObject goWeapon = transform.Find ("UI/Information/ThrowWepon/Wepon").gameObject;
 
+		if (MainManager.Instance.IsWeaponCharacter(MainManager.Instance.selectCharacter)) {
+			goWeapon.transform.parent.gameObject.SetActive (true);
+			goWeapon.GetComponent<Image> ().sprite = ResourceManager.Instance.spritePlayerWeapon;
+		} else {
+			goWeapon.transform.parent.gameObject.SetActive (false);
+		}
+
+		goMyWeapon.GetComponent<Text> ().text = string.Format ("{0:00}", myWeapon.now).ToString ();
+	}
 
 	private void Run ()
 	{
@@ -1366,7 +1417,7 @@ public class GameManager : MonoBehaviour
 												}
 											}
 										}
-										if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter)) {
+										if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter) && myWeapon.now > 0) {
 											Weapon weapon = new Weapon ();
 											weapon.Init ((Weapon.Compass)player.compass, player.positionX, player.positionY);
 											playerWeaponList.Add (weapon);
@@ -1375,6 +1426,8 @@ public class GameManager : MonoBehaviour
 											groupWeapon.gameObjectImage = groupWeapon.gameObject.transform.Find ("Image").gameObject;
 											groupPlayerWeaponList.Add (groupWeapon);
 											SoundManager.Instance.PlaySe (SoundManager.SeName.SE_TOUCH);
+											myWeapon.now--;
+											goMyWeapon.GetComponent<Text> ().text = string.Format ("{0:00}", myWeapon.now).ToString ();
 										}
 									}
 								}
@@ -2461,7 +2514,7 @@ public class GameManager : MonoBehaviour
 						break;
 					case CONTINUE_COMMAND_YES:
 						{
-							MainManager.Instance.CurrentStage (0);
+							MainManager.Instance.CurrentStage (0,0);
 						}
 						break;
 					case CONTINUE_COMMAND_NO:
@@ -2551,7 +2604,7 @@ public class GameManager : MonoBehaviour
 						goCover.GetComponent<Image> ().color = color;
 						if (color.a >= 1f) {
 							PlayerPrefs.SetInt (Data.RECORD_IS_TUTORIAL_FIRST_HELP, 1);
-							MainManager.Instance.NextStage (life.now);
+							MainManager.Instance.NextStage (life.now, myWeapon.now);
 							SetClearNextStage ();
 						}
 					}
@@ -2930,6 +2983,10 @@ public class GameManager : MonoBehaviour
 				goLife.GetComponent<Text> ().text = string.Format ("{0:00}", life.now).ToString ();
 				life.pre = life.now;
 			}
+			if (myWeapon.now != myWeapon.pre) {
+				goMyWeapon.GetComponent<Text> ().text = string.Format ("{0:00}", myWeapon.now).ToString ();
+				myWeapon.pre = myWeapon.now;
+			}
 			if (remainingTime.now != remainingTime.pre) {
 				TimeSpan span = TimeSpan.FromSeconds (remainingTime.now);
 				goRemainingTime.GetComponent<Text> ().text = string.Format ("{0:00}:{1:00}:{2}", span.Minutes, span.Seconds, span.Milliseconds.ToString ("000").Substring (0, 2));
@@ -3069,7 +3126,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (MainManager.Instance.isTutorial) {
 			if (PlayerPrefs.GetInt (Data.RECORD_IS_TUTORIAL_FIRST_HELP) == 1) {
-				MainManager.Instance.NextStage (life.now);
+				MainManager.Instance.NextStage (life.now, myWeapon.now);
 				SetClearNextStage ();
 			}
 		}
@@ -3119,7 +3176,7 @@ public class GameManager : MonoBehaviour
 					if (isBoss) {
 						MainManager.Instance.StoryEpilogue ();
 					} else {
-						MainManager.Instance.NextStage (life.now);
+						MainManager.Instance.NextStage (life.now, myWeapon.now);
 					}
 					SetClearNextStage ();
 				}

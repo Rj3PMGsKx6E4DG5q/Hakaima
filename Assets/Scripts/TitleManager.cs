@@ -468,6 +468,8 @@ public class TitleManager : MonoBehaviour
 	private GameObject goGachaResultButtonPlayAds;
 	private GameObject goGachaResultButtonBack;
 	private GameObject goGachaResultGotText;
+	private GameObject goGachaLotteryChara;
+	private GameObject goGachaLotteryLife;
 
 
 	private Catalog catalog;
@@ -613,6 +615,8 @@ public class TitleManager : MonoBehaviour
 		goGachaResultButtonPlayAds		= goGachaResult.transform.Find ("ButtonPlayAds").gameObject;
 		goGachaResultButtonBack			= goGachaResult.transform.Find ("ButtonBack").gameObject;
 		goGachaResultGotText			= goGachaResult.transform.Find ("GotText").gameObject;
+		goGachaLotteryChara				= goGachaStart.transform.Find ("LotteryChara").gameObject;
+		goGachaLotteryLife				= goGachaStart.transform.Find ("LotteryLife").gameObject;
 
 		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogo;
 		goMenuLogo						.GetComponent<Image> ().SetNativeSize ();
@@ -678,6 +682,8 @@ public class TitleManager : MonoBehaviour
 		goGachaResultButtonGacha		.GetComponent<Button> ().onClick.AddListener (() => OnGacha ());
 		goGachaResultButtonPlayAds		.GetComponent<Button> ().onClick.AddListener (() => ShowAdsMovie ());
 		goGachaResultButtonBack			.GetComponent<Button> ().onClick.AddListener (() => OnGachaResultBackButton ());
+		goGachaLotteryChara				.GetComponent<Text> ().text = Language.sentence [Language.GACHA_LOTTERY_CHARA];
+		goGachaLotteryLife				.GetComponent<Text> ().text = Language.sentence [Language.GACHA_LOTTERY_LIFE];
 
 		goCharacter = new List<GameObject> ();
 		for (int i = 0; i < Data.CHARACTER_MAX; i++) {
@@ -692,6 +698,7 @@ public class TitleManager : MonoBehaviour
 		gacha = new Gacha ();
 		gacha.clear ();
 		gacha.keepY (goGachaCupsule.transform.localPosition.y);
+		InitSelectCharacterFrame ();
 
 		bird 	= new Bird ();
 		catalog = new Catalog ();
@@ -1078,7 +1085,7 @@ public class TitleManager : MonoBehaviour
 
 	private void OnMenuButtonContinue ()
 	{
-		MainManager.Instance.CurrentStage (MainManager.Instance.life);
+		MainManager.Instance.CurrentStage (MainManager.Instance.life, MainManager.Instance.weapon);
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();
 		MainManager.Instance.bannerView.Hide ();
@@ -1237,6 +1244,13 @@ public class TitleManager : MonoBehaviour
 		} else {
 			SoundManager.Instance.PlaySe (SoundManager.SeName.SE_CANCEL);
 		}
+	}
+
+	private void InitSelectCharacterFrame()
+	{
+		float x = goCharacter [MainManager.Instance.selectCharacter].transform.localPosition.x;
+		float y = goCharacter [MainManager.Instance.selectCharacter].transform.localPosition.y + 22;
+		goSelectCharacterFrame.transform.localPosition = new Vector3 (x, y, 0);
 	}
 
 	// ガチャ結果で表示するキャラクター or ハート.
