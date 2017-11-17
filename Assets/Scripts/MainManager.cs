@@ -102,6 +102,13 @@ public class MainManager : MonoBehaviour
 	public const int START_WEAPON = 0;
 	public const int INIT_GATHATICKET = 10;
 
+	/*
+	 * Ver.1.2.0 = 1 
+	 * 
+	 * 
+	 * 
+	 */
+	public const int INFORMATION_NUMBER = 1;
 
 	private State state;
 	private float time;
@@ -164,6 +171,10 @@ public class MainManager : MonoBehaviour
 	[HideInInspector]
 	public int selectCharacter;
 
+	// 起動時に情報を出すための番号.
+	[HideInInspector]
+	public int informationNumber;
+
 	private void Start ()
 	{
 		Application.targetFrameRate = Data.TARGET_FRAME_RATE;
@@ -199,6 +210,7 @@ public class MainManager : MonoBehaviour
 
 		this.InitCharacter ();
 		this.LoadCharacter ();
+		this.LoadInformation ();
 
 		// For Debug.
 		//gachaTicket = 10;
@@ -471,6 +483,21 @@ public class MainManager : MonoBehaviour
 		}
 	}
 
+	public void ShowInterstitialNoMovie (Action action)
+	{
+		if (interstitial.IsLoaded ()) {
+			interstitial.OnAdClosed += (sender, e) => {
+				interstitial.Destroy ();
+				interstitial = new InterstitialAd (Data.INTERSTITIAL_NOMOVIE_ID);
+				interstitial.LoadAd (new AdRequest.Builder ().Build ());
+
+				action ();
+			};
+			interstitial.Show ();
+		}
+	}
+
+
 	private void InitCharacter()
 	{
 		character = new int[Data.CHARACTER_MAX];
@@ -557,6 +584,28 @@ public class MainManager : MonoBehaviour
 			return true;
 		}
 		return false;
+	}
+
+	public bool IsInformation()
+	{
+		return informationNumber < INFORMATION_NUMBER;
+	}
+
+	public void SaveInformation()
+	{
+		PlayerPrefs.SetInt (Data.INFORMATION, INFORMATION_NUMBER);
+	}
+
+	public void LoadInformation()
+	{
+		if (!PlayerPrefs.HasKey (Data.INFORMATION)) {
+			informationNumber = 0;
+			return;
+		}
+		informationNumber = PlayerPrefs.GetInt (Data.INFORMATION);
+
+		// For Debug.
+		//informationNumber = 0;
 	}
 
 	private static IEnumerator RequestData ()

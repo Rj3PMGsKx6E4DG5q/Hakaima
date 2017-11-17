@@ -73,6 +73,14 @@ public class Language
 	public const int GACHA_LOTTERY_CHARA			= 67;
 	public const int GACHA_LOTTERY_LIFE				= 68;
 	public const int GACHA_SKIP						= 69;
+	public const int INFORMATION_TITLE				= 70;
+	public const int INFORMATION_EXPLANATION		= 71;
+
+
+	public const string INFORMATION_VER120_TITLE_JP = "Ver.1.2.0 バージョンアップ情報";
+	public const string INFORMATION_VER120_TITLE_EN = "Ver.1.2.0 Information";
+	public const string INFORMATION_VER120_JP = "新キャラクターを追加しました。\n";
+	public const string INFORMATION_VER120_EN = "新キャラクターを追加しました。\n";
 
 
 	public static Dictionary<int, string> sentence = sentenceJa;
@@ -145,6 +153,8 @@ public class Language
 		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 5%"},
 		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 95%"},
 		{GACHA_SKIP,					"タップでスキップ出来ます"},
+		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_JP},
+		{INFORMATION_EXPLANATION,		INFORMATION_VER120_JP},
 	};
 
 	public static Dictionary<int, string> sentenceEn = new Dictionary<int, string> (){
@@ -215,5 +225,7 @@ public class Language
 		{GACHA_LOTTERY_CHARA,			"Lottery of Character 5%"},
 		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 95%"},
 		{GACHA_SKIP,					"Tap to skip"},
+		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_EN},
+		{INFORMATION_EXPLANATION,		INFORMATION_VER120_EN},
 	};
 }

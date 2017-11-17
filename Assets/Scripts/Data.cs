@@ -198,6 +198,8 @@ public class Data
 	public const string RECORD_CHARACTER_SELECT			= "recordCharacterSelect";
 	public const string RECORD_GACHATICKET				= "recordGachaTicket";
 
+	public const string INFORMATION						= "information";
+
 
 	#if UNITY_ANDROID
 	public const string BANNER_ID = "ca-app-pub-5046886791626891/4433384200";
@@ -213,6 +215,15 @@ public class Data
 	public const string INTERSTITIAL_ID = "ca-app-pub-5046886791626891/8244784432";
 	#else
 	public const string INTERSTITIAL_ID = "ca-app-pub-5046886791626891/6085022007";
+	#endif
+
+	// ガチャやゲームオーバー時用、Gacha Ticket or Life.
+	#if UNITY_ANDROID
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/6085022007";
+	#elif UNITY_IPHONE
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/8244784432";
+	#else
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/6085022007";
 	#endif
 
 

@@ -380,6 +380,7 @@ public class TitleManager : MonoBehaviour
 	private GameObject goGacha;
 	private GameObject goGachaStart;
 	private GameObject goGachaResult;
+	private GameObject goInformation;
 
 	private GameObject goMenuLogo;
 	private GameObject goMenuButtonStart;
@@ -471,6 +472,8 @@ public class TitleManager : MonoBehaviour
 	private GameObject goGachaLotteryChara;
 	private GameObject goGachaLotteryLife;
 
+	private GameObject goInformationButton;
+
 
 	private Catalog catalog;
 	private Bird bird;
@@ -531,6 +534,7 @@ public class TitleManager : MonoBehaviour
 		goGacha							= transform.Find ("UI/Gacha").gameObject;
 		goGachaStart					= transform.Find ("UI/Gacha/Playing").gameObject;
 		goGachaResult					= transform.Find ("UI/Gacha/Result").gameObject;
+		goInformation					= transform.Find ("UI/Information").gameObject;
 
 		goMenuLogo						= goMenu.transform.Find ("Logo").gameObject;
 		goMenuButtonStart				= goMenu.transform.Find ("ButtonStart").gameObject;
@@ -618,6 +622,8 @@ public class TitleManager : MonoBehaviour
 		goGachaLotteryChara				= goGachaStart.transform.Find ("LotteryChara").gameObject;
 		goGachaLotteryLife				= goGachaStart.transform.Find ("LotteryLife").gameObject;
 
+		goInformationButton				= goInformation.transform.Find ("ButtonOk").gameObject;
+
 		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogo;
 		goMenuLogo						.GetComponent<Image> ().SetNativeSize ();
 		goMenuCaution					.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.START_CAUTION];
@@ -685,6 +691,8 @@ public class TitleManager : MonoBehaviour
 		goGachaLotteryChara				.GetComponent<Text> ().text = Language.sentence [Language.GACHA_LOTTERY_CHARA];
 		goGachaLotteryLife				.GetComponent<Text> ().text = Language.sentence [Language.GACHA_LOTTERY_LIFE];
 
+		goInformationButton				.GetComponent<Button> ().onClick.AddListener (() => OnButtonInformationClose ());
+
 		goCharacter = new List<GameObject> ();
 		for (int i = 0; i < Data.CHARACTER_MAX; i++) {
 			goCharacter.Add (goSelectCharacter.transform.Find ("Character/Chara" + i).gameObject);
@@ -749,6 +757,7 @@ public class TitleManager : MonoBehaviour
 			{
 				goMenu.SetActive (true);
 				goSelectCharacter.SetActive (false);
+				SetInformation ();
 
 				time = 0;
 				birdIndex = 0;
@@ -1376,11 +1385,33 @@ public class TitleManager : MonoBehaviour
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
 		if(UnityEngine.Random.Range(0,100) < 5) {
-			MainManager.Instance.ShowInterstitial (() => {
+			MainManager.Instance.ShowInterstitialNoMovie (() => {
 				MainManager.Instance.gachaTicket += 1;
 				ReflashGachaTicket();
 			});
 		}
+	}
+
+	private void SetInformation()
+	{
+		if (MainManager.Instance.IsInformation ()) {
+			if (Language.sentence == Language.sentenceEn) {
+				goInformation.transform.Find ("Title").GetComponent<Text> ().fontSize = 32;
+				goInformation.transform.Find ("Explanation").GetComponent<Text> ().fontSize = 30;
+			} else {
+				goInformation.transform.Find ("Title").GetComponent<Text> ().fontSize = 30;
+				goInformation.transform.Find ("Explanation").GetComponent<Text> ().fontSize = 26;
+			}
+			goInformation.transform.Find ("Title").GetComponent<Text> ().text = Language.sentence [Language.INFORMATION_TITLE];
+			goInformation.transform.Find ("Explanation").GetComponent<Text> ().text = Language.sentence [Language.INFORMATION_EXPLANATION];
+			goInformation.SetActive (true);
+		}
+	}
+
+	private void OnButtonInformationClose()
+	{
+		MainManager.Instance.SaveInformation ();
+		goInformation.SetActive (false);
 	}
 
 	private void CheckBackKey ()
