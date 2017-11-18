@@ -363,7 +363,7 @@ public class TitleManager : MonoBehaviour
 
 	public const int RANKING_PAGE_NUM = 2;
 	public const int RECORD_PAGE_NUM = 3;
-	public const int HELP_PAGE_NUM = 9;
+	public const int HELP_PAGE_NUM = 10;
 
 	private State state;
 	private float time;
@@ -396,6 +396,8 @@ public class TitleManager : MonoBehaviour
 	private GameObject goMenuVolumeOff;
 	private GameObject goMenuBird;
 	private GameObject goMenuTwitter;
+	private GameObject goMenuLoginBonus;
+	private GameObject goMenuLoginBonusButtonOk;
 
 	private GameObject goRankingMe;
 	private GameObject goRankingPage;
@@ -498,6 +500,7 @@ public class TitleManager : MonoBehaviour
 	private string connectingText;
 
 	private Gacha gacha;
+	private LoginBonus loginBonus;
 
 	private void Awake ()
 	{
@@ -550,6 +553,8 @@ public class TitleManager : MonoBehaviour
 		goMenuVolumeOff					= goMenu.transform.Find ("Volume/Off").gameObject;
 		goMenuBird						= goMenu.transform.Find ("Bird").gameObject;
 		goMenuTwitter					= goMenu.transform.Find ("Twitter").gameObject;
+		goMenuLoginBonus				= goMenu.transform.Find ("LoginBonus").gameObject;
+		goMenuLoginBonusButtonOk		= goMenu.transform.Find ("LoginBonus/ButtonOk").gameObject;
 
 		goRankingMe						= goRanking.transform.Find ("Me").gameObject;
 		goRankingPage					= goRanking.transform.Find ("Page").gameObject;
@@ -644,6 +649,7 @@ public class TitleManager : MonoBehaviour
 		goMenuVolumeOn					.GetComponent<Button> ().onClick.AddListener (() => OnVolume (true));
 		goMenuVolumeOff					.GetComponent<Button> ().onClick.AddListener (() => OnVolume (false));
 		goMenuTwitter					.GetComponent<Button> ().onClick.AddListener (() => OnTwitter ());
+		goMenuLoginBonusButtonOk		.GetComponent<Button> ().onClick.AddListener (() => OnButtonLoginBonusClose ());
 
 		goLoginButton					.GetComponent<Button> ().onClick.AddListener (() => OnLogin ());
 		goSignupButton					.GetComponent<Button> ().onClick.AddListener (() => OnSignup ());
@@ -707,7 +713,14 @@ public class TitleManager : MonoBehaviour
 		gacha.clear ();
 		gacha.keepY (goGachaCupsule.transform.localPosition.y);
 		InitSelectCharacterFrame ();
-
+		loginBonus = new LoginBonus ();
+		loginBonus.LoadLoginTime ();
+		loginBonus.prevGachaTicket = MainManager.Instance.gachaTicket;
+		// ログインボーナス.
+		if (Application.internetReachability != NetworkReachability.NotReachable) {
+			StartCoroutine (loginBonus.GetLoginBonus());
+		}
+			
 		bird 	= new Bird ();
 		catalog = new Catalog ();
 		cover 	= new Cover ();
@@ -758,6 +771,7 @@ public class TitleManager : MonoBehaviour
 				goMenu.SetActive (true);
 				goSelectCharacter.SetActive (false);
 				SetInformation ();
+				SetLoginBonus ();
 
 				time = 0;
 				birdIndex = 0;
@@ -1408,10 +1422,23 @@ public class TitleManager : MonoBehaviour
 		}
 	}
 
+	private void SetLoginBonus()
+	{
+		if (loginBonus.prevGachaTicket < MainManager.Instance.gachaTicket) {
+			goMenuLoginBonus.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.LOGIN_BONUS_TEXT];
+			goMenuLoginBonus.SetActive (true);
+		}
+	}
+
 	private void OnButtonInformationClose()
 	{
 		MainManager.Instance.SaveInformation ();
 		goInformation.SetActive (false);
+	}
+
+	private void OnButtonLoginBonusClose()
+	{
+		goMenuLoginBonus.SetActive (false);
 	}
 
 	private void CheckBackKey ()

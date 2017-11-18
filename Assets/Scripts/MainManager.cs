@@ -1299,5 +1299,4 @@ public class MainManager : MonoBehaviour
 //		System.Text.Encoding enc = System.Text.Encoding.GetEncoding ("utf-8");
 //		System.IO.File.WriteAllText (filePath, dataText, enc);
 	}
-
 }

@@ -200,6 +200,8 @@ public class Data
 
 	public const string INFORMATION						= "information";
 
+	public const string LOGIN_TIME						= "loginTime";
+
 
 	#if UNITY_ANDROID
 	public const string BANNER_ID = "ca-app-pub-5046886791626891/4433384200";
