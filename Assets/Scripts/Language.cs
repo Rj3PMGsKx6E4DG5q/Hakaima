@@ -156,7 +156,7 @@ public class Language
 		{GACHA_SKIP,					"タップでスキップ出来ます"},
 		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_JP},
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_JP},
-		{LOGIN_BONUS_TEXT,				"いつも遊んでくれて\\nありがとう！\nガチャチケットを2枚プレゼントします。\n\n<color=#ff0000>※アプリを起動すると、１日１回ガチャチケットが手に入る時があります。</color>"},
+		{LOGIN_BONUS_TEXT,				"いつも遊んでくれて\nありがとう！\nガチャチケットを2枚プレゼントします。\n\n<color=#ff0000>※アプリを起動すると、１日１回ガチャチケットが手に入る時があります。</color>"},
 	};
 
 	public static Dictionary<int, string> sentenceEn = new Dictionary<int, string> (){
@@ -229,6 +229,6 @@ public class Language
 		{GACHA_SKIP,					"Tap to skip"},
 		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_EN},
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_EN},
-		{LOGIN_BONUS_TEXT,				"Thank you playing evertime!\nPresent two Gacha Ticket for you.\n\n<color=#ff0000>*アプリを起動すると、１日１回ガチャチケットが手に入る時があります。</color>"},
+		{LOGIN_BONUS_TEXT,				"Thank you playing all the time!\nIt's presents two Gacha Ticket for you.\n\n<color=#ff0000>*When you start the game, you may get the Gacha Ticket once a day possibility.</color>"},
 	};
 }

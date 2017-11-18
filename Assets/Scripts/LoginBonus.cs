@@ -44,9 +44,8 @@ public class LoginBonus : MonoBehaviour {
 
 			Time time = JsonUtility.FromJson<Time> (www.text);
 
-			//Debug.Log(hoge.st);Unixtimeの抽出
 			time.nowTime = UnixTimeToDateTime (time.st);
-			//Debug.Log("サーバ時間＝"+dttt+" / PC時間＝"+DateTime.Now);
+			//Debug.Log("サーバ時間＝"+time.nowTime+" / PC時間＝"+DateTime.Now);
 
 			int prevDay = UnixTimeToDateTime (loginTime).Day;
 			int prevMonth = UnixTimeToDateTime (loginTime).Month;
@@ -59,6 +58,10 @@ public class LoginBonus : MonoBehaviour {
 			//prevDay = 30;
 			//prevMonth = 10;
 			//prevYear = 2016;
+
+			//prevDay = 18;
+			//prevMonth = 11;
+			//prevYear = 2017;
 
 			prevGachaTicket = MainManager.Instance.gachaTicket;
 
@@ -79,13 +82,14 @@ public class LoginBonus : MonoBehaviour {
 						}
 					}
 				}
-			}
 
-			// ログインボーナスの時間を保存.
-			loginTime = time.st;
-			PlayerPrefs.SetString (Data.LOGIN_TIME, loginTime.ToString());
+				MainManager.Instance.transform.Find ("TitleManager(Clone)").GetComponent<TitleManager> ().SendMessage ("SetLoginBonus");
+
+				// ログインボーナスの時間を保存.
+				loginTime = time.st;
+				PlayerPrefs.SetString (Data.LOGIN_TIME, loginTime.ToString());
+			}
 		} else {
-			Debug.Log ("error");
 			loginTime = 0;
 		}
 	}
@@ -101,7 +105,7 @@ public class LoginBonus : MonoBehaviour {
 	public void LoadLoginTime()
 	{
 		loginTime = 0;
-		if (PlayerPrefs.HasKey ("LOGIN_TIME")) {
+		if (PlayerPrefs.HasKey (Data.LOGIN_TIME)) {
 			loginTime = double.Parse (PlayerPrefs.GetString (Data.LOGIN_TIME));
 		}
 	}

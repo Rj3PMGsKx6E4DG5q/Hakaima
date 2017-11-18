@@ -1422,11 +1422,12 @@ public class TitleManager : MonoBehaviour
 		}
 	}
 
-	private void SetLoginBonus()
+	public void SetLoginBonus()
 	{
 		if (loginBonus.prevGachaTicket < MainManager.Instance.gachaTicket) {
 			goMenuLoginBonus.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.LOGIN_BONUS_TEXT];
 			goMenuLoginBonus.SetActive (true);
+			loginBonus.prevGachaTicket = MainManager.Instance.gachaTicket;
 		}
 	}
 
