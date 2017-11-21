@@ -417,6 +417,9 @@ public class TitleManager : MonoBehaviour
 	private GameObject goRegistButton;
 	private GameObject goLoginDescription;
 	private GameObject goSignupDescription;
+	private GameObject goChagne;
+	private GameObject goChagneButtonUserName;
+	private GameObject goChagneButtonUserPassword;
 
 	private GameObject goRecordPage;
 	private GameObject goRecordPoint;
@@ -574,6 +577,9 @@ public class TitleManager : MonoBehaviour
 		goRegistButton					= goSignup.transform.Find ("ButtonRegist").gameObject;
 		goLoginDescription				= goLogin.transform.Find ("Description").gameObject;
 		goSignupDescription				= goSignup.transform.Find ("Description").gameObject;
+		goChagne						= goRanking.transform.Find ("Change").gameObject;
+		goChagneButtonUserName			= goChagne.transform.Find ("ButtonChangeId").gameObject;
+		goChagneButtonUserPassword		= goChagne.transform.Find ("ButtonChangePassword").gameObject;
 
 		goRecordPage					= goRecord.transform.Find ("Page").gameObject;
 		goRecordPoint					= goRecord.transform.Find ("Point").gameObject;
@@ -652,12 +658,14 @@ public class TitleManager : MonoBehaviour
 		goMenuLoginBonusButtonOk		.GetComponent<Button> ().onClick.AddListener (() => OnButtonLoginBonusClose ());
 
 		goLoginButton					.GetComponent<Button> ().onClick.AddListener (() => OnLogin ());
-		goSignupButton					.GetComponent<Button> ().onClick.AddListener (() => OnSignup ());
-		goRegistButton					.GetComponent<Button> ().onClick.AddListener (() => OnRegist ());
+		goSignupButton					.GetComponent<Button> ().onClick.AddListener (() => OnButtonRegist ());
+		goRegistButton					.GetComponent<Button> ().onClick.AddListener (() => OnButtonRegist ());
 		goRankingButtonBack				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Menu, false));
 		goRankingButtonLogout			.GetComponent<Button> ().onClick.AddListener (() => OnLogout ());
 		goRankingArrowRight				.GetComponent<Button> ().onClick.AddListener (() => OnCatalogNextPage ());
 		goRankingArrowLeft				.GetComponent<Button> ().onClick.AddListener (() => OnCatalogPrevPage ());
+		goChagneButtonUserName			.GetComponent<Button> ().onClick.AddListener (() => OnChangeUserName ());
+		goChagneButtonUserPassword		.GetComponent<Button> ().onClick.AddListener (() => OnChangeUserPassword ());
 
 		goRecordButtonBack				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Menu, false));
 		goRecordArrowRight				.GetComponent<Button> ().onClick.AddListener (() => OnCatalogNextPage ());
@@ -776,7 +784,7 @@ public class TitleManager : MonoBehaviour
 				time = 0;
 				birdIndex = 0;
 				bird.Init (800);
-				
+
 				//if (MainManager.Instance.isAdvertise)
 				//	MainManager.Instance.nendAdIcon.Show ();
 				MainManager.Instance.bannerView.Show ();
@@ -814,7 +822,7 @@ public class TitleManager : MonoBehaviour
 				if (!MainManager.Instance.isLogin) {
 					goLogin.SetActive (true);
 					// 以前ログインしていればストレージから情報を得て自動ログイン
-					AutoLogin ();
+					//AutoLogin ();
 					// ログイン済み
 				} else {
 					string textRank = null;
@@ -991,6 +999,7 @@ public class TitleManager : MonoBehaviour
 					MainManager.Instance.isDebug = true;
 					PlayerPrefs.SetString (Data.LOGIN_NAME, user.userName);
 					PlayerPrefs.SetString (Data.LOGIN_PASSWORD, user.password);
+					Debug.Log ("name = " + user.userName + ", pass = " + user.password);
 					goRankingButtonBack.SetActive (true);
 					HighScoreData ();
 					RankingData ();
@@ -1487,34 +1496,46 @@ public class TitleManager : MonoBehaviour
 		user.logIn (id, password);
 	}
 	
-	
+	// ログアウト.
+	// 未使用予定.
 	private void OnLogout()
 	{
 		SetPreparationLogout ();
 		user.logOut ();
 	}
 
-
+	// 登録後の表示.
 	private void OnSignup()
 	{
 		goSignup.SetActive (true);
 		goLogin.SetActive (false);
 
 		goSignup.transform.Find ("Description").gameObject.SetActive(false);
+		goRankingConnecting.SetActive(false);
+
+		goSignup.transform.Find ("UserName").GetComponent<Text> ().text = user.userName;
+		goSignup.transform.Find ("UserPassword").GetComponent<Text> ().text = user.password;
 	}
 
-
-	private void OnRegist()
+	// 登録処理.
+	private void OnButtonRegist()
 	{
 		string id = goSignup.transform.Find("Id/InputField/Text").GetComponent<Text>().text;
 		string password = goSignup.transform.Find("Password/InputField/Text").GetComponent<Text>().text;
 		string rePassword = goSignup.transform.Find("RePassword/InputField/Text").GetComponent<Text>().text;
 		string mail = null;	// No nessesary this time.
 
+		id = AutoGenerateUserName ();
+		password = AutoGenerateUserPassword ();
+		rePassword = password;
+
 		//Debug mode.
 		//id = "Cookie";
 		//password = "1111";
 		//rePassword = "1111";
+
+		Debug.Log (id);
+		Debug.Log (password);
 
 		bool flg = ErrorUserAuth(goSignupDescription, id, password, rePassword);
 		if (flg) {
@@ -1526,6 +1547,22 @@ public class TitleManager : MonoBehaviour
 
 		SetConnecting (false);
 		user.signUp (id, mail, password);
+	}
+
+	private void OnRanking()
+	{
+	}
+
+	private void OnChangeUserName()
+	{
+		NCMBUser user = new NCMBUser();
+		user.UserName = goChagne.transform.Find("Id/InputField/Text").GetComponent<Text>().text;
+	}
+
+	private void OnChangeUserPassword()
+	{
+		NCMBUser user = new NCMBUser();
+		user.Password = goChagne.transform.Find("Password/InputField/Text").GetComponent<Text>().text;
 	}
 
 	private bool isLogin;
@@ -1562,7 +1599,6 @@ public class TitleManager : MonoBehaviour
 		connectingText = Language.sentence [Language.CONNECTING];
 	}
 
-
 	private void Connecting()
 	{
 		// 接続中...
@@ -1585,6 +1621,7 @@ public class TitleManager : MonoBehaviour
 				if (Logined()) {
 					isConnecting = false;
 					goRankingConnecting.GetComponent<Text> ().text = Language.sentence [isLogin ? Language.LOGIN : Language.SIGNUP];
+					OnSignup ();
 				}
 			}
 			// ログイン、サインインに失敗
@@ -1613,8 +1650,7 @@ public class TitleManager : MonoBehaviour
 			}
 		}
 	}
-
-
+		
 	private bool Logined()
 	{
 		return (user.currentPlayer () != null && !isLogout);
@@ -1630,6 +1666,18 @@ public class TitleManager : MonoBehaviour
 			SetConnecting (true);
 			user.logIn (id, password);
 		}
+	}
+
+	// user name.
+	private string AutoGenerateUserName()
+	{
+		return DateTime.Now.ToString("MMddHHmmss");
+	}
+
+	// user password.
+	private string AutoGenerateUserPassword()
+	{
+		return "1234321";
 	}
 
 
