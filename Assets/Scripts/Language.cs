@@ -77,6 +77,7 @@ public class Language
 	public const int INFORMATION_EXPLANATION		= 71;
 	public const int LOGIN_BONUS_TEXT				= 72;
 	public const int RANKING_FIRST_EXPLANATION		= 73;
+	public const int RANKING_REGISTED_EXPLANATION	= 74;
 
 
 	public const string INFORMATION_VER120_TITLE_JP = "Ver.1.2.0 バージョンアップ情報";
@@ -159,6 +160,7 @@ public class Language
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_JP},
 		{LOGIN_BONUS_TEXT,				"いつも遊んでくれて\nありがとう！\nガチャチケットを2枚プレゼントします。\n\n<color=#ff0000>※アプリを起動すると、１日１回ガチャチケットが手に入る時があります。</color>"},
 		{RANKING_FIRST_EXPLANATION,		"名前とパスワードは、登録完了時に自動で割り降られます。※後から変更可能です。\n登録完了後、名前とパスワードはアプリ内に保持しますので、次回よりランキングを選択後は、自動でログインします。"},
+		{RANKING_REGISTED_EXPLANATION,	"アプリを消したり、データ消去を行うと再度、登録から行う必要があります。ご注意ください。"},
 	};
 
 	public static Dictionary<int, string> sentenceEn = new Dictionary<int, string> (){
@@ -233,5 +235,6 @@ public class Language
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_EN},
 		{LOGIN_BONUS_TEXT,				"Thank you playing all the time!\nIt's presents two Gacha Ticket for you.\n\n<color=#ff0000>*When you start the game, you may get the Gacha Ticket once a day possibility.</color>"},
 		{RANKING_FIRST_EXPLANATION,		"Your name and password are decided automatic when registed. *Possible to change after registed. After finish of regist, your name and password save in application. It is logined automatic next time and more. When you application uninstalled, or removed data of the smartphone, please login again."},
+		{RANKING_REGISTED_EXPLANATION,	"If the appliation is removed or the data is removed, need to regist again. Please be careful."},
 	};
 }

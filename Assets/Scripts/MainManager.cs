@@ -215,6 +215,9 @@ public class MainManager : MonoBehaviour
 		// For Debug.
 		//gachaTicket = 10;
 		//PlayerPrefs.DeleteKey(Data.RECORD_GACHATICKET);
+		//PlayerPrefs.SetString (Data.LOGIN_NAME, "testnow2");
+		//PlayerPrefs.DeleteKey(Data.LOGIN_NAME);
+		//PlayerPrefs.DeleteKey(Data.LOGIN_PASSWORD);
 	}
 
 
