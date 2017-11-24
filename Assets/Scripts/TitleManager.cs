@@ -424,6 +424,10 @@ public class TitleManager : MonoBehaviour
 	private GameObject goChagneButtonUserName;
 	private GameObject goChagneButtonUserPassword;
 	private GameObject goChangeResultUserName;
+	private GameObject goLoginFirst;
+	private GameObject goLoginFirstExplanation;
+	private GameObject goSignupFinish;
+	private GameObject goSignupRegistedExplanation;
 
 	private GameObject goRecordPage;
 	private GameObject goRecordPoint;
@@ -587,6 +591,10 @@ public class TitleManager : MonoBehaviour
 		goChagneButtonUserName			= goChagne.transform.Find ("ButtonChangeId").gameObject;
 		goChagneButtonUserPassword		= goChagne.transform.Find ("ButtonChangePassword").gameObject;
 		goChangeResultUserName			= goChagne.transform.Find ("DescriptionId").gameObject;
+		goLoginFirst					= goLogin.transform.Find ("FirstMember").gameObject;
+		goLoginFirstExplanation			= goLogin.transform.Find ("FirstMemberExplanation").gameObject;
+		goSignupFinish					= goSignup.transform.Find ("Finish").gameObject;
+		goSignupRegistedExplanation		= goSignup.transform.Find ("RegistedExplanation").gameObject;
 
 		goRecordPage					= goRecord.transform.Find ("Page").gameObject;
 		goRecordPoint					= goRecord.transform.Find ("Point").gameObject;
@@ -825,6 +833,12 @@ public class TitleManager : MonoBehaviour
 				goSignup.transform.Find ("Id/InputField/Placeholder").GetComponent<Text> ().text = Language.sentence [Language.RANKING_NAME_FORM];
 				goSignup.transform.Find ("Password/InputField/Placeholder").GetComponent<Text> ().text = Language.sentence [Language.RANKING_PASSWORD_FORM];
 				goRankingExplanation.GetComponent<Text> ().text = Language.sentence [Language.RANKING_THISSYSTEM];
+				goLoginFirst.GetComponent<Text>().text = Language.sentence [Language.LOGIN_BIGINNER];
+				goLoginFirstExplanation.GetComponent<Text>().text = Language.sentence [Language.RANKING_FIRST_EXPLANATION];
+				goSignupFinish.GetComponent<Text>().text = Language.sentence [Language.LOGIN_FINISH];
+				goSignupRegistedExplanation.GetComponent<Text>().text = Language.sentence [Language.RANKING_REGISTED_EXPLANATION];
+				goChagne.transform.Find ("Id/TextId").GetComponent<Text> ().text = Language.sentence [Language.RANKING_NAME];
+				goChagne.transform.Find ("ButtonChangeId/Image/Text").GetComponent<Text> ().text = Language.sentence [Language.RANKING_NAME_CHANGE];
 
 				// 8/19 エラーの原因は、毎回TitleManagerを削除しているので、未ログイン扱いになってしまう、ゲーム終了後は毎回ランキングデータを持ってこないといけない
 				// もしくはローカルに保存してそれを表示する　こっちのほうが現実的
@@ -1598,7 +1612,7 @@ public class TitleManager : MonoBehaviour
 			if( e == null ){
 				PlayerPrefs.SetString (Data.LOGIN_NAME, goChagne.transform.Find("Id/InputField/Text").GetComponent<Text>().text);
 				goChangeResultUserName.GetComponent<Text> ().color = new Color (1, 1, 1, 1);
-				goChangeResultUserName.GetComponent<Text>().text = "Correct!";
+				goChangeResultUserName.GetComponent<Text>().text = Language.sentence [Language.RANKING_NAME_CHANGE_CORRECT];
 				goChangeResultUserName.SetActive(true);
 				goSignupButtonRanking.SetActive (false);
 				goRankingButtonBack.SetActive(true);
@@ -1606,7 +1620,7 @@ public class TitleManager : MonoBehaviour
 			else{
 				// Error.
 				goChangeResultUserName.GetComponent<Text> ().color = new Color (1, 0, 0, 0);
-				goChangeResultUserName.GetComponent<Text>().text = "Incorrect!";
+				goChangeResultUserName.GetComponent<Text>().text = Language.sentence [Language.RANKING_NAME_CHANGE_INCORRECT];
 				goChangeResultUserName.SetActive(true);
 				goRankingButtonBack.SetActive(true);
 			}
