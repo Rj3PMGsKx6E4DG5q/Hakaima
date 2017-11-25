@@ -3284,6 +3284,9 @@ public class GameManager : MonoBehaviour
 	private void OnContinue (int type)
 	{
 		if (state == State.Continue) {
+			// 武器半分.
+			if (myWeapon.now > 0)
+				myWeapon.now /= 2;
 			continueCommand = type;
 			SoundManager.Instance.StopSe ();
 			SoundManager.Instance.PlaySe (type != CONTINUE_COMMAND_NO ? SoundManager.SeName.SE_OK : SoundManager.SeName.SE_CANCEL);
