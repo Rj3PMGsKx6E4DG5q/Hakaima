@@ -102,6 +102,7 @@ public class Data
 
 
 	public const string URL								= "https://play.google.com/store/apps/details?id=com.kohchanstudio.SamuraiDrama";
+	public const string URL_IOS							= "https://play.google.com/store/apps/details?id=com.kohchanstudio.SamuraiDrama";
 	public const string MORE_GAME_PACKAGENAME_ANDROID	= "market://details?id=com.KohchanStudio.ShogiPuzzle";
 	public const string MORE_GAME_PACKAGENAME_IOS		= "";
 

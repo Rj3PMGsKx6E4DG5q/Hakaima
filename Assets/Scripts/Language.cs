@@ -83,12 +83,13 @@ public class Language
 	public const int RANKING_NAME_CHANGE_CORRECT	= 77;
 	public const int RANKING_NAME_CHANGE_INCORRECT	= 78;
 	public const int RANKING_NAME_CHANGE			= 79;
+	public const int OFFLINE						= 80;
 
 
 	public const string INFORMATION_VER120_TITLE_JP = "Ver.1.2.0 バージョンアップ情報";
 	public const string INFORMATION_VER120_TITLE_EN = "Ver.1.2.0 Information";
-	public const string INFORMATION_VER120_JP = "新キャラクターを追加しました。\nキャラクターによって、武器を投げて敵を倒すことが出来るようになりました。\nヘルプを追加しました。";
-	public const string INFORMATION_VER120_EN = "Added 5th new character.\nPart of new character became able to throw weapon and defeat the enemy.\nAdded a help page.";
+	public const string INFORMATION_VER120_JP = "1.新キャラクターを追加しました。\nキャラクターによって、武器を投げ\nて敵を倒すことが出来るようになり\nました。\n\n2.ヘルプを追加しました。\n\n3.ランキングへの参加が簡単に\nなりました。\n（自動でIDを割り振ります）";
+	public const string INFORMATION_VER120_EN = "1.Added 5th new character.\nPart of new character became \nable to throw weapon and defeat \nthe enemy.\n\n2.Added a help page.\n\n3.Easy commit to ranking.\n(Give an ID automatic)";
 
 
 	public static Dictionary<int, string> sentence = sentenceJa;
@@ -171,6 +172,7 @@ public class Language
 		{RANKING_NAME_CHANGE_CORRECT,	"成功しました"},
 		{RANKING_NAME_CHANGE_INCORRECT,	"失敗しました\n別の名前で再度変更してください"},
 		{RANKING_NAME_CHANGE,			"変更する"},
+		{OFFLINE,						"オフラインのため利用出来ません"},
 	};
 
 	public static Dictionary<int, string> sentenceEn = new Dictionary<int, string> (){
@@ -251,5 +253,6 @@ public class Language
 		{RANKING_NAME_CHANGE_CORRECT,	"Correct!"},
 		{RANKING_NAME_CHANGE_INCORRECT,	"Incorrect.\nPlease another name."},
 		{RANKING_NAME_CHANGE,			"Change"},
+		{OFFLINE,						"No using for offline."},
 	};
 }

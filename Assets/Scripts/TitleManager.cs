@@ -742,7 +742,7 @@ public class TitleManager : MonoBehaviour
 		loginBonus.LoadLoginTime ();
 		loginBonus.prevGachaTicket = MainManager.Instance.gachaTicket;
 		// ログインボーナス.
-		if (Application.internetReachability != NetworkReachability.NotReachable) {
+		if (!IsOffline()) {
 			StartCoroutine (loginBonus.GetLoginBonus());
 		}
 			
@@ -843,15 +843,24 @@ public class TitleManager : MonoBehaviour
 				// 8/19 エラーの原因は、毎回TitleManagerを削除しているので、未ログイン扱いになってしまう、ゲーム終了後は毎回ランキングデータを持ってこないといけない
 				// もしくはローカルに保存してそれを表示する　こっちのほうが現実的
 
-				// 未ログイン
-				if (!MainManager.Instance.isLogin) {
-					goLogin.SetActive (true);
-					// 以前ログインしていればストレージから情報を得て自動ログイン
-					AutoLogin ();
-					// ログイン済み
+				if (IsOffline ()) {
+					SetConnecting (false);
+					goRankingConnecting.SetActive (true);
+					goRankingButtonBack.SetActive (true);
+					//goRankingConnecting.GetComponent<Text> ().color = new Color (1, 0, 0, 0);
+					connectingText = Language.sentence [Language.OFFLINE];
+					goRankingConnecting.GetComponent<Text> ().text = connectingText;
 				} else {
-					goRankingButtonChangeUserName.SetActive (true);
-					OnRanking();
+					// 未ログイン
+					if (!MainManager.Instance.isLogin) {
+						goLogin.SetActive (true);
+						// 以前ログインしていればストレージから情報を得て自動ログイン
+						AutoLogin ();
+						// ログイン済み
+					} else {
+						goRankingButtonChangeUserName.SetActive (true);
+						OnRanking ();
+					}
 				}
 			}
 			break;
@@ -1149,7 +1158,7 @@ public class TitleManager : MonoBehaviour
 		#if UNITY_ANDROID
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL, null);
 		#elif UNITY_IOS
-		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], "ko-chan studio. #retro", null);
+		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
 		#endif
 	}
 
@@ -1517,6 +1526,10 @@ public class TitleManager : MonoBehaviour
 	// ランキング表示へ.
 	private void OnRanking()
 	{
+		if (IsOffline ()) {
+			return;
+		}
+
 		SetRanking (false);
 
 		string textRank = null;
@@ -1670,6 +1683,10 @@ public class TitleManager : MonoBehaviour
 
 	private void Connecting()
 	{
+		if (IsOffline ()) {
+			return;
+		}
+
 		// 接続中...
 		if (goRankingConnecting.activeSelf) {
 			// エラーコードなし
@@ -1734,6 +1751,10 @@ public class TitleManager : MonoBehaviour
 	private bool isAutoLogin;
 	private void AutoLogin()
 	{
+		if (IsOffline ()) {
+			return;
+		}
+
 		// Read them from strage.
 		string name = PlayerPrefs.GetString (Data.LOGIN_NAME);
 		string password = PlayerPrefs.GetString (Data.LOGIN_PASSWORD);
@@ -1745,6 +1766,15 @@ public class TitleManager : MonoBehaviour
 			user.logIn (name, password);
 			isAutoLogin = true;
 		}
+	}
+
+	private bool IsOffline()
+	{
+		if (Application.internetReachability == NetworkReachability.NotReachable) {
+			return true;
+		}
+
+		return false;
 	}
 
 	// user name.

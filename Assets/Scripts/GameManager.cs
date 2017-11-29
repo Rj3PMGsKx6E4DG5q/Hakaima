@@ -562,6 +562,9 @@ public class GameManager : MonoBehaviour
 	private GameObject goRemainingTime;
 	private GameObject goCompletion;
 	private GameObject goCompletionText;
+	private GameObject goPuaseTwitterButton;
+	private GameObject goContinueTwitterButton;
+	private GameObject goStageClearTwitterButton;
 	private List<GameObject> goOwnerItemList;
 	private List<GameObject> goOwnerItemFrameList;
 	private List<GameObject> goNumberList;
@@ -758,6 +761,13 @@ public class GameManager : MonoBehaviour
 		collectContinue.goButtonMovie		= collectContinue.go.transform.Find ("ButtonMovie").gameObject;
 		collectContinue.goButtonEnd			= collectContinue.go.transform.Find ("ButtonEnd").gameObject;
 
+		goPuaseTwitterButton				= collectPause.go.transform.Find ("Twitter").gameObject;
+		goContinueTwitterButton				= collectContinue.go.transform.Find ("Twitter").gameObject;
+		goStageClearTwitterButton			= collectClear.go.transform.Find ("Twitter").gameObject;
+		goPuaseTwitterButton				.GetComponent<Button> ().onClick.AddListener (() => OnTwitter ());
+		goContinueTwitterButton				.GetComponent<Button> ().onClick.AddListener (() => OnTwitter ());
+		goStageClearTwitterButton			.GetComponent<Button> ().onClick.AddListener (() => OnTwitter ());
+		goStageClearTwitterButton.SetActive (false);
 
 		goCover.SetActive (true);
 
@@ -1078,6 +1088,7 @@ public class GameManager : MonoBehaviour
 								enemyList.ForEach (obj => obj.SetBlind (true, Color.white));
 								//MainManager.Instance.nendAdBanner.Hide ();
 								MainManager.Instance.bannerView.Hide ();
+								goStageClearTwitterButton.SetActive (false);
 							} else if (time >= 2) {
 								enemyList.ForEach (obj => obj.SetBlind (false));
 								state = State.Play;
@@ -2366,6 +2377,7 @@ public class GameManager : MonoBehaviour
 							collectClear.colorEnemyScore = color;
 							//MainManager.Instance.nendAdBanner.Show ();
 							MainManager.Instance.bannerView.Show ();
+							goStageClearTwitterButton.SetActive (true);
 							if (time >= 0.5f) {
 								pattern = 2;
 								time = 0;
@@ -2464,6 +2476,7 @@ public class GameManager : MonoBehaviour
 								}
 								//MainManager.Instance.nendAdBanner.Show ();
 								MainManager.Instance.bannerView.Show ();
+								goStageClearTwitterButton.SetActive (true);
 							}
 							if (time >= 1) {
 								pattern = 11;
@@ -4113,4 +4126,14 @@ public class GameManager : MonoBehaviour
 		transform.Find ("UI/Debug/Damage/Text").GetComponent<Text> ().text = string.Format ("敵当\n{0}", isDebugDamage ? "ON" : "OFF");
 	}
 
+
+	private void OnTwitter ()
+	{
+		// Add 2017.11.7
+		#if UNITY_ANDROID
+		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL, null);
+		#elif UNITY_IOS
+		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
+		#endif
+	}
 }
