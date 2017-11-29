@@ -2123,6 +2123,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
+											ShowAdsBanner(10);
 										}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
@@ -2134,6 +2135,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
+											ShowAdsBanner(10);
 										}
 									}
 								}
@@ -2508,6 +2510,7 @@ public class GameManager : MonoBehaviour
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GAMEOVER);
 						//MainManager.Instance.nendAdBanner.Show ();
 						MainManager.Instance.bannerView.Show ();
+						ShowAdsBanner(10);
 					}
 
 					switch (continueCommand) {
@@ -4136,4 +4139,15 @@ public class GameManager : MonoBehaviour
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
 		#endif
 	}
-}
+
+	// バナーが出たらガチャチケット１枚.
+	private void ShowAdsBanner(int n)
+	{
+		UnityEngine.Random.InitState ((int)Time.time);
+		if(UnityEngine.Random.Range(0,100) < n) {
+			MainManager.Instance.ShowInterstitialNoMovie (() => {
+				life.now++;
+				SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_1UP);
+			});
+		}
+	}}
