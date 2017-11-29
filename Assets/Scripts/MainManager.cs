@@ -596,6 +596,7 @@ public class MainManager : MonoBehaviour
 
 	public void SaveInformation()
 	{
+		informationNumber = INFORMATION_NUMBER;
 		PlayerPrefs.SetInt (Data.INFORMATION, INFORMATION_NUMBER);
 	}
 
