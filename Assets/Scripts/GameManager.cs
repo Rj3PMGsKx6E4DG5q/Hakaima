@@ -2123,7 +2123,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-											ShowAdsBanner(10);
+											ShowAdsBanner (10);
 										}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
@@ -2135,7 +2135,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
-											ShowAdsBanner(10);
+											ShowAdsBanner (10);
 										}
 									}
 								}
@@ -2165,7 +2165,18 @@ public class GameManager : MonoBehaviour
 
 					for (int i = 0; i < playerWeaponList.Count;) {
 						Weapon weapon = playerWeaponList [i];
+						bool isEnd = false;
 						if (weapon.isEnd) {
+							isEnd = true;
+						}
+						{
+							int pointX = Mathf.FloorToInt ((weapon.positionX + weapon.size / 2) / weapon.size);
+							int pointY = Mathf.FloorToInt ((weapon.positionY + weapon.size / 2) / weapon.size);
+							Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
+							if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+								isEnd = true;
+						}
+						if (isEnd) {
 							Destroy (groupPlayerWeaponList [i].gameObject);
 							playerWeaponList.RemoveAt (i);
 							groupPlayerWeaponList.RemoveAt (i);
@@ -2175,7 +2186,18 @@ public class GameManager : MonoBehaviour
 					}
 					for (int i = 0; i < enemyWeaponList.Count;) {
 						Weapon weapon = enemyWeaponList [i];
+						bool isEnd = false;
 						if (weapon.isEnd) {
+							isEnd = true;
+						}
+						{
+							int pointX = Mathf.FloorToInt ((weapon.positionX + weapon.size / 2) / weapon.size);
+							int pointY = Mathf.FloorToInt ((weapon.positionY + weapon.size / 2) / weapon.size);
+							Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
+							if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+								isEnd = true;
+						}
+						if (isEnd) {
 							Destroy (groupEnemyWeaponList [i].gameObject);
 							enemyWeaponList.RemoveAt (i);
 							groupEnemyWeaponList.RemoveAt (i);
@@ -2510,7 +2532,7 @@ public class GameManager : MonoBehaviour
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GAMEOVER);
 						//MainManager.Instance.nendAdBanner.Show ();
 						MainManager.Instance.bannerView.Show ();
-						ShowAdsBanner(10);
+						ShowAdsBanner (10);
 					}
 
 					switch (continueCommand) {
@@ -2530,7 +2552,7 @@ public class GameManager : MonoBehaviour
 						break;
 					case CONTINUE_COMMAND_YES:
 						{
-							MainManager.Instance.CurrentStage (0,0);
+							MainManager.Instance.CurrentStage (0, 0);
 						}
 						break;
 					case CONTINUE_COMMAND_NO:
