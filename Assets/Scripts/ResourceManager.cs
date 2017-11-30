@@ -150,6 +150,8 @@ public class ResourceManager : MonoBehaviour
 	private Sprite spriteItemAmulet;
 	[SerializeField]
 	private Sprite spriteItemParasol;
+	[SerializeField]
+	private Sprite spriteItemTicket;
 	[HideInInspector]
 	public Dictionary<int, Sprite> spriteItemList;
 	
@@ -305,6 +307,7 @@ public class ResourceManager : MonoBehaviour
 			{(int)Item.Type.Stone		* SPRITE_MULTI_TYPE,			spriteItemStone		},
 			{(int)Item.Type.Amulet		* SPRITE_MULTI_TYPE,			spriteItemAmulet	},
 			{(int)Item.Type.Parasol		* SPRITE_MULTI_TYPE,			spriteItemParasol	},
+			{(int)Item.Type.Ticket		* SPRITE_MULTI_TYPE,			spriteItemTicket	},
 		};
 	}
 		

@@ -3543,6 +3543,7 @@ MonoBehaviour:
   spriteItemStone: {fileID: 21300000, guid: f02141f1a0a99654cbd5b1e233210f38, type: 3}
   spriteItemAmulet: {fileID: 21300000, guid: 60be8be31ea21fc4cb4af96653747373, type: 3}
   spriteItemParasol: {fileID: 21300000, guid: 862d7121a9b635a41b47238c71e7319b, type: 3}
+  spriteItemTicket: {fileID: 21300000, guid: 0dcf050881ddaad4287515638917c36f, type: 3}
   spriteBonus0: {fileID: 21300000, guid: bbf3ee471f2aff04ea679e3653f25b19, type: 3}
   spriteBonus1: {fileID: 21300000, guid: 0e7bbac6bbab4aa45a23b324d5f4f201, type: 3}
   spriteBonus2: {fileID: 21300000, guid: dea558942a9e3e44ea4caf3e178f896f, type: 3}

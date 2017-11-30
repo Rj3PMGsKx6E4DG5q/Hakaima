@@ -19,6 +19,7 @@ namespace Hakaima
 			Stone,
 			Amulet,
 			Parasol,
+			Ticket,
 		}
 
 
