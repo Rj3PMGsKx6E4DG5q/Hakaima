@@ -533,6 +533,7 @@ public class GameManager : MonoBehaviour
 	private List<Item> itemList;
 	private List<Bonus> bonusList;
 	private List<Hakaima.Light> lightList;
+	private List<Item> specialItemList;
 
 	private List<GroupChip> groupChipList;
 	private GroupPlayer groupPlayer;
@@ -542,6 +543,7 @@ public class GameManager : MonoBehaviour
 	private List<GroupItem> groupItemList;
 	private List<GroupBonus> groupBonusList;
 	private List<GroupLight> groupLightList;
+	private List<GroupItem> groupSpecialItemList;
 	private List<GroupNumber> groupNumberList;
 
 	private bool isPause;
@@ -641,6 +643,7 @@ public class GameManager : MonoBehaviour
 		groupItemList	= new List<GroupItem> ();
 		groupBonusList	= new List<GroupBonus> ();
 		groupLightList	= new List<GroupLight> ();
+		groupSpecialItemList = new List<GroupItem> ();
 
 
 		goCover			= transform.Find ("UI/Cover").gameObject;
@@ -965,6 +968,8 @@ public class GameManager : MonoBehaviour
 				groupLightList.Add (groupLight);
 			}
 		}
+
+		specialItemList = new List<Item> ();
 
 		goStage.GetComponent<Text> ().text = string.Format ("STAGE {0}", MainManager.Instance.stage + 1);
 
@@ -1303,6 +1308,16 @@ public class GameManager : MonoBehaviour
 														Item item = itemList.Find (obj => obj.pointX == chip1.pointX && obj.pointY == chip1.pointY);
 														if (item != null)
 															item.Appear ();
+														else if (UnityEngine.Random.value * 100 < 5) {
+															Item specialItem = new Item ();
+															specialItem.Init (Item.Type.Ticket, chip1.pointX, chip1.pointY);
+															specialItem.Appear ();
+															specialItemList.Add (specialItem);
+															GroupItem groupSpecialItem = new GroupItem ();
+															groupSpecialItem.gameObject = Instantiate (goOriginItem) as GameObject;
+															groupSpecialItem.gameObject.transform.SetParent (goOriginItem.transform.parent);
+															groupSpecialItemList.Add (groupSpecialItem);
+														}
 														PlayerPrefs.SetInt (Data.RECORD_HOLE_OPEN, PlayerPrefs.GetInt (Data.RECORD_HOLE_OPEN) + 1);
 														break;
 													case Hole.State.Close:
@@ -2942,6 +2957,26 @@ public class GameManager : MonoBehaviour
 					}
 					if (groupLight.gameObject.transform.localPosition.x != light.positionX || groupLight.gameObject.transform.localPosition.y != light.positionY) {
 						groupLight.gameObject.transform.localPosition = new Vector3 (light.positionX, light.positionY);
+					}
+				}
+			}
+		}
+		{
+			for (int i = 0; i < specialItemList.Count; i++) {
+				Item item = specialItemList [i];
+				GroupItem groupItem = groupSpecialItemList [i];
+				if (groupItem.gameObject.activeSelf != item.visible) {
+					groupItem.gameObject.SetActive (item.visible);
+				}
+				if (item.visible) {
+					if (groupItem.gameObject.transform.parent != goLayerList [item.layer].transform) {
+						groupItem.gameObject.transform.SetParent (goLayerList [item.layer].transform);
+					}
+					if (groupItem.gameObject.transform.localPosition.x != item.positionX || groupItem.gameObject.transform.localPosition.y != item.positionY) {
+						groupItem.gameObject.transform.localPosition = new Vector3 (item.positionX, item.positionY);
+					}
+					if (groupItem.gameObject.GetComponent<Image> ().sprite != ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE]) {
+						groupItem.gameObject.GetComponent<Image> ().sprite = ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE];
 					}
 				}
 			}
