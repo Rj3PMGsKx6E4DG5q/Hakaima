@@ -612,6 +612,18 @@ public class MainManager : MonoBehaviour
 		//informationNumber = 0;
 	}
 
+
+	public int GetTicketItemPercent ()
+	{
+		return 5;
+	}
+
+
+	public void AddTicket ()
+	{
+	}
+
+
 	private static IEnumerator RequestData ()
 	{
 		WWW www;

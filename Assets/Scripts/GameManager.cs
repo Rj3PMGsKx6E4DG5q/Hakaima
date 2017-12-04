@@ -1308,7 +1308,7 @@ public class GameManager : MonoBehaviour
 														Item item = itemList.Find (obj => obj.pointX == chip1.pointX && obj.pointY == chip1.pointY);
 														if (item != null)
 															item.Appear ();
-														else if (UnityEngine.Random.value * 100 < 5) {
+														else if (UnityEngine.Random.value * 100 < MainManager.Instance.GetTicketItemPercent ()) {
 															Item specialItem = new Item ();
 															specialItem.Init (Item.Type.Ticket, chip1.pointX, chip1.pointY);
 															specialItem.Appear ();
@@ -2077,6 +2077,18 @@ public class GameManager : MonoBehaviour
 											continue;
 										}
 									}
+								}
+								i++;
+							}
+							for (int i = 0; i < specialItemList.Count;) {
+								Item specialItem = specialItemList [i];
+								if (Math.Abs (specialItem.positionX - player.positionX) < player.size && Math.Abs (specialItem.positionY - player.positionY) < player.size) {
+									Destroy (groupSpecialItemList [i].gameObject);
+									specialItemList.RemoveAt (i);
+									groupSpecialItemList.RemoveAt (i);
+									SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GOT);
+									MainManager.Instance.AddTicket ();
+									continue;
 								}
 								i++;
 							}
