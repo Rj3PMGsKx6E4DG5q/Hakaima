@@ -346,13 +346,14 @@ public class TitleManager : MonoBehaviour
 		{
 			UnityEngine.Random.InitState ((int)Time.time);
 
-			int start = UnityEngine.Random.Range (0, n - 5);
+			int start = UnityEngine.Random.Range (0, n - 10);
 			int randomNum = UnityEngine.Random.Range (0, n);
-			int hit = n / (n / 5);
+			int hit = n / (n / 10);
 
 			//Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
 			// あたり.
 			if (randomNum >= start && randomNum < start + hit) {
+				//Debug.Log ("HIT");
 				selectedGachaNumber = UnityEngine.Random.Range (0, Data.CHARACTER_MAX - 1);
 			} else {
 				// -1 = life 1up.
@@ -1302,7 +1303,6 @@ public class TitleManager : MonoBehaviour
 						goGachaResultGotText.GetComponent<Text> ().text = Language.sentence [Language.LIFEIS1UP];
 						MainManager.Instance.life++;
 					} else {
-						gacha.selectedGachaNumber = 3;
 						goGachaResultGotText.GetComponent<Text> ().text = Language.sentence [Language.YOUGOTCHARA];
 						MainManager.Instance.GetCharacter (gacha.selectedGachaNumber);
 					}
@@ -1379,7 +1379,7 @@ public class TitleManager : MonoBehaviour
 	private void ShowAdsBanner()
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < 5) {
+		if(UnityEngine.Random.Range(0,100) < 10) {
 			MainManager.Instance.ShowInterstitialNoMovie (() => {
 				MainManager.Instance.gachaTicket += 1;
 				ReflashGachaTicket();

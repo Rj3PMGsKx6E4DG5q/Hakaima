@@ -621,6 +621,8 @@ public class MainManager : MonoBehaviour
 
 	public void AddTicket ()
 	{
+		gachaTicket++;
+		PlayerPrefs.SetInt (Data.RECORD_GACHATICKET, gachaTicket);
 	}
 
 
