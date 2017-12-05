@@ -20,6 +20,7 @@ namespace Hakaima
 			Amulet,
 			Parasol,
 			Ticket,
+			Weapon,
 		}
 
 

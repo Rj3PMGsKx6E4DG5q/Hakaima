@@ -626,6 +626,17 @@ public class MainManager : MonoBehaviour
 	}
 
 
+	public int GetWeaponItemPercent ()
+	{
+		return 10;
+	}
+
+
+	public void AddWeapon ()
+	{
+	}
+
+
 	private static IEnumerator RequestData ()
 	{
 		WWW www;

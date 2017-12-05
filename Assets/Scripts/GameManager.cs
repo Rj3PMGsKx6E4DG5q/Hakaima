@@ -1308,15 +1308,23 @@ public class GameManager : MonoBehaviour
 														Item item = itemList.Find (obj => obj.pointX == chip1.pointX && obj.pointY == chip1.pointY);
 														if (item != null)
 															item.Appear ();
-														else if (UnityEngine.Random.value * 100 < MainManager.Instance.GetTicketItemPercent ()) {
-															Item specialItem = new Item ();
-															specialItem.Init (Item.Type.Ticket, chip1.pointX, chip1.pointY);
-															specialItem.Appear ();
-															specialItemList.Add (specialItem);
-															GroupItem groupSpecialItem = new GroupItem ();
-															groupSpecialItem.gameObject = Instantiate (goOriginItem) as GameObject;
-															groupSpecialItem.gameObject.transform.SetParent (goOriginItem.transform.parent);
-															groupSpecialItemList.Add (groupSpecialItem);
+														else {
+															Item.Type itemType = Item.Type.None;
+															float ran = UnityEngine.Random.value * 100;
+															if (ran < MainManager.Instance.GetTicketItemPercent ())
+																itemType = Item.Type.Ticket;
+															else if (ran < MainManager.Instance.GetTicketItemPercent () + MainManager.Instance.GetWeaponItemPercent ())
+																itemType = Item.Type.Weapon;
+															if (itemType != Item.Type.None) {
+																Item specialItem = new Item ();
+																specialItem.Init (itemType, chip1.pointX, chip1.pointY);
+																specialItem.Appear ();
+																specialItemList.Add (specialItem);
+																GroupItem groupSpecialItem = new GroupItem ();
+																groupSpecialItem.gameObject = Instantiate (goOriginItem) as GameObject;
+																groupSpecialItem.gameObject.transform.SetParent (goOriginItem.transform.parent);
+																groupSpecialItemList.Add (groupSpecialItem);
+															}
 														}
 														PlayerPrefs.SetInt (Data.RECORD_HOLE_OPEN, PlayerPrefs.GetInt (Data.RECORD_HOLE_OPEN) + 1);
 														break;
@@ -2987,8 +2995,21 @@ public class GameManager : MonoBehaviour
 					if (groupItem.gameObject.transform.localPosition.x != item.positionX || groupItem.gameObject.transform.localPosition.y != item.positionY) {
 						groupItem.gameObject.transform.localPosition = new Vector3 (item.positionX, item.positionY);
 					}
-					if (groupItem.gameObject.GetComponent<Image> ().sprite != ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE]) {
-						groupItem.gameObject.GetComponent<Image> ().sprite = ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE];
+					switch (item.type) {
+					case Item.Type.Ticket:
+						{
+							if (groupItem.gameObject.GetComponent<Image> ().sprite != ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE]) {
+								groupItem.gameObject.GetComponent<Image> ().sprite = ResourceManager.Instance.spriteItemList [(int)item.type * ResourceManager.SPRITE_MULTI_TYPE];
+							}
+						}
+						break;
+					case Item.Type.Weapon:
+						{
+							if (groupItem.gameObject.GetComponent<Image> ().sprite != ResourceManager.Instance.spritePlayerWeapon) {
+								groupItem.gameObject.GetComponent<Image> ().sprite = ResourceManager.Instance.spritePlayerWeapon;
+							}
+						}
+						break;
 					}
 				}
 			}
