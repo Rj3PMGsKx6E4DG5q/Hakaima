@@ -806,6 +806,7 @@ public class TitleManager : MonoBehaviour
 				//if (MainManager.Instance.isAdvertise)
 				//	MainManager.Instance.nendAdIcon.Show ();
 				MainManager.Instance.bannerView.Show ();
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_MENU);
 			}
 			break;
 		case State.Ranking:
@@ -857,10 +858,12 @@ public class TitleManager : MonoBehaviour
 						goLogin.SetActive (true);
 						// 以前ログインしていればストレージから情報を得て自動ログイン
 						AutoLogin ();
+						FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_RANKING);
 						// ログイン済み
 					} else {
 						goRankingButtonChangeUserName.SetActive (true);
 						OnRanking ();
+						FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_RANKING);
 					}
 				}
 			}
@@ -910,6 +913,7 @@ public class TitleManager : MonoBehaviour
 				goCatalogPoint = goRecordPoint;
 				goCatalogArrowRight = goRecordArrowRight;
 				goCatalogArrowLeft = goRecordArrowLeft;
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_RECORD);
 			}
 			break;
 		case State.Help:
@@ -931,6 +935,7 @@ public class TitleManager : MonoBehaviour
 		case State.Extra:
 			{
 				goExtra.SetActive (true);
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_EXTRA);
 
 				if (MainManager.Instance.isExtraItemSandal)
 				if (MainManager.Instance.isExtraItemHoe)
@@ -1067,6 +1072,7 @@ public class TitleManager : MonoBehaviour
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();
 		MainManager.Instance.bannerView.Hide ();
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_START);
 	}
 
 	private void OnMenuButtonStartSelectCharacter()
@@ -1077,6 +1083,7 @@ public class TitleManager : MonoBehaviour
 		ChangeCharacterName ();
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_SELECT_CHARACTER);
 	}
 	
 	
@@ -1094,6 +1101,7 @@ public class TitleManager : MonoBehaviour
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();
 		MainManager.Instance.bannerView.Hide ();
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_CONTINUE);
 	}
 
 
@@ -1158,8 +1166,10 @@ public class TitleManager : MonoBehaviour
 		// Add 2017.11.7
 		#if UNITY_ANDROID
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL, null);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		#elif UNITY_IOS
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		#endif
 	}
 
@@ -1175,6 +1185,7 @@ public class TitleManager : MonoBehaviour
 	private void OnExtraItemButtonMovie ()
 	{
 		MainManager.Instance.ShowInterstitial (() => {
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_EXTRA_ITEM);
 			MainManager.Instance.isExtraItemSandal = true;
 			MainManager.Instance.isExtraItemHoe = true;
 			MainManager.Instance.isExtraItemStone = true;
@@ -1188,6 +1199,7 @@ public class TitleManager : MonoBehaviour
 	private void OnExtraLifeButtonMovie ()
 	{
 		MainManager.Instance.ShowInterstitial (() => {
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_EXTRA_LIFE);
 			MainManager.Instance.life += 5;
 			goExtraLifeNow.GetComponent<Text> ().text = MainManager.Instance.life.ToString ();
 		});
@@ -1201,9 +1213,11 @@ public class TitleManager : MonoBehaviour
 		#if UNITY_ANDROID
 		// market://details?id=パッケージ名
 		Application.OpenURL (Data.MORE_GAME_PACKAGENAME_ANDROID);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_EXTRA_MOREGAME);
 		#elif UNITY_IOS
 		// http://appstore.com/アプリ名
 		Application.OpenURL (Data.MORE_GAME_PACKAGENAME_IOS);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_EXTRA_MOREGAME);
 		#endif
 	}
 
@@ -1215,6 +1229,7 @@ public class TitleManager : MonoBehaviour
 			return;
 		}
 		
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_PLAY);
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		MainManager.Instance.gachaTicket--;
 		ReflashGachaTicket ();
@@ -1302,9 +1317,20 @@ public class TitleManager : MonoBehaviour
 					if (gacha.selectedGachaNumber == -1) {
 						goGachaResultGotText.GetComponent<Text> ().text = Language.sentence [Language.LIFEIS1UP];
 						MainManager.Instance.life++;
+						FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_LIFE);
 					} else {
 						goGachaResultGotText.GetComponent<Text> ().text = Language.sentence [Language.YOUGOTCHARA];
 						MainManager.Instance.GetCharacter (gacha.selectedGachaNumber);
+						string chara = Data.FIREBASE_EVENT_GACHA_KUNOICHI;
+						if (gacha.selectedGachaNumber == Data.CHARACTER_MIKO)
+							chara = Data.FIREBASE_EVENT_GACHA_MIKO;
+						if (gacha.selectedGachaNumber == Data.CHARACTER_NINJA)
+							chara = Data.FIREBASE_EVENT_GACHA_MIKO;
+						if (gacha.selectedGachaNumber == Data.CHARACTER_MATIMUSUME)
+							chara = Data.FIREBASE_EVENT_GACHA_MACHIMUSUME;
+						if (gacha.selectedGachaNumber == Data.CHARACTER_KENSHI)
+							chara = Data.FIREBASE_EVENT_GACHA_KENCHI;
+						FirebaseAnalyticsManager.Instance.LogEvent (chara);
 					}
 					// 結果へ.
 					ShowAdsBanner();
@@ -1372,6 +1398,7 @@ public class TitleManager : MonoBehaviour
 		MainManager.Instance.ShowInterstitial (() => {
 			MainManager.Instance.gachaTicket += 5;
 			ReflashGachaTicket();
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_ADS);
 		});
 	}
 
@@ -1383,6 +1410,7 @@ public class TitleManager : MonoBehaviour
 			MainManager.Instance.ShowInterstitialNoMovie (() => {
 				MainManager.Instance.gachaTicket += 1;
 				ReflashGachaTicket();
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
 			});
 		}
 	}
@@ -1411,6 +1439,7 @@ public class TitleManager : MonoBehaviour
 			goMenuLoginBonus.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.LOGIN_BONUS_TEXT];
 			goMenuLoginBonus.SetActive (true);
 			loginBonus.prevGachaTicket = MainManager.Instance.gachaTicket;
+			FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_BONUS);
 		}
 	}
 

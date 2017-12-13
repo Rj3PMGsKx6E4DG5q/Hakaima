@@ -628,12 +628,14 @@ public class MainManager : MonoBehaviour
 
 	public int GetWeaponItemPercent ()
 	{
-		return 10;
+		return 100;
 	}
 
 
 	public void AddWeapon ()
 	{
+		weapon += 10;
+		Debug.Log ("Log: Player got the weapon!");
 	}
 
 

@@ -204,6 +204,45 @@ public class Data
 	public const string LOGIN_TIME						= "loginTime";
 
 
+	// Firebase.
+	public const string FIREBASE_SCREEN_MENU				= "Menu";
+	public const string FIREBASE_SCREEN_GACHA				= "Gacha";
+	public const string FIREBASE_SCREEN_RECORD				= "Record";
+	public const string FIREBASE_SCREEN_RANKING				= "Ranking";
+	public const string FIREBASE_SCREEN_EXTRA				= "Extra";
+	public const string FIREBASE_SCREEN_SELECT_CHARACTER	= "SelectCharacter";
+	public const string FIREBASE_SCREEN_STAGECLEAR			= "StageClearNo.";
+	public const string FIREBASE_SCREEN_STAGECLEAR_RUN		= "StageClearRunNo.";
+	public const string FIREBASE_SCREEN_GAMECLEAR			= "GameClear";
+	public const string FIREBASE_SCREEN_GAMEOVER			= "GameOver";
+	public const string FIREBASE_SCREEN_PUASE				= "Pause";
+	public const string FIREBASE_SCREEN_TUTORIAL			= "Tutorial";
+	public const string FIREBASE_SCREEN_STAGE				= "StageNo.";			// StageNo1といった形で使う.
+	public const string FIREBASE_SCREEN_BONUS				= "Bonus";
+
+	public const string FIREBASE_EVENT_START				= "Start";
+	public const string FIREBASE_EVENT_CONTINUE				= "Continue";
+	public const string FIREBASE_EVENT_GACHA_PLAY			= "eGachaPlay";			// ガチャを回した.
+	public const string FIREBASE_EVENT_GACHA_KUNOICHI		= "eGachaKunoichi";
+	public const string FIREBASE_EVENT_GACHA_NINJA			= "eGachaNinja";
+	public const string FIREBASE_EVENT_GACHA_MIKO			= "eGachaMiko";
+	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";
+	public const string FIREBASE_EVENT_GACHA_KENCHI			= "eGachaKenshi";
+	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";
+	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";
+	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";
+	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";
+	public const string FIREBASE_EVENT_EXTRA_MOREGAME		= "eMoreGame";
+	public const string FIREBASE_EVENT_TWITTER				= "eTwitter";
+	public const string FIREBASE_EVNET_START_TUTORIAL		= "eStartTutorial";
+	public const string FIREBASE_EVNET_FINISH_TUTORIAL		= "eFinishTutorial";
+	// Event log for Ads.
+	public const string FIREBASE_EVENT_GACHA_ADS	 		= "eGachaAds";			// ガチャの動画広告.
+	public const string FIREBASE_EVENT_GACHA_BANNER_ADS	 	= "eGachaBannerAds";
+	public const string FIREBASE_EVENT_STAGECLEAR_BANNER_ADS= "eStageClearBannerAds";
+	public const string FIREBASE_EVENT_GAMEOVER_BANNER_ADS	= "eGameOverBannerAds";
+	public const string FIREBASE_EVENT_PAUSE_ADS			= "ePauseAds";
+
 	#if UNITY_ANDROID
 	public const string BANNER_ID = "ca-app-pub-5046886791626891/4433384200";
 	#elif UNITY_IPHONE
