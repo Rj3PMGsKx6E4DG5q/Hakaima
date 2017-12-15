@@ -1962,6 +1962,7 @@ public class TitleManager : MonoBehaviour
 					MainManager.Instance.loginInfo.SetLoginInfo(userName,password);
 					PlayerPrefs.SetString (Data.LOGIN_NAME, userName);
 					PlayerPrefs.SetString (Data.LOGIN_PASSWORD, password);
+					FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_EVENT_RANKING_SIGNIN);
 					//Debug.Log ("### name = " + userName + ", pass = " + password);
 				}
 				else {

@@ -216,20 +216,19 @@ public class Data
 	public const string FIREBASE_SCREEN_GAMECLEAR			= "GameClear";
 	public const string FIREBASE_SCREEN_GAMEOVER			= "GameOver";
 	public const string FIREBASE_SCREEN_PUASE				= "Pause";
-	public const string FIREBASE_SCREEN_TUTORIAL			= "Tutorial";
 	public const string FIREBASE_SCREEN_STAGE				= "StageNo.";			// StageNo1といった形で使う.
 	public const string FIREBASE_SCREEN_BONUS				= "Bonus";
 
-	public const string FIREBASE_EVENT_START				= "Start";
-	public const string FIREBASE_EVENT_CONTINUE				= "Continue";
+	public const string FIREBASE_EVENT_START				= "Start";				// Game Start.
+	public const string FIREBASE_EVENT_CONTINUE				= "Continue";			// Game Continue.
 	public const string FIREBASE_EVENT_GACHA_PLAY			= "eGachaPlay";			// ガチャを回した.
-	public const string FIREBASE_EVENT_GACHA_KUNOICHI		= "eGachaKunoichi";
-	public const string FIREBASE_EVENT_GACHA_NINJA			= "eGachaNinja";
+	public const string FIREBASE_EVENT_GACHA_KUNOICHI		= "eGachaKunoichi";		// くノ一を手に入れた.
+	public const string FIREBASE_EVENT_GACHA_NINJA			= "eGachaNinja";		// 忍者を手に入れた.
 	public const string FIREBASE_EVENT_GACHA_MIKO			= "eGachaMiko";
 	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";
 	public const string FIREBASE_EVENT_GACHA_KENCHI			= "eGachaKenshi";
 	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";
-	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";
+	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";		// ランキングを登録.
 	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";
 	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";
 	public const string FIREBASE_EVENT_EXTRA_MOREGAME		= "eMoreGame";

@@ -4240,8 +4240,10 @@ public class GameManager : MonoBehaviour
 		// Add 2017.11.7
 		#if UNITY_ANDROID
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL, null);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		#elif UNITY_IOS
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		#endif
 	}
 

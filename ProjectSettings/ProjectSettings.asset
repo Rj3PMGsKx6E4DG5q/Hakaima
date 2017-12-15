@@ -24,7 +24,7 @@ PlayerSettings:
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
-  m_SplashScreenBackgroundLandscapeAspect: 1
+  m_SplashScreenBackgroundLandscapeAspect: 0.5625
   m_SplashScreenBackgroundPortraitAspect: 1
   m_SplashScreenBackgroundLandscapeUvs:
     serializedVersion: 2
@@ -231,7 +231,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/iwashidon/Documents/Hakaima/Data/SamuraiDrama.keystore
+  AndroidKeystoreName: Data/SamuraiDrama.keystore
   AndroidKeyaliasName: ko-chan_studio
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -255,7 +255,7 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 827ca8689f83f2443871d54c896e5419, type: 3}
+      m_Icon: {fileID: 2800000, guid: 6808a2bf1d83e415e9fccb486fa8b3ea, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
