@@ -1117,7 +1117,7 @@ public class GameManager : MonoBehaviour
 								SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_START);
 								//MainManager.Instance.nendAdBanner.Hide ();
 								MainManager.Instance.bannerView.Hide ();
-								FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_SCREEN_STAGE+MainManager.Instance.stage);
+								FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_STAGE + MainManager.Instance.stage);
 							} else if (time >= 4) {
 								pattern = 1;
 								time = 0;
@@ -2096,7 +2096,14 @@ public class GameManager : MonoBehaviour
 									specialItemList.RemoveAt (i);
 									groupSpecialItemList.RemoveAt (i);
 									SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GOT);
-									MainManager.Instance.AddTicket ();
+									switch (specialItem.type) {
+									case Item.Type.Ticket:
+										MainManager.Instance.AddTicket ();
+										break;
+									case Item.Type.Weapon:
+										MainManager.Instance.AddWeapon ();
+										break;
+									}
 									continue;
 								}
 								i++;
@@ -2159,8 +2166,8 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-											FirebaseAnalyticsManager.Instance.LogScreen(Data.FIREBASE_SCREEN_STAGECLEAR+MainManager.Instance.stage);
-											if(ShowAdsBanner (15)) {
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage);
+											if (ShowAdsBanner (15)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
 										}
@@ -2174,8 +2181,8 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
-											FirebaseAnalyticsManager.Instance.LogScreen(Data.FIREBASE_SCREEN_STAGECLEAR_RUN+MainManager.Instance.stage);
-											if(ShowAdsBanner (10)) {
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage);
+											if (ShowAdsBanner (10)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
 										}
@@ -2371,7 +2378,7 @@ public class GameManager : MonoBehaviour
 						loop = true;
 						SoundManager.Instance.StopBgm ();
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-						FirebaseAnalyticsManager.Instance.LogScreen(Data.FIREBASE_SCREEN_STAGECLEAR+MainManager.Instance.stage);
+						FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage);
 					}
 				}
 				break;
@@ -2573,10 +2580,10 @@ public class GameManager : MonoBehaviour
 						continueCommand = CONTINUE_COMMAND_NONE;
 						SoundManager.Instance.StopBgm ();
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GAMEOVER);
-						FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_SCREEN_GAMEOVER);
+						FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_GAMEOVER);
 						//MainManager.Instance.nendAdBanner.Show ();
 						MainManager.Instance.bannerView.Show ();
-						if(ShowAdsBanner (10)) {
+						if (ShowAdsBanner (10)) {
 							FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GAMEOVER_BANNER_ADS);
 						}
 					}
@@ -2618,7 +2625,7 @@ public class GameManager : MonoBehaviour
 							player.SetImageCoefficient (Data.GetPlayerImageCoefficient (Hakaima.Terrain.Type.Soil));
 						}
 						if (player.state == Player.State.Wait) {
-							FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_EVNET_FINISH_TUTORIAL);
+							FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVNET_FINISH_TUTORIAL);
 							pattern = 1;
 							time = 0;
 						}
