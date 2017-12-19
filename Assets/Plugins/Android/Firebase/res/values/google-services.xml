@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://samurai-drama-42788.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">100167033053</string>
+  <string name="google_storage_bucket" translatable="false">samurai-drama-42788.appspot.com</string>
+  <string name="project_id" translatable="false">samurai-drama-42788</string>
+  <string name="google_api_key" translatable="false">AIzaSyBzOLym2yXQxT-mw1UnLlvfmZS_IiGSvoA</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBzOLym2yXQxT-mw1UnLlvfmZS_IiGSvoA</string>
+  <string name="google_app_id" translatable="false">1:100167033053:android:adee12fad3715060</string>
+  <string name="default_web_client_id" translatable="false">100167033053-ahkeqmdpm101tg1nh33bk92fokuuru85.apps.googleusercontent.com</string>
+</resources>
