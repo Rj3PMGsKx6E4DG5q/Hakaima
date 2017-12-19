@@ -1317,7 +1317,7 @@ public class GameManager : MonoBehaviour
 															float ran = UnityEngine.Random.value * 100;
 															if (ran < MainManager.Instance.GetTicketItemPercent ())
 																itemType = Item.Type.Ticket;
-															else if (ran < MainManager.Instance.GetTicketItemPercent () + MainManager.Instance.GetWeaponItemPercent ())
+															else if (ran < MainManager.Instance.GetTicketItemPercent () + MainManager.Instance.GetWeaponItemPercent () && MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter))
 																itemType = Item.Type.Weapon;
 															if (itemType != Item.Type.None) {
 																Item specialItem = new Item ();
