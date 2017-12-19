@@ -559,6 +559,7 @@ public class GameManager : MonoBehaviour
 	private GameObject goStage;
 	private GameObject goScore;
 	private GameObject goScoreHigh;
+	private GameObject goPlayer1;
 	private GameObject goLife;
 	private GameObject goMyWeapon;
 	private GameObject goRemainingTime;
@@ -669,6 +670,7 @@ public class GameManager : MonoBehaviour
 		goStage					= transform.Find ("UI/Information/Stage").gameObject;
 		goScore					= transform.Find ("UI/Information/Score/PlayerScore(Value)").gameObject;
 		goScoreHigh				= transform.Find ("UI/Information/Score/HiScore(Value)").gameObject;
+		goPlayer1				= transform.Find ("UI/Information/Score/PlayerScore(Title)").gameObject;
 		goLife					= transform.Find ("UI/Information/Life").gameObject;
 		goMyWeapon				= transform.Find ("UI/Information/ThrowWepon/Remaining").gameObject;
 		goRemainingTime			= transform.Find ("UI/Information/Time").gameObject;
@@ -1022,6 +1024,7 @@ public class GameManager : MonoBehaviour
 		if (MainManager.Instance.isTutorial) {
 			goPause.SetActive (false);
 			goStage.GetComponent<Text> ().text = "TUTORIAL";
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVNET_START_TUTORIAL);
 		}
 
 		if (MainManager.Instance.isTutorial) {
@@ -2182,7 +2185,7 @@ public class GameManager : MonoBehaviour
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
 											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage);
-											if (ShowAdsBanner (10)) {
+											if (ShowAdsBanner (20)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
 										}
@@ -2450,7 +2453,7 @@ public class GameManager : MonoBehaviour
 							collectClear.colorEnemy = color;
 							collectClear.colorEnemyScore = color;
 							//MainManager.Instance.nendAdBanner.Show ();
-							MainManager.Instance.bannerView.Show ();
+							MainManager.Instance.bannerView.Show ();		// これが連続で呼ばれている?.
 							goStageClearTwitterButton.SetActive (true);
 							if (time >= 0.5f) {
 								pattern = 2;
@@ -2583,7 +2586,7 @@ public class GameManager : MonoBehaviour
 						FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_GAMEOVER);
 						//MainManager.Instance.nendAdBanner.Show ();
 						MainManager.Instance.bannerView.Show ();
-						if (ShowAdsBanner (10)) {
+						if (ShowAdsBanner (15)) {
 							FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GAMEOVER_BANNER_ADS);
 						}
 					}
@@ -3224,9 +3227,7 @@ public class GameManager : MonoBehaviour
 				//MainManager.Instance.nendAdBanner.Show ();
 				MainManager.Instance.bannerView.Show ();
 				SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
-				if (ShowAdsBanner (10)) {
-					FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_PAUSE_ADS);
-				}
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_PUASE);
 			} else {
 				//MainManager.Instance.nendAdBanner.Hide ();
 				MainManager.Instance.bannerView.Hide ();
@@ -3241,6 +3242,7 @@ public class GameManager : MonoBehaviour
 	{
 		MainManager.Instance.ShowInterstitial (() => {
 			life.now += 5;
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_PAUSE_ADS);
 		});
 	}
 
@@ -3256,6 +3258,7 @@ public class GameManager : MonoBehaviour
 			if (PlayerPrefs.GetInt (Data.RECORD_IS_TUTORIAL_FIRST_HELP) == 1) {
 				MainManager.Instance.NextStage (life.now, myWeapon.now);
 				SetClearNextStage ();
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVNET_FINISH_TUTORIAL);
 			}
 		}
 
@@ -4246,8 +4249,10 @@ public class GameManager : MonoBehaviour
 	{
 		// Add 2017.11.7
 		#if UNITY_ANDROID
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL, null);
 		#elif UNITY_IOS
+		FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_TWITTER);
 		SocialConnector.SocialConnector.Share (Language.sentence [Language.TWITTER], Data.URL_IOS, null);
 		#endif
 	}

@@ -193,7 +193,7 @@ public class Data
 	public const int CHARACTER_MIKO						= 2;
 	public const int CHARACTER_NINJA					= 3;
 	public const int CHARACTER_MATIMUSUME				= 4;
-	public const int CHARACTER_KENSHI					= 5;
+	public const int CHARACTER_HACHI					= 5;
 
 	public const string RECORD_CHARACTER				= "recordCharacter";
 	public const string RECORD_CHARACTER_SELECT			= "recordCharacterSelect";
@@ -205,37 +205,39 @@ public class Data
 
 
 	// Firebase.
-	public const string FIREBASE_SCREEN_MENU				= "Menu";
-	public const string FIREBASE_SCREEN_GACHA				= "Gacha";
-	public const string FIREBASE_SCREEN_RECORD				= "Record";
-	public const string FIREBASE_SCREEN_RANKING				= "Ranking";
-	public const string FIREBASE_SCREEN_EXTRA				= "Extra";
-	public const string FIREBASE_SCREEN_SELECT_CHARACTER	= "SelectCharacter";
-	public const string FIREBASE_SCREEN_STAGECLEAR			= "StageClearNo.";
-	public const string FIREBASE_SCREEN_STAGECLEAR_RUN		= "StageClearRunNo.";
-	public const string FIREBASE_SCREEN_GAMECLEAR			= "GameClear";
-	public const string FIREBASE_SCREEN_GAMEOVER			= "GameOver";
-	public const string FIREBASE_SCREEN_PUASE				= "Pause";
-	public const string FIREBASE_SCREEN_TUTORIAL			= "Tutorial";
-	public const string FIREBASE_SCREEN_STAGE				= "StageNo.";			// StageNo1といった形で使う.
-	public const string FIREBASE_SCREEN_BONUS				= "Bonus";
-
-	public const string FIREBASE_EVENT_START				= "Start";
-	public const string FIREBASE_EVENT_CONTINUE				= "Continue";
+	// 画面遷移.
+	public const string FIREBASE_SCREEN_MENU				= "sMenu";
+	public const string FIREBASE_SCREEN_GACHA				= "sGacha";
+	public const string FIREBASE_SCREEN_RECORD				= "sRecord";
+	public const string FIREBASE_SCREEN_RANKING				= "sRanking";
+	public const string FIREBASE_SCREEN_HELP				= "sHelp";
+	public const string FIREBASE_SCREEN_EXTRA				= "sExtra";
+	public const string FIREBASE_SCREEN_SELECT_CHARACTER	= "sSelectCharacter";
+	public const string FIREBASE_SCREEN_STAGECLEAR			= "sStageClearNo.";
+	public const string FIREBASE_SCREEN_STAGECLEAR_RUN		= "sStageClearRunNo.";
+	public const string FIREBASE_SCREEN_GAMECLEAR			= "sGameClear";
+	public const string FIREBASE_SCREEN_GAMEOVER			= "sGameOver";
+	public const string FIREBASE_SCREEN_PUASE				= "sPause";
+	public const string FIREBASE_SCREEN_STAGE				= "sStageNo.";			// StageNo1といった形で使う.
+	public const string FIREBASE_SCREEN_BONUS				= "sBonus";				// ログインボーナス.
+	public const string FIREBASE_SCREEN_INFORMATION			= "sNotice";			// お知らせ.
+	// クリック・結果.
+	public const string FIREBASE_EVENT_START				= "eStart";				// Game Start.
+	public const string FIREBASE_EVENT_CONTINUE				= "eContinue";			// Game Continue.
 	public const string FIREBASE_EVENT_GACHA_PLAY			= "eGachaPlay";			// ガチャを回した.
-	public const string FIREBASE_EVENT_GACHA_KUNOICHI		= "eGachaKunoichi";
-	public const string FIREBASE_EVENT_GACHA_NINJA			= "eGachaNinja";
-	public const string FIREBASE_EVENT_GACHA_MIKO			= "eGachaMiko";
-	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";
-	public const string FIREBASE_EVENT_GACHA_KENCHI			= "eGachaKenshi";
-	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";
-	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";
-	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";
-	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";
-	public const string FIREBASE_EVENT_EXTRA_MOREGAME		= "eMoreGame";
-	public const string FIREBASE_EVENT_TWITTER				= "eTwitter";
-	public const string FIREBASE_EVNET_START_TUTORIAL		= "eStartTutorial";
-	public const string FIREBASE_EVNET_FINISH_TUTORIAL		= "eFinishTutorial";
+	public const string FIREBASE_EVENT_GACHA_KUNOICHI		= "eGachaKunoichi";		// くノ一を手に入れた.
+	public const string FIREBASE_EVENT_GACHA_NINJA			= "eGachaNinja";		// 忍者を手に入れた.
+	public const string FIREBASE_EVENT_GACHA_MIKO			= "eGachaMiko";			// 巫女.
+	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";	// 町娘.
+	public const string FIREBASE_EVENT_GACHA_HACHI			= "eGachaHachi";		// ハチ.
+	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";			// ライフ.
+	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";		// ランキングを登録.
+	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";			// アイテムの動画広告.
+	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";			// 残機アップの動画広告.
+	public const string FIREBASE_EVENT_EXTRA_MOREGAME		= "eMoreGame";			// 
+	public const string FIREBASE_EVENT_TWITTER				= "eTwitter";			// Twitter選択.
+	public const string FIREBASE_EVNET_START_TUTORIAL		= "eStartTutorial";		// チュートリアルスタート.
+	public const string FIREBASE_EVNET_FINISH_TUTORIAL		= "eFinishTutorial";	// チュートリアル終了.
 	// Event log for Ads.
 	public const string FIREBASE_EVENT_GACHA_ADS	 		= "eGachaAds";			// ガチャの動画広告.
 	public const string FIREBASE_EVENT_GACHA_BANNER_ADS	 	= "eGachaBannerAds";

@@ -25,6 +25,10 @@ public class FirebaseAnalyticsManager : MonoBehaviour {
 	public void LogEvent(string log)
 	{
 		Debug.Log (log);
+
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+			return;
+		
 		#if !UNITY_EDITOR
 		Firebase.Analytics.FirebaseAnalytics.LogEvent(log);
 		#endif
@@ -33,6 +37,10 @@ public class FirebaseAnalyticsManager : MonoBehaviour {
 	public void LogScreen(string log)
 	{
 		Debug.Log (log);
+
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+			return;
+
 		#if !UNITY_EDITOR
 		Firebase.Analytics.FirebaseAnalytics.LogEvent(log);
 		#endif
