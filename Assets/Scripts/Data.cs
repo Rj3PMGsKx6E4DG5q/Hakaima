@@ -2713,7 +2713,7 @@ public class Data
 				isCommandNoneClick = false,
 				canHoleCycle = false,
 				waitTime = 3,
-				waitText = "墓で敵を倒せます。",
+				waitText = Language.sentence [Language.GAME_TUTORIAL_1],
 			},
 			new TutorialStageData.PlayerData {
 				compass = Player.Compass.Left,
@@ -3097,7 +3097,7 @@ public class Data
 				isCommandNoneClick = false,
 				canHoleCycle = false,
 				waitTime = 3,
-				waitText = "穴に落として埋めると敵を倒せます。",
+				waitText = Language.sentence [Language.GAME_TUTORIAL_2],
 			},
 			new TutorialStageData.PlayerData {
 				compass = Player.Compass.Left,
