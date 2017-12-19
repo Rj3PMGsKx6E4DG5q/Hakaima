@@ -66,7 +66,7 @@ public class Language
 	public const int CHARANAME_NINJA				= 60;
 	public const int CHARANAME_MIKO					= 61;
 	public const int CHARANAME_MUSUME				= 62;
-	public const int CHARANAME_KENSHI				= 63;
+	public const int CHARANAME_HACHI				= 63;
 	public const int YOUGOTCHARA					= 64;
 	public const int LIFEIS1UP						= 65;
 	public const int GACHA_RESULT_GACHATICKETTEXT	= 66;
@@ -155,12 +155,12 @@ public class Language
 		{CHARANAME_NINJA,				"忍者"},
 		{CHARANAME_MIKO,				"巫女"},
 		{CHARANAME_MUSUME,				"町娘"},
-		{CHARANAME_KENSHI,				"剣士"},
+		{CHARANAME_HACHI,				"ハチ"},
 		{YOUGOTCHARA,					"キャラを獲得しました！"},
 		{LIFEIS1UP,						"残機が１つ増えました。"},
 		{GACHA_RESULT_GACHATICKETTEXT,	"持っているガチャチケット数"},
-		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 5%"},
-		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 95%"},
+		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 10%"},
+		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 90%"},
 		{GACHA_SKIP,					"タップでスキップ出来ます"},
 		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_JP},
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_JP},
@@ -236,12 +236,12 @@ public class Language
 		{CHARANAME_NINJA,				"Ninja"},
 		{CHARANAME_MIKO,				"Miko"},
 		{CHARANAME_MUSUME,				"Musume"},
-		{CHARANAME_KENSHI,				"Kenshi"},
+		{CHARANAME_HACHI,				"Hachi"},
 		{YOUGOTCHARA,					"You got a character！"},
 		{LIFEIS1UP,						"Life is 1UP."},
 		{GACHA_RESULT_GACHATICKETTEXT,	"You have Gacha Ticket."},
-		{GACHA_LOTTERY_CHARA,			"Lottery of Character 5%"},
-		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 95%"},
+		{GACHA_LOTTERY_CHARA,			"Lottery of Character 10%"},
+		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 90%"},
 		{GACHA_SKIP,					"Tap to skip"},
 		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_EN},
 		{INFORMATION_EXPLANATION,		INFORMATION_VER120_EN},

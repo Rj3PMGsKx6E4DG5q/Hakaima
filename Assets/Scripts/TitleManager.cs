@@ -925,6 +925,7 @@ public class TitleManager : MonoBehaviour
 				goCatalogPoint = goHelpPoint;
 				goCatalogArrowRight = goHelpArrowRight;
 				goCatalogArrowLeft = goHelpArrowLeft;
+				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_HELP);
 			}
 			break;
 		case State.End:
@@ -1328,8 +1329,8 @@ public class TitleManager : MonoBehaviour
 							chara = Data.FIREBASE_EVENT_GACHA_MIKO;
 						if (gacha.selectedGachaNumber == Data.CHARACTER_MATIMUSUME)
 							chara = Data.FIREBASE_EVENT_GACHA_MACHIMUSUME;
-						if (gacha.selectedGachaNumber == Data.CHARACTER_KENSHI)
-							chara = Data.FIREBASE_EVENT_GACHA_KENCHI;
+						if (gacha.selectedGachaNumber == Data.CHARACTER_HACHI)
+							chara = Data.FIREBASE_EVENT_GACHA_HACHI;
 						FirebaseAnalyticsManager.Instance.LogEvent (chara);
 					}
 					// 結果へ.
@@ -1406,7 +1407,7 @@ public class TitleManager : MonoBehaviour
 	private void ShowAdsBanner()
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < 10) {
+		if(UnityEngine.Random.Range(0,100) < 20) {
 			MainManager.Instance.ShowInterstitialNoMovie (() => {
 				MainManager.Instance.gachaTicket += 1;
 				ReflashGachaTicket();
@@ -1429,10 +1430,11 @@ public class TitleManager : MonoBehaviour
 			goInformation.transform.Find ("Title").GetComponent<Text> ().text = Language.sentence [Language.INFORMATION_TITLE];
 			goInformation.transform.Find ("Explanation").GetComponent<Text> ().text = Language.sentence [Language.INFORMATION_EXPLANATION];
 			goInformation.SetActive (true);
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_INFORMATION);
 		}
 	}
 
-	// ガチャチケットを獲得した時い出すポップアップ.
+	// ガチャチケットを獲得した時に出すポップアップ.
 	public void SetLoginBonus()
 	{
 		if (loginBonus.prevGachaTicket < MainManager.Instance.gachaTicket) {
