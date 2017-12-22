@@ -1061,6 +1061,8 @@ public class GameManager : MonoBehaviour
 		ResourceManager.Instance.SetPlayer (MainManager.Instance.selectCharacter);
 		transform.Find ("UI/Information/Face").GetComponent<Image>().sprite = ResourceManager.Instance.spriteUpperPlayer;
 		SetWeapon ();
+
+		goPlayer1.GetComponent<Text> ().text = Language.sentenceEn [Language.CHARANAME_SAMURAI + MainManager.Instance.selectCharacter];
 	}
 
 	private void SetWeapon()
@@ -3415,8 +3417,8 @@ public class GameManager : MonoBehaviour
 	private void OnContinue (int type)
 	{
 		if (state == State.Continue) {
-			// 武器半分.
-			if (myWeapon.now > 0)
+			// 武器半分(2以上保持時).
+			if (myWeapon.now > 1)
 				myWeapon.now /= 2;
 			continueCommand = type;
 			SoundManager.Instance.StopSe ();

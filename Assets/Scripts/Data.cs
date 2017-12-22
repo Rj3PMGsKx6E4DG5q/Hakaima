@@ -263,11 +263,11 @@ public class Data
 
 	// ガチャやゲームオーバー時用、Gacha Ticket or Life.
 	#if UNITY_ANDROID
-	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/6085022007";
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/4106920801";
 	#elif UNITY_IPHONE
-	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/8244784432";
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/3179129747";
 	#else
-	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/6085022007";
+	public const string INTERSTITIAL_NOMOVIE_ID = "ca-app-pub-5046886791626891/4106920801";
 	#endif
 
 

@@ -2883,6 +2883,8 @@ MonoBehaviour:
   spriteLogoEn: {fileID: 21300000, guid: 8afc97eb94eee954da24e396acee5b5d, type: 3}
   spriteBird0: {fileID: 21300000, guid: f0596fedfdeb7d444ba1da2b792bfda0, type: 3}
   spriteBird1: {fileID: 21300000, guid: fb98008d2663a6c42b4003754abf0322, type: 3}
+  spriteDragonFly0: {fileID: 21300000, guid: a9d58bd35883a4a83ada2e6b60c79a58, type: 3}
+  spriteDragonFly1: {fileID: 21300000, guid: 4640bcf009d4843ec985fad16fdebf9a, type: 3}
 --- !u!114 &11466298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3010,7 +3012,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f0596fedfdeb7d444ba1da2b792bfda0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9d58bd35883a4a83ada2e6b60c79a58, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

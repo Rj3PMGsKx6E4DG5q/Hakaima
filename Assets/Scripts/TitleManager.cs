@@ -506,6 +506,10 @@ public class TitleManager : MonoBehaviour
 	private Sprite spriteBird0;
 	[SerializeField]
 	private Sprite spriteBird1;
+	[SerializeField]
+	private Sprite spriteDragonFly0;
+	[SerializeField]
+	private Sprite spriteDragonFly1;
 
 	private static bool isCoverOnce = true;
 
@@ -758,8 +762,8 @@ public class TitleManager : MonoBehaviour
 
 
 		spriteBirdList = new List<Sprite> (){
-			spriteBird0,
-			spriteBird1,
+			spriteDragonFly0,
+			spriteDragonFly1,
 		};
 
 
