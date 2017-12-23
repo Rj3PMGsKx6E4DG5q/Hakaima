@@ -2446,6 +2446,9 @@ public class GameManager : MonoBehaviour
 								if (time >= aimTime) {
 									pattern = 1;
 									time = 0;
+									//MainManager.Instance.nendAdBanner.Show ();
+									MainManager.Instance.bannerView.Show ();		// これが連続で呼ばれている?.
+									goStageClearTwitterButton.SetActive (true);
 								}
 							}
 						}
@@ -2454,9 +2457,6 @@ public class GameManager : MonoBehaviour
 							color.a = Mathf.Lerp (0, 1, 2 * time);
 							collectClear.colorEnemy = color;
 							collectClear.colorEnemyScore = color;
-							//MainManager.Instance.nendAdBanner.Show ();
-							MainManager.Instance.bannerView.Show ();		// これが連続で呼ばれている?.
-							goStageClearTwitterButton.SetActive (true);
 							if (time >= 0.5f) {
 								pattern = 2;
 								time = 0;
