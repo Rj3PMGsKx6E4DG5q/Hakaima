@@ -1300,6 +1300,7 @@ public class GameManager : MonoBehaviour
 									if (groupPlayer.canHoleCycle) {
 										if (chip1 != null)
 										if (Data.GetTerrainData (chip1.terrain.type).isDigging)
+										if (playerWeaponList.Count == 0)
 										if (chip1.obstacleList.Count == 0) {
 											int point = chip1.pointX + chip1.pointY * Data.LENGTH_X;
 											groupChipList [point].holeTime += Data.DELTA_TIME * groupPlayer.hoePer;
@@ -2226,9 +2227,15 @@ public class GameManager : MonoBehaviour
 						{
 							int pointX = Mathf.FloorToInt ((weapon.positionX + weapon.size / 2) / weapon.size);
 							int pointY = Mathf.FloorToInt ((weapon.positionY + weapon.size / 2) / weapon.size);
-							Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
-							if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+							if (pointX < 0 || pointX == Data.LENGTH_X) {
 								isEnd = true;
+							} else if (pointY < 0 || pointY == Data.LENGTH_Y) {
+								isEnd = true;
+							} else {
+								Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
+								if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+									isEnd = true;
+							}
 						}
 						if (isEnd) {
 							Destroy (groupPlayerWeaponList [i].gameObject);
