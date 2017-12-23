@@ -3441,6 +3441,7 @@ public class GameManager : MonoBehaviour
 	{
 		MainManager.Instance.ShowInterstitial (() => {
 			life.now += 5;
+			continueCommand = CONTINUE_COMMAND_MOVIE;
 		});
 	}
 
