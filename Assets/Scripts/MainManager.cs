@@ -100,7 +100,7 @@ public class MainManager : MonoBehaviour
 
 	public const int START_LIFE = 2;
 	public const int START_WEAPON = 0;
-	public const int INIT_GATHATICKET = 10;
+	public const int INIT_GATHATICKET = 0;
 
 	/*
 	 * Ver.1.2.0 = 1 
@@ -179,7 +179,6 @@ public class MainManager : MonoBehaviour
 	{
 		Application.targetFrameRate = Data.TARGET_FRAME_RATE;
 		Language.sentence = Application.systemLanguage == SystemLanguage.Japanese ? Language.sentenceJa : Language.sentenceEn;
-
 
 //		enabled = false;
 //		yield return StartCoroutine (RequestData ());

@@ -809,6 +809,7 @@ public class TitleManager : MonoBehaviour
 
 				//if (MainManager.Instance.isAdvertise)
 				//	MainManager.Instance.nendAdIcon.Show ();
+				goMenu.transform.Find ("PrivateAds").gameObject.SetActive (IsOffline ());	// オフラインの時のみプライベート広告.
 				MainManager.Instance.bannerView.Show ();
 				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_MENU);
 			}
