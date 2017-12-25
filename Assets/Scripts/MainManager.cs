@@ -452,9 +452,13 @@ public class MainManager : MonoBehaviour
 		if (PlayerPrefs.HasKey (Data.RECORD_SCORE)) {
 			score = PlayerPrefs.GetInt (Data.RECORD_SCORE);
 		}
-		if (PlayerPrefs.HasKey (Data.RECORD_SCORE_HIGH)) {
-			scoreHigh = PlayerPrefs.GetInt (Data.RECORD_SCORE_HIGH);
+
+		if (!PlayerPrefs.HasKey (Data.RECORD_SCORE_HIGH)) {
+			PlayerPrefs.SetInt (Data.RECORD_SCORE_HIGH, 10000);
+		} else if (PlayerPrefs.GetInt (Data.RECORD_SCORE_HIGH) < 10000) {
+			PlayerPrefs.SetInt (Data.RECORD_SCORE_HIGH, 10000);
 		}
+		scoreHigh = PlayerPrefs.GetInt (Data.RECORD_SCORE_HIGH);
 	}
 
 
