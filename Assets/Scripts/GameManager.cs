@@ -1095,11 +1095,13 @@ public class GameManager : MonoBehaviour
 								player.Walk (Player.Compass.Top, true);
 								player.SetSpeed (Data.SPEED_3);
 								player.SetImageCoefficient (Data.GetPlayerImageCoefficient (Hakaima.Terrain.Type.Soil));
+								player.SetBlind (true, Color.cyan);
 								enemyList.ForEach (obj => obj.SetBlind (true, Color.white));
 								//MainManager.Instance.nendAdBanner.Hide ();
 								MainManager.Instance.bannerView.Hide ();
 								goStageClearTwitterButton.SetActive (false);
 							} else if (time >= 2) {
+								player.SetBlind (false);
 								enemyList.ForEach (obj => obj.SetBlind (false));
 								state = State.Play;
 								time = 0;
@@ -1135,9 +1137,11 @@ public class GameManager : MonoBehaviour
 								player.Walk (Player.Compass.Top, true);
 								player.SetSpeed (Data.SPEED_3);
 								player.SetImageCoefficient (Data.GetPlayerImageCoefficient (Hakaima.Terrain.Type.Soil));
+								player.SetBlind (true, Color.cyan);
 							} else if (time >= 1) {
 								if (player.state == Player.State.Wait) {
 									collectReady.go.SetActive (false);
+									player.SetBlind (false);
 									enemyList.ForEach (obj => obj.SetBlind (false));
 									state = State.Play;
 									time = 0;
