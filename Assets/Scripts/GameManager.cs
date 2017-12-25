@@ -1819,7 +1819,7 @@ public class GameManager : MonoBehaviour
 										}
 									}
 								}
-								for (int j = 0; j < playerWeaponList.Count; j++) {
+								for (int j = 0; j < playerWeaponList.Count;) {
 									Weapon weapon = playerWeaponList [j];
 									if (Math.Abs (weapon.positionX - enemy.positionX) < weapon.size * weapon.scaleX && Math.Abs (weapon.positionY - enemy.positionY) < weapon.size * weapon.scaleY) {
 										groupEnemy.lifeCount--;
@@ -1830,7 +1830,12 @@ public class GameManager : MonoBehaviour
 										} else {
 											isDamage = true;
 										}
+										Destroy (groupPlayerWeaponList [j].gameObject);
+										playerWeaponList.RemoveAt (j);
+										groupPlayerWeaponList.RemoveAt (j);
+										continue;
 									}
+									j++;
 								}
 								if (isDie) {
 									if (groupEnemy.isBoss) {
