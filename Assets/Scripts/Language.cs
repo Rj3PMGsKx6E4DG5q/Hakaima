@@ -89,7 +89,7 @@ public class Language
 	public const string INFORMATION_VER120_TITLE_JP = "Ver.1.2.0 バージョンアップ情報";
 	public const string INFORMATION_VER120_TITLE_EN = "Ver.1.2.0 Information";
 	public const string INFORMATION_VER120_JP = "1.新キャラクターを追加しました。\nキャラクターによって、武器を投げ\nて敵を倒すことが出来るようになり\nました。\n\n2.ヘルプを追加しました。\n\n3.ランキングへの参加が簡単に\nなりました。\n（自動でIDを割り振ります）";
-	public const string INFORMATION_VER120_EN = "1.Added 5th new character.\nPart of new character became \nable to throw weapon and defeat \nthe enemy.\n\n2.Added a help page.\n\n3.Easy commit to ranking.\n(Give an ID automatic)";
+	public const string INFORMATION_VER120_EN = "1.Added 5th new character.\nPart of new character became \nable to throw weapon and \ndefeat the enemy.\n\n2.Added a help page.\n\n3.Easy commit to ranking.\n(Give an ID automatic)";
 
 
 	public static Dictionary<int, string> sentence = sentenceJa;
@@ -205,7 +205,7 @@ public class Language
 		{RECORD_CLEAR_TIME,				"Best time of stage {0}."},
 		
 		{EXTRA_DESCRIPTION,				"If you watch a movie,\ncan play advantageous from start."},
-		{EXTRA_ITEM_TITLE,				"Gain the items."},
+		{EXTRA_ITEM_TITLE,				"Get the items"},
 		{EXTRA_ITEM_DESCRIPTION,		"You can have items from start."},
 		{EXTRA_ITEM_DESCRIPTION_HAVE,	"Gained already."},
 		{EXTRA_LIFE_TITLE,				"Life + 5"},
