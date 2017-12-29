@@ -1303,6 +1303,14 @@ public class TitleManager : MonoBehaviour
 	// ガチャ演出と抽選.
 	private void ProcGacha()
 	{
+		// ガチャチケット獲得.
+		if (MainManager.Instance.isInterstitialClose) {
+			MainManager.Instance.gachaTicket += 1;
+			ReflashGachaTicket();
+			MainManager.Instance.isInterstitialClose = false;
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
+		}
+
 		if (gacha.gachaMode > 0) {
 			// 演出スキップ.
 			bool isSkip = false;
@@ -1412,13 +1420,17 @@ public class TitleManager : MonoBehaviour
 	private void ShowAdsBanner()
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < 20) {
+		if (UnityEngine.Random.Range (0, 100) < 100) {
+			MainManager.Instance.ShowInterstitialNoMovie ();
+		}
+
+		/*if(UnityEngine.Random.Range(0,100) < 20) {
 			MainManager.Instance.ShowInterstitialNoMovie (() => {
 				MainManager.Instance.gachaTicket += 1;
 				ReflashGachaTicket();
 				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
 			});
-		}
+		}*/
 	}
 
 	// 起動時に出すポップアップインフォ.

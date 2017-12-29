@@ -174,6 +174,8 @@ public class MainManager : MonoBehaviour
 	// 起動時に情報を出すための番号.
 	[HideInInspector]
 	public int informationNumber;
+	[HideInInspector]
+	public bool isInterstitialClose;
 
 	private void Start ()
 	{
@@ -489,18 +491,37 @@ public class MainManager : MonoBehaviour
 		}
 	}
 
-	public void ShowInterstitialNoMovie (Action action)
+	public void ShowInterstitialNoMovie ()
 	{
-		if (interstitial.IsLoaded ()) {
-			interstitial.OnAdClosed += (sender, e) => {
-				interstitial.Destroy ();
-				interstitial = new InterstitialAd (Data.INTERSTITIAL_NOMOVIE_ID);
-				interstitial.LoadAd (new AdRequest.Builder ().Build ());
+		// 広告を初期化する
+		InterstitialAd interstitial = new InterstitialAd(Data.INTERSTITIAL_NOMOVIE_ID); 
+		AdRequest.Builder builder = new AdRequest.Builder();
+		AdRequest request = builder.Build();
 
-				action ();
-			};
-			interstitial.Show ();
-		}
+		// 広告が表示可能になったときのコールバック
+		interstitial.OnAdLoaded += (handler, EventArgs) =>
+		{
+			// 広告を表示する
+			interstitial.Show();
+		};
+
+		// 広告が閉じられたときのコールバック
+		interstitial.OnAdClosed += (handler, EventArgs) =>
+		{
+			// 後処理
+			interstitial.Destroy();
+			isInterstitialClose = true;
+		};
+
+		// 広告がエラーになったときのコールバック
+		interstitial.OnAdFailedToLoad += (handler, EventArgs) =>
+		{
+			// エラー処理
+			interstitial.Destroy();
+		};
+
+		// インタースティシャル広告のロード
+		interstitial.LoadAd(request);
 	}
 
 

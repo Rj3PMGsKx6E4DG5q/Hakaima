@@ -2185,7 +2185,7 @@ public class GameManager : MonoBehaviour
 											if (ShowAdsBanner (15)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
-										}
+																					}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
 										if (remainingTime.now == 0) {
@@ -2608,6 +2608,8 @@ public class GameManager : MonoBehaviour
 							FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GAMEOVER_BANNER_ADS);
 						}
 					}
+						
+					LifeUpForAds();
 
 					switch (continueCommand) {
 					case CONTINUE_COMMAND_MOVIE:
@@ -2626,7 +2628,7 @@ public class GameManager : MonoBehaviour
 						break;
 					case CONTINUE_COMMAND_YES:
 						{
-							MainManager.Instance.CurrentStage (0, 0);
+							MainManager.Instance.CurrentStage (life.now, 0);
 						}
 						break;
 					case CONTINUE_COMMAND_NO:
@@ -3327,6 +3329,8 @@ public class GameManager : MonoBehaviour
 					} else {
 						MainManager.Instance.NextStage (life.now, myWeapon.now);
 					}
+
+					LifeUpForAds();
 					SetClearNextStage ();
 				}
 			}
@@ -4281,14 +4285,18 @@ public class GameManager : MonoBehaviour
 	{
 		bool flag = false;
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < n) {
-			MainManager.Instance.ShowInterstitialNoMovie (() => {
-				life.now++;
-				SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_1UP);
-				flag = true;
-			});
+		if (UnityEngine.Random.Range (0, 100) < n) {
+			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
-
 		return flag;
+	}
+
+	private void LifeUpForAds()
+	{
+		if (MainManager.Instance.isInterstitialClose) {
+			life.now++;
+			SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_1UP);
+			MainManager.Instance.isInterstitialClose = false;
+		}
 	}
 }
