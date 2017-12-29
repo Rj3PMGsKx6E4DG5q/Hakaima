@@ -1420,17 +1420,9 @@ public class TitleManager : MonoBehaviour
 	private void ShowAdsBanner()
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
-		if (UnityEngine.Random.Range (0, 100) < 100) {
+		if (UnityEngine.Random.Range (0, 100) < 20) {
 			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
-
-		/*if(UnityEngine.Random.Range(0,100) < 20) {
-			MainManager.Instance.ShowInterstitialNoMovie (() => {
-				MainManager.Instance.gachaTicket += 1;
-				ReflashGachaTicket();
-				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
-			});
-		}*/
 	}
 
 	// 起動時に出すポップアップインフォ.
