@@ -2624,6 +2624,8 @@ public class GameManager : MonoBehaviour
 							player.SetBlind (true, Color.white);
 							groupPlayer.invincibleTime = 5f;
 							remainingTime.now = Data.GetStageData (MainManager.Instance.stage).limitTime;
+							//MainManager.Instance.nendAdBanner.Hide ();
+							MainManager.Instance.bannerView.Hide ();
 						}
 						break;
 					case CONTINUE_COMMAND_YES:
