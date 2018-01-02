@@ -354,7 +354,7 @@ public class TitleManager : MonoBehaviour
 			// あたり.
 			if (randomNum >= start && randomNum < start + hit) {
 				//Debug.Log ("HIT");
-				selectedGachaNumber = UnityEngine.Random.Range (0, Data.CHARACTER_MAX - 1);
+				selectedGachaNumber = UnityEngine.Random.Range (1, Data.CHARACTER_MAX);
 			} else {
 				// -1 = life 1up.
 				selectedGachaNumber = -1;
