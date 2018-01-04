@@ -3,6 +3,7 @@
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+/iOS/
 /Assets/AssetStoreTools*
 
 # Visual Studio 2015 cache directory
@@ -30,5 +31,4 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
 *.unitypackage

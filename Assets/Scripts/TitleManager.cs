@@ -777,7 +777,7 @@ public class TitleManager : MonoBehaviour
 
 		// Add 2017.11.7
 		#if UNITY_IOS
-		goExtraRecommendedButtonMoreGame.SetActive(false);
+		goExtraRecommendedButtonMoreGame.transform.Find("Image/Text").GetComponent<Text>().text = "App Store";
 		#endif
 	}
 	
