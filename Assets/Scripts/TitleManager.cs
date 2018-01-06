@@ -1884,6 +1884,9 @@ public class TitleManager : MonoBehaviour
 
 				if (PlayerPrefs.HasKey (Data.RECORD_SCORE_HIGH)) {
 					score = PlayerPrefs.GetInt (Data.RECORD_SCORE_HIGH);
+					int present = PlayerPrefs.GetInt (Data.RECORD_SCORE);
+					if (present < 10000)
+						score = present;
 				}
 
 				ranking.Save (score, stage);
@@ -1945,6 +1948,7 @@ public class TitleManager : MonoBehaviour
 					MainManager.Instance.loginInfo.SetLoginInfo(userName,password);
 					PlayerPrefs.SetString (Data.LOGIN_NAME, userName);
 					PlayerPrefs.SetString (Data.LOGIN_PASSWORD, password);
+					FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_EVENT_RANKING_LOGIN);
 				}
 				else {
 					errorCode = e.ErrorCode;

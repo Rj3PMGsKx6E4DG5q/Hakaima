@@ -231,6 +231,7 @@ public class Data
 	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";	// 町娘.
 	public const string FIREBASE_EVENT_GACHA_HACHI			= "eGachaHachi";		// ハチ.
 	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";			// ライフ.
+	public const string FIREBASE_EVENT_RANKING_LOGIN		= "eRankingLogin";		// ランキングにログイン.
 	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";		// ランキングを登録.
 	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";			// アイテムの動画広告.
 	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";			// 残機アップの動画広告.
