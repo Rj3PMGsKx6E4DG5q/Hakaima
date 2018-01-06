@@ -980,7 +980,7 @@ public class TitleManager : MonoBehaviour
 		case State.Ranking:
 			{
 				if (Logined()) {
-					MainManager.Instance.isDebug = true;
+					//MainManager.Instance.isDebug = true;
 					if (Ranking.State.Fetch == ranking.state) {
 						//goRankingButtonChangeUserName.SetActive (true);
 						goRankingButtonBack.SetActive (true);
