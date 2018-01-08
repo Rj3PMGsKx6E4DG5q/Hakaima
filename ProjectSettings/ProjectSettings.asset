@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.2.2
+  bundleVersion: 1.2.3
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -156,7 +156,7 @@ PlayerSettings:
     iOS: com.KohchanStudio.SamuraiDrama
     tvOS: com.KohchanStudio.SamuraiDrama
   buildNumber:
-    iOS: 12
+    iOS: 14
   AndroidBundleVersionCode: 13
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
