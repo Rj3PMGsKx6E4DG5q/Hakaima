@@ -391,9 +391,6 @@ public class TitleManager : MonoBehaviour
 	private GameObject goMenuButtonRecord;
 	private GameObject goMenuButtonHelp;
 	private GameObject goMenuButtonExtra;
-	private GameObject goMenuCaution;
-	private GameObject goMenuCautionButtonYes;
-	private GameObject goMenuCautionButtonNo;
 	private GameObject goMenuVolumeOn;
 	private GameObject goMenuVolumeOff;
 	private GameObject goMenuBird;
@@ -448,6 +445,10 @@ public class TitleManager : MonoBehaviour
 	private GameObject goCatalogPoint;
 	private GameObject goCatalogArrowRight;
 	private GameObject goCatalogArrowLeft;
+
+	private GameObject goCaution;
+	private GameObject goCautionButtonYes;
+	private GameObject goCautionButtonNo;
 
 	private GameObject goEndDescription;
 	private GameObject goEndButtonYes;
@@ -545,6 +546,7 @@ public class TitleManager : MonoBehaviour
 		goRecord						= transform.Find ("UI/Record").gameObject;
 		goHelp							= Instantiate (Resources.Load<GameObject> (path));
 		goHelp							.transform.SetParent (transform.Find ("UI"));
+		goCaution						= transform.Find ("UI/Caution").gameObject;
 		goEnd							= transform.Find ("UI/End").gameObject;
 		goExtra							= transform.Find ("UI/Extra").gameObject;
 		goCover							= transform.Find ("UI/Cover").gameObject;
@@ -562,9 +564,6 @@ public class TitleManager : MonoBehaviour
 		goMenuButtonRecord				= goMenu.transform.Find ("ButtonRecord").gameObject;
 		goMenuButtonHelp				= goMenu.transform.Find ("ButtonHelp").gameObject;
 		goMenuButtonExtra				= goMenu.transform.Find ("ButtonExtra").gameObject;
-		goMenuCaution					= goMenu.transform.Find ("Caution").gameObject;
-		goMenuCautionButtonYes			= goMenu.transform.Find ("Caution/ButtonYes").gameObject;
-		goMenuCautionButtonNo			= goMenu.transform.Find ("Caution/ButtonNo").gameObject;
 		goMenuVolumeOn					= goMenu.transform.Find ("Volume/On").gameObject;
 		goMenuVolumeOff					= goMenu.transform.Find ("Volume/Off").gameObject;
 		goMenuBird						= goMenu.transform.Find ("Bird").gameObject;
@@ -616,6 +615,9 @@ public class TitleManager : MonoBehaviour
 		goHelpButtonBack				= goHelp.transform.Find ("ButtonBack").gameObject;
 		Destroy (goHelp.transform.Find ("Attention").gameObject);
 
+		goCautionButtonYes				= goCaution.transform.Find ("ButtonYes").gameObject;
+		goCautionButtonNo				= goCaution.transform.Find ("ButtonNo").gameObject;
+
 		goEndDescription				= goEnd.transform.Find ("Description").gameObject;
 		goEndButtonYes					= goEnd.transform.Find ("ButtonYes").gameObject;
 		goEndButtonNo					= goEnd.transform.Find ("ButtonNo").gameObject;
@@ -655,27 +657,23 @@ public class TitleManager : MonoBehaviour
 
 		goInformationButton				= goInformation.transform.Find ("ButtonOk").gameObject;
 
+
 		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogo;
 		goMenuLogo						.GetComponent<Image> ().SetNativeSize ();
-		goMenuCaution					.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.START_CAUTION];
-		if (MainManager.Instance.isTutorial) {
-			goMenuButtonStart			.transform.localPosition = goMenuButtonContinue.transform.localPosition;
-			goMenuButtonStart			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStartSelectCharacter ());
-			goMenuButtonContinue.SetActive (false);
-		} else {
-			goMenuButtonStart			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonCaution (true));
-		}
+		goMenuButtonStart				.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStartSelectCharacter ());
 		goMenuButtonContinue			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonContinue ());
 		goMenuButtonRanking				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Ranking));
 		goMenuButtonRecord				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Record));
 		goMenuButtonHelp				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Help));
 		goMenuButtonExtra				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Extra));
-		goMenuCautionButtonYes			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStartSelectCharacter ());
-		goMenuCautionButtonNo			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonCaution (false));
 		goMenuVolumeOn					.GetComponent<Button> ().onClick.AddListener (() => OnVolume (true));
 		goMenuVolumeOff					.GetComponent<Button> ().onClick.AddListener (() => OnVolume (false));
 		goMenuTwitter					.GetComponent<Button> ().onClick.AddListener (() => OnTwitter ());
 		goMenuLoginBonusButtonOk		.GetComponent<Button> ().onClick.AddListener (() => OnButtonLoginBonusClose ());
+		if (MainManager.Instance.isTutorial) {
+			goMenuButtonStart.transform.localPosition = goMenuButtonContinue.transform.localPosition;
+			goMenuButtonContinue.SetActive (false);
+		}
 
 		goLoginButton					.GetComponent<Button> ().onClick.AddListener (() => OnLogin ());
 		goSignupButton					.GetComponent<Button> ().onClick.AddListener (() => OnButtonRegist ());
@@ -700,6 +698,10 @@ public class TitleManager : MonoBehaviour
 		goRecordSwipe					.GetComponent<EventTrigger> ().triggers.Find (obj => obj.eventID == EventTriggerType.Drag).callback.AddListener (eventData => OnSwipe ((PointerEventData)eventData));
 		goHelpSwipe						.GetComponent<EventTrigger> ().triggers.Find (obj => obj.eventID == EventTriggerType.Drag).callback.AddListener (eventData => OnSwipe ((PointerEventData)eventData));
 
+		goCaution						.transform.Find ("Text").GetComponent<Text> ().text = Language.sentence [Language.START_CAUTION];
+		goCautionButtonYes				.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStart ());
+		goCautionButtonNo				.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonCaution (false));
+
 		goEndDescription				.GetComponent<Text> ().text = Language.sentence [Language.APPLICATION_QUIT];
 		goEndDescription				.GetComponent<Text> ().fontSize = Language.sentence == Language.sentenceJa ? 50 : 70;
 		goEndButtonYes					.GetComponent<Button> ().onClick.AddListener (() => OnEnd ());
@@ -717,7 +719,11 @@ public class TitleManager : MonoBehaviour
 		goExtraLifeNow					.GetComponent<Text> ().text = MainManager.Instance.life.ToString ();
 		goExtraRecommendedButtonMoreGame.GetComponent<Button> ().onClick.AddListener (() => OnExtraButtonMoreGame ());
 
-		goSelectCharacterButtonStart	.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStart ());
+		if (MainManager.Instance.isTutorial) {
+			goSelectCharacterButtonStart	.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStart ());
+		} else {
+			goSelectCharacterButtonStart	.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonCaution (true));
+		}
 		goSelectCharacterButtonGacha	.GetComponent<Button> ().onClick.AddListener (() => OnGacha ());
 		goSelectCharacterButtonPlayAds	.GetComponent<Button> ().onClick.AddListener (() => ShowAdsMovie ());
 		goSelectCharacterButtonBack		.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Menu, false));
@@ -786,10 +792,10 @@ public class TitleManager : MonoBehaviour
 	private void Create ()
 	{
 		goMenu.SetActive (false);
-		goMenuCaution.SetActive (false);
 		goRanking.SetActive (false);
 		goRecord.SetActive (false);
 		goHelp.SetActive (false);
+		goCaution.SetActive (false);
 		goEnd.SetActive (false);
 		goExtra.SetActive (false);
 		//MainManager.Instance.nendAdIcon.Hide ();
@@ -1095,7 +1101,7 @@ public class TitleManager : MonoBehaviour
 	
 	private void OnMenuButtonCaution (bool active)
 	{
-		goMenuCaution.SetActive (active);
+		goCaution.SetActive (active);
 		SoundManager.Instance.PlaySe (active ? SoundManager.SeName.SE_OK : SoundManager.SeName.SE_CANCEL);
 	}
 
@@ -1472,7 +1478,7 @@ public class TitleManager : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			switch (this.state) {
 			case State.Menu:
-				if (goMenuCaution.activeSelf) {
+				if (goCaution.activeSelf) {
 					OnMenuButtonCaution (false);
 				} else {
 					OnButton (State.End);
