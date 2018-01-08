@@ -104,7 +104,8 @@ public class Data
 	public const string URL								= "https://play.google.com/store/apps/details?id=com.kohchanstudio.SamuraiDrama";
 	public const string URL_IOS							= "https://itunes.apple.com/us/app/samurai-drama/id1308795627?l=ja&ls=1&mt=8";
 	public const string MORE_GAME_PACKAGENAME_ANDROID	= "market://details?id=com.KohchanStudio.ShogiPuzzle";
-	public const string MORE_GAME_PACKAGENAME_IOS		= "http://appstore.com/将棋駒でパズル";
+	//public const string MORE_GAME_PACKAGENAME_IOS		= "http://appstore.com/将棋駒でパズル";
+	public const string MORE_GAME_PACKAGENAME_IOS		= "itms-apps://itunes.apple.com/app/id1330151898";
 
 	public const int TARGET_FRAME_RATE					= 60;
 	public const float DELTA_TIME						= 1f/60;
