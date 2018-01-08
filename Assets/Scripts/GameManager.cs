@@ -1460,19 +1460,20 @@ public class GameManager : MonoBehaviour
 												if (PlayerPrefs.GetInt (Data.RECORD_MAX_TOMB_COLLAPSE) < list.Count - 1) {
 													PlayerPrefs.SetInt (Data.RECORD_MAX_TOMB_COLLAPSE, list.Count - 1);
 												}
+											} else {
+												if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter) && myWeapon.now > 0) {
+													Weapon weapon = new Weapon ();
+													weapon.Init ((Weapon.Compass)player.compass, player.positionX, player.positionY);
+													playerWeaponList.Add (weapon);
+													GroupWeapon groupWeapon = new GroupWeapon ();
+													groupWeapon.gameObject = Instantiate (goOriginWeapon) as GameObject;
+													groupWeapon.gameObjectImage = groupWeapon.gameObject.transform.Find ("Image").gameObject;
+													groupPlayerWeaponList.Add (groupWeapon);
+													SoundManager.Instance.PlaySe (SoundManager.SeName.SE_TOUCH);
+													myWeapon.now--;
+													goMyWeapon.GetComponent<Text> ().text = string.Format ("{0:00}", myWeapon.now).ToString ();
+												}
 											}
-										}
-										if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter) && myWeapon.now > 0) {
-											Weapon weapon = new Weapon ();
-											weapon.Init ((Weapon.Compass)player.compass, player.positionX, player.positionY);
-											playerWeaponList.Add (weapon);
-											GroupWeapon groupWeapon = new GroupWeapon ();
-											groupWeapon.gameObject = Instantiate (goOriginWeapon) as GameObject;
-											groupWeapon.gameObjectImage = groupWeapon.gameObject.transform.Find ("Image").gameObject;
-											groupPlayerWeaponList.Add (groupWeapon);
-											SoundManager.Instance.PlaySe (SoundManager.SeName.SE_TOUCH);
-											myWeapon.now--;
-											goMyWeapon.GetComponent<Text> ().text = string.Format ("{0:00}", myWeapon.now).ToString ();
 										}
 									}
 								}
@@ -2181,11 +2182,11 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString());
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString ());
 											if (ShowAdsBanner (15)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
-																					}
+										}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
 										if (remainingTime.now == 0) {
@@ -2196,7 +2197,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
-											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage.ToString());
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage.ToString ());
 											if (ShowAdsBanner (20)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
@@ -2399,7 +2400,7 @@ public class GameManager : MonoBehaviour
 						loop = true;
 						SoundManager.Instance.StopBgm ();
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-						FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString());
+						FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString ());
 					}
 				}
 				break;
@@ -2609,7 +2610,7 @@ public class GameManager : MonoBehaviour
 						}
 					}
 						
-					LifeUpForAds();
+					LifeUpForAds ();
 
 					switch (continueCommand) {
 					case CONTINUE_COMMAND_MOVIE:
