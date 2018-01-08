@@ -2181,11 +2181,11 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage);
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString());
 											if (ShowAdsBanner (15)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
-										}
+																					}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
 										if (remainingTime.now == 0) {
@@ -2196,7 +2196,7 @@ public class GameManager : MonoBehaviour
 											loop = true;
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
-											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage);
+											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage.ToString());
 											if (ShowAdsBanner (20)) {
 												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
 											}
@@ -2399,7 +2399,7 @@ public class GameManager : MonoBehaviour
 						loop = true;
 						SoundManager.Instance.StopBgm ();
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
-						FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage);
+						FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString());
 					}
 				}
 				break;
@@ -2608,6 +2608,8 @@ public class GameManager : MonoBehaviour
 							FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GAMEOVER_BANNER_ADS);
 						}
 					}
+						
+					LifeUpForAds();
 
 					switch (continueCommand) {
 					case CONTINUE_COMMAND_MOVIE:
@@ -2622,11 +2624,13 @@ public class GameManager : MonoBehaviour
 							player.SetBlind (true, Color.white);
 							groupPlayer.invincibleTime = 5f;
 							remainingTime.now = Data.GetStageData (MainManager.Instance.stage).limitTime;
+							//MainManager.Instance.nendAdBanner.Hide ();
+							MainManager.Instance.bannerView.Hide ();
 						}
 						break;
 					case CONTINUE_COMMAND_YES:
 						{
-							MainManager.Instance.CurrentStage (0, 0);
+							MainManager.Instance.CurrentStage (life.now, 0);
 						}
 						break;
 					case CONTINUE_COMMAND_NO:
@@ -3327,6 +3331,8 @@ public class GameManager : MonoBehaviour
 					} else {
 						MainManager.Instance.NextStage (life.now, myWeapon.now);
 					}
+
+					LifeUpForAds();
 					SetClearNextStage ();
 				}
 			}
@@ -4282,14 +4288,18 @@ public class GameManager : MonoBehaviour
 	{
 		bool flag = false;
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < n) {
-			MainManager.Instance.ShowInterstitialNoMovie (() => {
-				life.now++;
-				SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_1UP);
-				flag = true;
-			});
+		if (UnityEngine.Random.Range (0, 100) < n) {
+			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
-
 		return flag;
+	}
+
+	private void LifeUpForAds()
+	{
+		if (MainManager.Instance.isInterstitialClose) {
+			life.now++;
+			SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_1UP);
+			MainManager.Instance.isInterstitialClose = false;
+		}
 	}
 }

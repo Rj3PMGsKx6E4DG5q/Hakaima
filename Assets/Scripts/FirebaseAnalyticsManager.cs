@@ -24,7 +24,7 @@ public class FirebaseAnalyticsManager : MonoBehaviour {
 
 	public void LogEvent(string log)
 	{
-		Debug.Log (log);
+		//Debug.Log (log);
 
 		if (Application.internetReachability == NetworkReachability.NotReachable)
 			return;
@@ -36,7 +36,7 @@ public class FirebaseAnalyticsManager : MonoBehaviour {
 
 	public void LogScreen(string log)
 	{
-		Debug.Log (log);
+		//Debug.Log (log);
 
 		if (Application.internetReachability == NetworkReachability.NotReachable)
 			return;

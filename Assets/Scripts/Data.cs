@@ -102,9 +102,9 @@ public class Data
 
 
 	public const string URL								= "https://play.google.com/store/apps/details?id=com.kohchanstudio.SamuraiDrama";
-	public const string URL_IOS							= "https://play.google.com/store/apps/details?id=com.kohchanstudio.SamuraiDrama";
+	public const string URL_IOS							= "https://itunes.apple.com/us/app/samurai-drama/id1308795627?l=ja&ls=1&mt=8";
 	public const string MORE_GAME_PACKAGENAME_ANDROID	= "market://details?id=com.KohchanStudio.ShogiPuzzle";
-	public const string MORE_GAME_PACKAGENAME_IOS		= "";
+	public const string MORE_GAME_PACKAGENAME_IOS		= "http://appstore.com/将棋駒でパズル";
 
 	public const int TARGET_FRAME_RATE					= 60;
 	public const float DELTA_TIME						= 1f/60;
@@ -231,6 +231,7 @@ public class Data
 	public const string FIREBASE_EVENT_GACHA_MACHIMUSUME	= "eGachaMachimusume";	// 町娘.
 	public const string FIREBASE_EVENT_GACHA_HACHI			= "eGachaHachi";		// ハチ.
 	public const string FIREBASE_EVENT_GACHA_LIFE			= "eGachaLife";			// ライフ.
+	public const string FIREBASE_EVENT_RANKING_LOGIN		= "eRankingLogin";		// ランキングにログイン.
 	public const string FIREBASE_EVENT_RANKING_SIGNIN		= "eRankingSignin";		// ランキングを登録.
 	public const string FIREBASE_EVENT_EXTRA_ITEM			= "eExtraItem";			// アイテムの動画広告.
 	public const string FIREBASE_EVENT_EXTRA_LIFE			= "eExtraLife";			// 残機アップの動画広告.

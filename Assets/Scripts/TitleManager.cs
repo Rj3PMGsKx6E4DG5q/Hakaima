@@ -354,7 +354,7 @@ public class TitleManager : MonoBehaviour
 			// あたり.
 			if (randomNum >= start && randomNum < start + hit) {
 				//Debug.Log ("HIT");
-				selectedGachaNumber = UnityEngine.Random.Range (0, Data.CHARACTER_MAX - 1);
+				selectedGachaNumber = UnityEngine.Random.Range (1, Data.CHARACTER_MAX);
 			} else {
 				// -1 = life 1up.
 				selectedGachaNumber = -1;
@@ -777,7 +777,7 @@ public class TitleManager : MonoBehaviour
 
 		// Add 2017.11.7
 		#if UNITY_IOS
-		goExtraRecommendedButtonMoreGame.SetActive(false);
+		goExtraRecommendedButtonMoreGame.transform.Find("Image/Text").GetComponent<Text>().text = "App Store";
 		#endif
 	}
 	
@@ -980,7 +980,7 @@ public class TitleManager : MonoBehaviour
 		case State.Ranking:
 			{
 				if (Logined()) {
-					MainManager.Instance.isDebug = true;
+					//MainManager.Instance.isDebug = true;
 					if (Ranking.State.Fetch == ranking.state) {
 						//goRankingButtonChangeUserName.SetActive (true);
 						goRankingButtonBack.SetActive (true);
@@ -1303,6 +1303,14 @@ public class TitleManager : MonoBehaviour
 	// ガチャ演出と抽選.
 	private void ProcGacha()
 	{
+		// ガチャチケット獲得.
+		if (MainManager.Instance.isInterstitialClose) {
+			MainManager.Instance.gachaTicket += 1;
+			ReflashGachaTicket();
+			MainManager.Instance.isInterstitialClose = false;
+			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
+		}
+
 		if (gacha.gachaMode > 0) {
 			// 演出スキップ.
 			bool isSkip = false;
@@ -1412,12 +1420,8 @@ public class TitleManager : MonoBehaviour
 	private void ShowAdsBanner()
 	{
 		UnityEngine.Random.InitState ((int)Time.time);
-		if(UnityEngine.Random.Range(0,100) < 20) {
-			MainManager.Instance.ShowInterstitialNoMovie (() => {
-				MainManager.Instance.gachaTicket += 1;
-				ReflashGachaTicket();
-				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_GACHA_BANNER_ADS);
-			});
+		if (UnityEngine.Random.Range (0, 100) < 20) {
+			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
 	}
 
@@ -1880,6 +1884,9 @@ public class TitleManager : MonoBehaviour
 
 				if (PlayerPrefs.HasKey (Data.RECORD_SCORE_HIGH)) {
 					score = PlayerPrefs.GetInt (Data.RECORD_SCORE_HIGH);
+					int present = PlayerPrefs.GetInt (Data.RECORD_SCORE);
+					if (present < 10000)
+						score = present;
 				}
 
 				ranking.Save (score, stage);
@@ -1941,6 +1948,7 @@ public class TitleManager : MonoBehaviour
 					MainManager.Instance.loginInfo.SetLoginInfo(userName,password);
 					PlayerPrefs.SetString (Data.LOGIN_NAME, userName);
 					PlayerPrefs.SetString (Data.LOGIN_PASSWORD, password);
+					FirebaseAnalyticsManager.Instance.LogEvent(Data.FIREBASE_EVENT_RANKING_LOGIN);
 				}
 				else {
 					errorCode = e.ErrorCode;
