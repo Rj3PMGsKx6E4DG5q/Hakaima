@@ -3149,10 +3149,26 @@ public class GameManager : MonoBehaviour
 		switch (state) {
 		case State.Ready:
 		case State.ReadyContinue:
-		{
+			{
 				if (collectReady.go.activeSelf) {
 					if (collectReady.go.GetComponent<Image> ().color != collectReady.color) {
 						collectReady.go.GetComponent<Image> ().color = collectReady.color;
+					}
+					bool active = collectReady.color.a >= 0.5f;
+					if (collectReady.goStage.GetComponent<Text> ().enabled != active) {
+						collectReady.goStage.GetComponent<Text> ().enabled = active;
+					}
+					if (collectReady.goDescription.GetComponent<Text> ().enabled != active) {
+						collectReady.goDescription.GetComponent<Text> ().enabled = active;
+					}
+					if (collectReady.goClear.GetComponent<Text> ().enabled != active) {
+						collectReady.goClear.GetComponent<Text> ().enabled = active;
+					}
+					if (collectReady.goReady.GetComponent<Text> ().enabled != active) {
+						collectReady.goReady.GetComponent<Text> ().enabled = active;
+					}
+					if (collectReady.goGo.GetComponent<Text> ().enabled != active) {
+						collectReady.goGo.GetComponent<Text> ().enabled = active;
 					}
 				}
 			}
