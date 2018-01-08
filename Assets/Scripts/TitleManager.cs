@@ -350,7 +350,7 @@ public class TitleManager : MonoBehaviour
 			int randomNum = UnityEngine.Random.Range (0, n);
 			int hit = n / (n / 20);
 
-			Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
+			//Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
 			// あたり.
 			if (randomNum >= start && randomNum < start + hit) {
 				//Debug.Log ("HIT");
