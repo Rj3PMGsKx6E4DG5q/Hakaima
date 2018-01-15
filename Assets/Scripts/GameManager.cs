@@ -3289,7 +3289,7 @@ public class GameManager : MonoBehaviour
 
 	private Player.Compass checkCompass;
 	private Vector2 checkPosition;
-	private float checkHoleTime;
+	private Coroutine coroutine;
 
 	private void OnTouchPointerDown (PointerEventData eventData)
 	{
@@ -3322,10 +3322,7 @@ public class GameManager : MonoBehaviour
 
 				checkCompass = player.compass;
 				checkPosition = eventData.pressPosition;
-			
-				if (Time.time - checkHoleTime < 1.00f)
-					groupPlayer.canHoleCycle = true;
-				checkHoleTime = Time.time;
+				coroutine = StartCoroutine (SetCanHoleCycle ());
 			}
 			break;
 		case State.Clear:
@@ -3359,6 +3356,15 @@ public class GameManager : MonoBehaviour
 
 
 
+	private IEnumerator SetCanHoleCycle ()
+	{
+		yield return new WaitForSeconds (0.2f);
+
+		groupPlayer.canHoleCycle = true;
+	}
+
+
+
 	private void OnTouchPointerUp (PointerEventData eventData)
 	{
 		if (state == State.Play) {
@@ -3366,6 +3372,8 @@ public class GameManager : MonoBehaviour
 
 			if (playerNextCommand == PLAYER_NEXT_COMMAND_NONE)
 				isCommandNoneClick = true;
+
+			StopCoroutine (coroutine);
 		}
 
 		goTrail.GetComponent<TrailRenderer> ().material.color = Color.white;
