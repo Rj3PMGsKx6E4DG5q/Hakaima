@@ -108,7 +108,7 @@ public class MainManager : MonoBehaviour
 	 * 
 	 * 
 	 */
-	public const int INFORMATION_NUMBER = 1;
+	public const int INFORMATION_NUMBER = 123;
 
 	private State state;
 	private float time;

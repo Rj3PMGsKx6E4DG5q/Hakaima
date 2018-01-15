@@ -346,9 +346,9 @@ public class TitleManager : MonoBehaviour
 		{
 			UnityEngine.Random.InitState ((int)Time.time);
 
-			int start = UnityEngine.Random.Range (0, n - 10);
+			int start = UnityEngine.Random.Range (0, n - 20);
 			int randomNum = UnityEngine.Random.Range (0, n);
-			int hit = n / (n / 10);
+			int hit = n / (n / 20);
 
 			//Debug.Log ("Gacha Resut : " + start + " < " + randomNum+" < "+(start+hit));
 			// あたり.

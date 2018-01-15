@@ -91,6 +91,11 @@ public class Language
 	public const string INFORMATION_VER120_JP = "1.新キャラクターを追加しました。\nキャラクターによって、武器を投げ\nて敵を倒すことが出来るようになり\nました。\n\n2.ヘルプを追加しました。\n\n3.ランキングへの参加が簡単に\nなりました。\n（自動でIDを割り振ります）";
 	public const string INFORMATION_VER120_EN = "1.Added 5th new character.\nPart of new character became \nable to throw weapon and \ndefeat the enemy.\n\n2.Added a help page.\n\n3.Easy commit to ranking.\n(Give an ID automatic)";
 
+	public const string INFORMATION_VER123_TITLE_JP = "Ver.1.2.3 バージョンアップ情報";
+	public const string INFORMATION_VER123_TITLE_EN = "Ver.1.2.3 Information";
+	public const string INFORMATION_VER123_JP = "・ガチャのキャラクター出現率を\n10%から20%に変更しました。";
+	public const string INFORMATION_VER123_EN = "- Gacha lottery rate changed \n10% to 20%.";
+
 
 	public static Dictionary<int, string> sentence = sentenceJa;
 
@@ -159,11 +164,11 @@ public class Language
 		{YOUGOTCHARA,					"キャラを獲得しました！"},
 		{LIFEIS1UP,						"残機が１つ増えました。"},
 		{GACHA_RESULT_GACHATICKETTEXT,	"持っているガチャチケット数"},
-		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 10%"},
-		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 90%"},
+		{GACHA_LOTTERY_CHARA,			"キャラクターを引く確率 20%"},
+		{GACHA_LOTTERY_LIFE,			"残機数アップを引く確率 80%"},
 		{GACHA_SKIP,					"タップでスキップ出来ます"},
-		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_JP},
-		{INFORMATION_EXPLANATION,		INFORMATION_VER120_JP},
+		{INFORMATION_TITLE,				INFORMATION_VER123_TITLE_JP},
+		{INFORMATION_EXPLANATION,		INFORMATION_VER123_JP},
 		{LOGIN_BONUS_TEXT,				"いつも遊んでくれて\nありがとう！\nガチャチケットを2枚プレゼントします。\n\n<color=#ff0000>※アプリを起動すると、１日１回ガチャチケットが手に入る時があります。</color>"},
 		{RANKING_FIRST_EXPLANATION,		"名前とパスワードは、登録完了時に自動で割り降られます。※後から変更可能です。\n登録完了後、名前とパスワードはアプリ内に保持しますので、次回よりランキングを選択後は、自動でログインします。"},
 		{RANKING_REGISTED_EXPLANATION,	"アプリを消したり、データ消去を行うと再度、登録から行う必要があります。ご注意ください。"},
@@ -240,11 +245,11 @@ public class Language
 		{YOUGOTCHARA,					"You got a character！"},
 		{LIFEIS1UP,						"Life is 1UP."},
 		{GACHA_RESULT_GACHATICKETTEXT,	"You have Gacha Ticket."},
-		{GACHA_LOTTERY_CHARA,			"Lottery of Character 10%"},
-		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 90%"},
+		{GACHA_LOTTERY_CHARA,			"Lottery of Character 20%"},
+		{GACHA_LOTTERY_LIFE,			"Lottery of Life up 80%"},
 		{GACHA_SKIP,					"Tap to skip"},
-		{INFORMATION_TITLE,				INFORMATION_VER120_TITLE_EN},
-		{INFORMATION_EXPLANATION,		INFORMATION_VER120_EN},
+		{INFORMATION_TITLE,				INFORMATION_VER123_TITLE_EN},
+		{INFORMATION_EXPLANATION,		INFORMATION_VER123_EN},
 		{LOGIN_BONUS_TEXT,				"Thank you playing all the time!\nIt's presents two Gacha Ticket for you.\n\n<color=#ff0000>*When you start the game, you may get the Gacha Ticket once a day possibility.</color>"},
 		{RANKING_FIRST_EXPLANATION,		"Your name and password are decided automatic when registed. *Possible to change after registed. After finish of regist, your name and password save in application. It is logined automatic next time and more. When you application uninstalled, or removed data of the smartphone, please login again."},
 		{RANKING_REGISTED_EXPLANATION,	"If the appliation is removed or the data is removed, need to regist again. Please be careful."},
