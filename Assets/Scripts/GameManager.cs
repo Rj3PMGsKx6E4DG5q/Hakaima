@@ -1461,6 +1461,7 @@ public class GameManager : MonoBehaviour
 													PlayerPrefs.SetInt (Data.RECORD_MAX_TOMB_COLLAPSE, list.Count - 1);
 												}
 											} else {
+												if (canThrough)
 												if (MainManager.Instance.IsWeaponCharacter (MainManager.Instance.selectCharacter) && myWeapon.now > 0) {
 													Weapon weapon = new Weapon ();
 													weapon.Init ((Weapon.Compass)player.compass, player.positionX, player.positionY);
@@ -1660,6 +1661,7 @@ public class GameManager : MonoBehaviour
 				
 			
 					groupPlayer.isSweat = false;
+					canThrough = true;
 					for (int i = 0; i < enemyList.Count; i++) {
 						Enemy enemy = enemyList [i];
 						GroupEnemy groupEnemy = groupEnemyList [i];
@@ -3290,6 +3292,8 @@ public class GameManager : MonoBehaviour
 	private Player.Compass checkCompass;
 	private Vector2 checkPosition;
 	private Coroutine coroutine;
+	private bool canThrough;
+	private bool isDigged;
 
 	private void OnTouchPointerDown (PointerEventData eventData)
 	{
@@ -3361,6 +3365,7 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds (0.2f);
 
 		groupPlayer.canHoleCycle = true;
+		isDigged = true;
 	}
 
 
@@ -3369,11 +3374,15 @@ public class GameManager : MonoBehaviour
 	{
 		if (state == State.Play) {
 			isTouch = false;
+			if (isDigged)
+				canThrough = false;
+			isDigged = false;
 
 			if (playerNextCommand == PLAYER_NEXT_COMMAND_NONE)
 				isCommandNoneClick = true;
 
-			StopCoroutine (coroutine);
+			if (coroutine != null)
+				StopCoroutine (coroutine);
 		}
 
 		goTrail.GetComponent<TrailRenderer> ().material.color = Color.white;
