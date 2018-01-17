@@ -102,13 +102,7 @@ public class MainManager : MonoBehaviour
 	public const int START_WEAPON = 0;
 	public const int INIT_GATHATICKET = 0;
 
-	/*
-	 * Ver.1.2.0 = 1 
-	 * 
-	 * 
-	 * 
-	 */
-	public const int INFORMATION_NUMBER = 123;
+	public const int INFORMATION_NUMBER = 124;
 
 	private State state;
 	private float time;
@@ -631,9 +625,6 @@ public class MainManager : MonoBehaviour
 			return;
 		}
 		informationNumber = PlayerPrefs.GetInt (Data.INFORMATION);
-
-		// For Debug.
-		//informationNumber = 0;
 	}
 
 
