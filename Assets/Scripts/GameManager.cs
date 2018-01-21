@@ -1246,7 +1246,7 @@ public class GameManager : MonoBehaviour
 								}
 							} else {
 								if (!isTouch) {
-									groupPlayer.canHoleCycle = false;
+		//							groupPlayer.canHoleCycle = false;
 									playerNextCompass = player.compass;
 									playerNextCommand = PLAYER_NEXT_COMMAND_NONE;
 								}
