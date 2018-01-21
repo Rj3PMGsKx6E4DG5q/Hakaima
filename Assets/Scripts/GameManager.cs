@@ -3427,6 +3427,8 @@ public class GameManager : MonoBehaviour
 				}
 				if (playerNextCommand == PLAYER_NEXT_COMMAND_COMPASS) {
 					if (movePosition.magnitude >= Data.EVENT_MOVE_MAGNITUDE_COMPASS) {
+						if (playerNextCompass != checkCompass)
+							groupPlayer.canHoleCycle = false;
 						playerNextCompass = checkCompass;
 					}
 					if (movePosition.magnitude >= Data.EVENT_MOVE_MAGNITUDE_COMPASS_WALK) {
@@ -3439,8 +3441,6 @@ public class GameManager : MonoBehaviour
 						playerNextCompass = checkCompass;
 					}
 				}
-
-				groupPlayer.canHoleCycle = false;
 			}
 			break;
 		case State.TutorialHelp:
