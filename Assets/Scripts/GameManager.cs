@@ -4320,9 +4320,10 @@ public class GameManager : MonoBehaviour
 	// バナーが出たらガチャチケット１枚.
 	private bool ShowAdsBanner(int n)
 	{
+		int randNum = (MainManager.Instance.stage >= 5) ? n * 2 : n;
 		bool flag = false;
 		UnityEngine.Random.InitState ((int)Time.time);
-		if (UnityEngine.Random.Range (0, 100) < n) {
+		if (UnityEngine.Random.Range (0, 100) < randNum) {
 			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
 		return flag;
