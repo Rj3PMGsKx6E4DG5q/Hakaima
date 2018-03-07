@@ -113,7 +113,7 @@ public class Language
 		{GAME_READY_APPEAR_BOSS,		"ボスを倒す"},
 
 		{GAME_PAUSE,					"動画を視聴すると残機が５機増えます。"},
-		{GAME_CONTINUE,					"CONTINUEを選ぶとゲームオーバーしたステージの\n始めからゲームに復帰します。\nPLAY MOVIEを選ぶと動画広告が始まり、最後まで\n視聴すると残機が５機に増えてゲームに復帰出来ます。\nTITLEを選ぶとゲームは終了します。"},
+		{GAME_CONTINUE,					"CONTINUEを選ぶとゲームオーバーしたステージの\n始めからゲームに復帰します。\n広告が出た時点で１機増えます。\nPLAY MOVIEを選ぶと動画広告が始まり、最後まで\n視聴すると残機が５機に増えてゲームに復帰出来ます。"},
 		{GAME_HELP,						"この画面は、次回以降表示されません。\nヘルプからいつでも確認出来ます。"},
 		{GAME_TUTORIAL_1,				"墓で敵を倒せます。"},
 		{GAME_TUTORIAL_2,				"穴に落として埋めると敵を倒せます。"},
@@ -194,7 +194,7 @@ public class Language
 		{GAME_READY_APPEAR_BOSS,		"Beat the Boss!"},
 		
 		{GAME_PAUSE,					"It is added 5 life\nif you will play movie."},
-		{GAME_CONTINUE,					"Restart to play from the stage when you choose\nCONTINUE button. The movie ads begins when choose\nPLAY MOVIE button. If you finished to watch the\nmovie ads, you can continue to play with 5 life.\nFinish the game when choose TITLE button."},
+		{GAME_CONTINUE,					"Restart to play from the stage when you choose\nCONTINUE button. And add a life if appear ads.\nThe movie ads begins when choose\nPLAY MOVIE button. If you finished to watch the\nmovie ads, you can continue to play with 5 life."},
 		{GAME_HELP,						"This screen does not draw next time after.\nAlways confirm from help available."},
 		{GAME_TUTORIAL_1,				"Beat enemies using tomb."},
 		{GAME_TUTORIAL_2,				"Drop to the hole and fill it."},

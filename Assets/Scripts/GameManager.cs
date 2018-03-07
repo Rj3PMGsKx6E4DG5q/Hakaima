@@ -2185,9 +2185,9 @@ public class GameManager : MonoBehaviour
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR);
 											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR + MainManager.Instance.stage.ToString ());
-											if (ShowAdsBanner (15)) {
-												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
-											}
+											//if (ShowAdsBanner (15)) {
+											//	FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
+											//}
 										}
 									} else {
 										remainingTime.now -= Data.DELTA_TIME;
@@ -2200,9 +2200,9 @@ public class GameManager : MonoBehaviour
 											SoundManager.Instance.StopBgm ();
 											SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_CLEAR_TIME0);
 											FirebaseAnalyticsManager.Instance.LogScreen (Data.FIREBASE_SCREEN_STAGECLEAR_RUN + MainManager.Instance.stage.ToString ());
-											if (ShowAdsBanner (20)) {
-												FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
-											}
+											//if (ShowAdsBanner (20)) {
+											//	FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_STAGECLEAR_BANNER_ADS);
+											//}
 										}
 									}
 								}
@@ -4320,13 +4320,16 @@ public class GameManager : MonoBehaviour
 	// バナーが出たらガチャチケット１枚.
 	private bool ShowAdsBanner(int n)
 	{
-		int randNum = (MainManager.Instance.stage >= 5) ? n * 2 : n;
+		/*int randNum = (MainManager.Instance.stage >= 5) ? n * 2 : n;
 		bool flag = false;
 		UnityEngine.Random.InitState ((int)Time.time);
 		if (UnityEngine.Random.Range (0, 100) < randNum) {
 			MainManager.Instance.ShowInterstitialNoMovie ();
 		}
 		return flag;
+		*/
+		MainManager.Instance.ShowInterstitialNoMovie ();
+		return true;
 	}
 
 	private void LifeUpForAds()
