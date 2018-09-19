@@ -385,6 +385,7 @@ public class TitleManager : MonoBehaviour
 	private GameObject goInformation;
 
 	private GameObject goMenuLogo;
+	private GameObject goMenuJapaneseTitle;
 	private GameObject goMenuButtonStart;
 	private GameObject goMenuButtonContinue;
 	private GameObject goMenuButtonRanking;
@@ -558,6 +559,7 @@ public class TitleManager : MonoBehaviour
 		goInformation					= transform.Find ("UI/Information").gameObject;
 
 		goMenuLogo						= goMenu.transform.Find ("Logo").gameObject;
+		goMenuJapaneseTitle				= goMenu.transform.Find ("JapaneseTitle").gameObject;
 		goMenuButtonStart				= goMenu.transform.Find ("ButtonStart").gameObject;
 		goMenuButtonContinue			= goMenu.transform.Find ("ButtonContinue").gameObject;
 		goMenuButtonRanking				= goMenu.transform.Find ("ButtonRanking").gameObject;
@@ -658,8 +660,9 @@ public class TitleManager : MonoBehaviour
 		goInformationButton				= goInformation.transform.Find ("ButtonOk").gameObject;
 
 
-		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogo;
+		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogoEn;
 		goMenuLogo						.GetComponent<Image> ().SetNativeSize ();
+		goMenuJapaneseTitle				.SetActive (Language.sentence == Language.sentenceJa);
 		goMenuButtonStart				.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonStartSelectCharacter ());
 		goMenuButtonContinue			.GetComponent<Button> ().onClick.AddListener (() => OnMenuButtonContinue ());
 		goMenuButtonRanking				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Ranking));

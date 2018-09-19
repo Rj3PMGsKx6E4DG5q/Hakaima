@@ -235,7 +235,7 @@ public class MainManager : MonoBehaviour
 
 					if (this.bannerView != null)
 						this.bannerView.Destroy ();
-					this.bannerView = new BannerView (Data.BANNER_ID, AdSize.Banner, AdPosition.Top);
+					this.bannerView = new BannerView (Data.BANNER_ID, AdSize.Banner, AdPosition.Bottom);	// メニューを全体的に上に上げたのでバナーは下へ
 					this.bannerView.LoadAd (new AdRequest.Builder ().Build ());
 					this.bannerView.Hide ();
 
