@@ -4317,6 +4317,15 @@ public class GameManager : MonoBehaviour
 
 
 
+	private void OnApplicationPause (bool pauseStatus)
+	{
+		if (!isPause) {
+			OnPause (true);
+		}
+	}
+
+
+
 	private void OnDebugDamageClick ()
 	{
 		isDebugDamage = !isDebugDamage;
