@@ -184,7 +184,8 @@ public class MainManager : MonoBehaviour
 		this.state = State.Title;
 		this.time = 0;
 
-		this.SetResolution (Data.SCREEN_RESOLUTION);
+		this.SetResolution ();
+		this.SetCameraFitter ();
 		this.RecordLoad ();
 		/*
 		this.nendAdBanner = GameObject.Find ("NendAdBanner").GetComponent<NendAdBanner> ();
@@ -459,18 +460,29 @@ public class MainManager : MonoBehaviour
 
 
 
-	private void SetResolution (float resolution)
+	private void SetResolution ()
 	{
-		float screenRate = resolution / Screen.height;
-		if (screenRate > 1)
-			screenRate = 1;
-		int width = (int)(Screen.width * screenRate);
-		int height = (int)(Screen.height * screenRate);
+		float resolutionRatio = Data.ResolutionRatio;
+		if (resolutionRatio < 1) resolutionRatio = 1;
+		int width = (int)(Screen.width / resolutionRatio);
+		int height = (int)(Screen.height / resolutionRatio);
+
 		Screen.SetResolution (width, height, true, 15);
 	}
 
 
-	
+
+	private void SetCameraFitter ()
+	{
+		float orthographicSize = Data.SCREEN_HEIGHT / 2;
+		if (Data.AspectRatio > Data.DeviceAspectRatio)
+			orthographicSize = Data.AspectRatio / Data.DeviceAspectRatio * Data.SCREEN_HEIGHT / 2;
+
+		Camera.main.orthographicSize = orthographicSize;
+	}
+
+
+
 	public void ShowInterstitial (Action action)
 	{
 		if (interstitial.IsLoaded ()) {
