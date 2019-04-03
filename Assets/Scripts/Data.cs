@@ -112,7 +112,15 @@ public class Data
 
 	public const int SCREEN_WIDTH						= 1080;
 	public const int SCREEN_HEIGHT						= 1920;
-	public const int SCREEN_RESOLUTION					= 1024;
+	public const float SCREEN_RESOLUTION_WIDTH			= 576;
+	public const float SCREEN_RESOLUTION_HEIGHT			= 1024;
+
+	public static readonly float DeviceWidth			= UnityEngine.Screen.width;
+	public static readonly float DeviceHeight			= UnityEngine.Screen.height;
+
+	public static readonly float ResolutionRatio		= DeviceHeight / SCREEN_RESOLUTION_HEIGHT;
+	public static readonly float AspectRatio			= SCREEN_WIDTH / SCREEN_HEIGHT;
+	public static readonly float DeviceAspectRatio		= DeviceWidth / DeviceHeight;
 
 	public const int LENGTH_X							= 10;
 	public const int LENGTH_Y							= 17;
