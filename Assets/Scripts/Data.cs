@@ -118,9 +118,9 @@ public class Data
 	public static readonly float DeviceWidth			= UnityEngine.Screen.width;
 	public static readonly float DeviceHeight			= UnityEngine.Screen.height;
 
-	public static readonly float ResolutionRatio		= DeviceHeight / SCREEN_RESOLUTION_HEIGHT;
-	public static readonly float AspectRatio			= SCREEN_WIDTH / SCREEN_HEIGHT;
-	public static readonly float DeviceAspectRatio		= DeviceWidth / DeviceHeight;
+	public static readonly float ResolutionRatio		= 1.0f * DeviceHeight / SCREEN_RESOLUTION_HEIGHT;
+	public static readonly float AspectRatio			= 1.0f * SCREEN_WIDTH / SCREEN_HEIGHT;
+	public static readonly float DeviceAspectRatio		= 1.0f * DeviceWidth / DeviceHeight;
 
 	public const int LENGTH_X							= 10;
 	public const int LENGTH_Y							= 17;
