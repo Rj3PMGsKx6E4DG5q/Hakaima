@@ -460,11 +460,14 @@ public class GameManager : MonoBehaviour
 		public GameObject goHowToImageJp;
 		public GameObject goHowToImageEn;
 		public GameObject goHowToButtonClose;
-	}
+        public GameObject goCaution;
+        public GameObject goCautionButtonYes;
+        public GameObject goCautionButtonNo;
+    }
 
 
 
-	private class CollectClear
+    private class CollectClear
 	{
 		public GameObject go;
 		public GameObject goTitle;
@@ -554,6 +557,7 @@ public class GameManager : MonoBehaviour
 
 	private bool isPause;
 	private bool isHowto;
+    private bool isCaution;
 	private Score score;
 	private Life life;
 	private MyWeapon myWeapon;
@@ -745,8 +749,11 @@ public class GameManager : MonoBehaviour
 		collectPause.goHowToImageJp		= collectPause.go.transform.Find ("HowTo/Help_jp").gameObject;
 		collectPause.goHowToImageEn		= collectPause.go.transform.Find ("HowTo/Help_en").gameObject;
 		collectPause.goHowToButtonClose	= collectPause.go.transform.Find ("HowTo/ButtonBack").gameObject;
+        collectPause.goCaution          = collectPause.go.transform.Find("Caution").gameObject;
+        collectPause.goCautionButtonYes = collectPause.go.transform.Find("Caution/ButtonYes").gameObject;
+        collectPause.goCautionButtonNo  = collectPause.go.transform.Find("Caution/ButtonNo").gameObject;
 
-		collectClear					= new CollectClear ();
+        collectClear = new CollectClear ();
 		collectClear.go					= transform.Find ("UI/Logo/Clear").gameObject;
 		collectClear.goTitle			= collectClear.go.transform.Find ("Title").gameObject;
 		collectClear.goEnemy			= collectClear.go.transform.Find ("Enemy").gameObject;
@@ -852,9 +859,11 @@ public class GameManager : MonoBehaviour
 		collectContinue.goButtonContinue	.GetComponent<Button> ().onClick.AddListener (() => OnContinue (CONTINUE_COMMAND_YES));
 		collectContinue.goButtonMovie		.GetComponent<Button> ().onClick.AddListener (() => OnContinueMovie ());
 		collectContinue.goButtonEnd			.GetComponent<Button> ().onClick.AddListener (() => OnContinue (CONTINUE_COMMAND_NO));
+        collectPause.goCautionButtonYes     .GetComponent<Button> ().onClick.AddListener (() => OnCaution(true));
+        collectPause.goCautionButtonNo      .GetComponent<Button> ().onClick.AddListener (() => OnCaution(false));
 
 
-		OnVolume (SoundManager.Instance.GetMute ());
+        OnVolume(SoundManager.Instance.GetMute ());
 
 
 
@@ -3289,7 +3298,8 @@ public class GameManager : MonoBehaviour
 		if (state == State.Play) {
 			this.isPause = isPause;
 			isHowto = false;
-			collectPause.go.SetActive (isPause);
+            isCaution = false;
+            collectPause.go.SetActive (isPause);
 			collectPause.goHowTo.SetActive (isHowto);
 			if (this.isPause) {
 				//MainManager.Instance.nendAdBanner.Show ();
@@ -3330,8 +3340,33 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private void OnPauseEnd ()
+    private void OnCaution(bool isCaution)
+    {
+        this.isCaution = isCaution;
+        collectPause.goCaution.SetActive(this.isCaution);
+        if (this.isCaution)
+        {
+            SoundManager.Instance.PlaySe(SoundManager.SeName.SE_OK);
+            // 武器半分(2以上保持時).
+            if (myWeapon.now > 1)
+                myWeapon.now /= 2;
+            SoundManager.Instance.StopSe();
+            SoundManager.Instance.PlaySe(SoundManager.SeName.SE_CANCEL);
+            //MainManager.Instance.nendAdBanner.Hide ();
+            MainManager.Instance.bannerView.Hide();
+            MainManager.Instance.Title();
+        }
+        else
+        {
+            SoundManager.Instance.PlaySe(SoundManager.SeName.SE_CANCEL);
+        }
+    }
+
+
+
+    private void OnPauseEnd ()
 	{
+        /*
 		if (state == State.Play) {
 			// 武器半分(2以上保持時).
 			if (myWeapon.now > 1)
@@ -3342,7 +3377,10 @@ public class GameManager : MonoBehaviour
 			MainManager.Instance.bannerView.Hide ();
 			MainManager.Instance.Title ();
 		}
-	}
+        */
+        SoundManager.Instance.PlaySe(SoundManager.SeName.SE_OK);
+        collectPause.goCaution.SetActive(true);
+    }
 
 
 
