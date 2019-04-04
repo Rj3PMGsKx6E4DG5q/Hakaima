@@ -1485,9 +1485,14 @@ public class TitleManager : MonoBehaviour
 	private void CheckBackKey ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
+            if (goGachaResult.activeSelf)
+            {
+                OnGachaResultBackButton();
+            }
 			//キャラクター選択はダイアログで判定
-			if (goSelectCharacter.activeSelf) {
-				goSelectCharacter.SetActive (false);
+			else if (goSelectCharacter.activeSelf) {
+                SoundManager.Instance.PlaySe(SoundManager.SeName.SE_CANCEL);
+                goSelectCharacter.SetActive (false);
 			} else {
 				switch (this.state) {
 					case State.Menu:
