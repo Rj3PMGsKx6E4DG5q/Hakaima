@@ -558,7 +558,6 @@ public class GameManager : MonoBehaviour
 	private bool isPause;
 	private bool isHowto;
     private bool isCaution;
-    private bool donePauseMovie;
     private Vector3 pauseHowToPosition;
 	private Score score;
 	private Life life;
@@ -868,9 +867,9 @@ public class GameManager : MonoBehaviour
 
         OnVolume(SoundManager.Instance.GetMute ());
 
+        ShowPauseMovie();
 
-
-		goDebug = transform.Find ("UI/Debug").gameObject;
+        goDebug = transform.Find ("UI/Debug").gameObject;
 		goDebug.transform.Find ("Damage").GetComponent<Button> ().onClick.AddListener (() => OnDebugDamageClick ());
 		goDebug.transform.Find ("PreStage").GetComponent<Button> ().onClick.AddListener (() => {
 			keepCellList = null;
@@ -2657,7 +2656,7 @@ public class GameManager : MonoBehaviour
 							time = 0;
 							pattern = 0;
 							loop = true;
-                            donePauseMovie = false;
+                            MainManager.Instance.donePauseMovie = false;
                             ShowPauseMovie();
                             player.Rise ();
 							player.SetBlind (true, Color.white);
@@ -2672,14 +2671,14 @@ public class GameManager : MonoBehaviour
 							// コンティニュー時のライフを指定の数に（３）
 							life.now = Data.CONTINUE_LIFE;
 							MainManager.Instance.CurrentStage (life.now, 0);
-                            donePauseMovie = false;
+                            MainManager.Instance.donePauseMovie = false;
                             ShowPauseMovie();
 						}
 						break;
 					case CONTINUE_COMMAND_NO:
 						{
 							MainManager.Instance.Title ();
-                            donePauseMovie = false;
+                            MainManager.Instance.donePauseMovie = false;
                             ShowPauseMovie();
 						}
 						break;
@@ -3302,8 +3301,8 @@ public class GameManager : MonoBehaviour
 
     private void ShowPauseMovie()
     {
-        collectPause.goButtonMovie.SetActive(!donePauseMovie);
-        if (donePauseMovie)
+        collectPause.goButtonMovie.SetActive(!MainManager.Instance.donePauseMovie);
+        if (MainManager.Instance.donePauseMovie)
         {
             collectPause.goButtonHowTo.transform.position = collectPause.goButtonMovie.transform.position;
         }
@@ -3339,8 +3338,8 @@ public class GameManager : MonoBehaviour
 	
 	private void OnPauseMovie ()
 	{
-		MainManager.Instance.ShowInterstitial (() => {
-            donePauseMovie = true;
+        MainManager.Instance.ShowInterstitial (() => {
+            MainManager.Instance.donePauseMovie = true;
             ShowPauseMovie();
             life.now += 5;
 			FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_EVENT_PAUSE_ADS);

@@ -1088,7 +1088,8 @@ public class TitleManager : MonoBehaviour
 	
 	private void OnMenuButtonStart ()
 	{
-		MainManager.Instance.StoryPrologue ();
+        MainManager.Instance.donePauseMovie = false;
+        MainManager.Instance.StoryPrologue ();
 		MainManager.Instance.RecordSave ();
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();

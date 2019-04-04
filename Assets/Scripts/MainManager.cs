@@ -116,8 +116,9 @@ public class MainManager : MonoBehaviour
 	public bool isExtraItemHoe		{ get; set; }
 	public bool isExtraItemStone	{ get; set; }
 	public bool isExtraItemParasol	{ get; set; }
+    public bool donePauseMovie      { get; set; }
 
-	public int life {
+    public int life {
 		get {
 			return PlayerPrefs.GetInt (Data.MY_LIFE);
 		}
@@ -208,13 +209,14 @@ public class MainManager : MonoBehaviour
 		this.LoadCharacter ();
 		this.LoadInformation ();
 
-		// For Debug.
-		//gachaTicket = 10;
-		//PlayerPrefs.DeleteKey(Data.RECORD_GACHATICKET);
-		//PlayerPrefs.SetString (Data.LOGIN_NAME, "testnow2");
-		//PlayerPrefs.DeleteKey(Data.LOGIN_NAME);
-		//PlayerPrefs.DeleteKey(Data.LOGIN_PASSWORD);
-	}
+        donePauseMovie = false;
+        // For Debug.
+        //gachaTicket = 10;
+        //PlayerPrefs.DeleteKey(Data.RECORD_GACHATICKET);
+        //PlayerPrefs.SetString (Data.LOGIN_NAME, "testnow2");
+        //PlayerPrefs.DeleteKey(Data.LOGIN_NAME);
+        //PlayerPrefs.DeleteKey(Data.LOGIN_PASSWORD);
+    }
 
 
 
