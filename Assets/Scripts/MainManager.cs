@@ -98,9 +98,9 @@ public class MainManager : MonoBehaviour
 
 
 
-	public const int START_LIFE = 2;
+	public const int START_LIFE = 5;
 	public const int START_WEAPON = 0;
-	public const int INIT_GATHATICKET = 0;
+	public const int INIT_GATHATICKET = 2;
 
 	public const int INFORMATION_NUMBER = 124;
 

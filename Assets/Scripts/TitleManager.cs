@@ -398,6 +398,7 @@ public class TitleManager : MonoBehaviour
 	private GameObject goMenuTwitter;
 	private GameObject goMenuLoginBonus;
 	private GameObject goMenuLoginBonusButtonOk;
+	private GameObject goMenuHiscore;
 
 	private GameObject goRankingMe;
 	private GameObject goRankingPage;
@@ -489,6 +490,7 @@ public class TitleManager : MonoBehaviour
 	private GameObject goGachaLotteryLife;
 
 	private GameObject goInformationButton;
+	private GameObject goVersion;
 
 
 	private Catalog catalog;
@@ -572,6 +574,7 @@ public class TitleManager : MonoBehaviour
 		goMenuTwitter					= goMenu.transform.Find ("Twitter").gameObject;
 		goMenuLoginBonus				= goMenu.transform.Find ("LoginBonus").gameObject;
 		goMenuLoginBonusButtonOk		= goMenu.transform.Find ("LoginBonus/ButtonOk").gameObject;
+		goMenuHiscore					= goMenu.transform.Find ("Hiscore").gameObject;
 
 		goRankingMe						= goRanking.transform.Find ("Me").gameObject;
 		goRankingPage					= goRanking.transform.Find ("Page").gameObject;
@@ -658,7 +661,8 @@ public class TitleManager : MonoBehaviour
 		goGachaLotteryLife				= goGachaStart.transform.Find ("LotteryLife").gameObject;
 
 		goInformationButton				= goInformation.transform.Find ("ButtonOk").gameObject;
-
+		goVersion						= goMenu.transform.Find ("Version").gameObject;
+		goVersion.GetComponent<Text> ().text = "Ver." + Application.version;
 
 		goMenuLogo						.GetComponent<Image> ().sprite = Language.sentence == Language.sentenceEn ? spriteLogoEn : spriteLogoEn;
 		goMenuLogo						.GetComponent<Image> ().SetNativeSize ();
@@ -677,6 +681,7 @@ public class TitleManager : MonoBehaviour
 			goMenuButtonStart.transform.localPosition = goMenuButtonContinue.transform.localPosition;
 			goMenuButtonContinue.SetActive (false);
 		}
+		goMenuHiscore.GetComponent<Text> ().text = "HISCORE  " + MainManager.Instance.scoreHigh.ToString ("D7");
 
 		goLoginButton					.GetComponent<Button> ().onClick.AddListener (() => OnLogin ());
 		goSignupButton					.GetComponent<Button> ().onClick.AddListener (() => OnButtonRegist ());
@@ -737,6 +742,7 @@ public class TitleManager : MonoBehaviour
 		goGachaLotteryLife				.GetComponent<Text> ().text = Language.sentence [Language.GACHA_LOTTERY_LIFE];
 
 		goInformationButton				.GetComponent<Button> ().onClick.AddListener (() => OnButtonInformationClose ());
+
 
 		goCharacter = new List<GameObject> ();
 		for (int i = 0; i < Data.CHARACTER_MAX; i++) {
