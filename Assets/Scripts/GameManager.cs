@@ -452,6 +452,7 @@ public class GameManager : MonoBehaviour
 		public GameObject goEncourage;
 		public GameObject goButtonBack;
 		public GameObject goButtonMovie;
+		public GameObject goButtonEnd;
 		public GameObject goVolumeOn;
 		public GameObject goVolumeOff;
 	}
@@ -730,6 +731,7 @@ public class GameManager : MonoBehaviour
 		collectPause.goEncourage		= collectPause.go.transform.Find ("Encourage").gameObject;
 		collectPause.goButtonBack		= collectPause.go.transform.Find ("ButtonBack").gameObject;
 		collectPause.goButtonMovie		= collectPause.go.transform.Find ("ButtonMovie").gameObject;
+		collectPause.goButtonEnd		= collectPause.go.transform.Find ("ButtonEnd").gameObject;
 		collectPause.goVolumeOn			= collectPause.go.transform.Find ("Volume/On").gameObject;
 		collectPause.goVolumeOff		= collectPause.go.transform.Find ("Volume/Off").gameObject;
 
@@ -831,6 +833,7 @@ public class GameManager : MonoBehaviour
 
 		collectPause.goButtonBack			.GetComponent<Button> ().onClick.AddListener (() => OnPause (false));
 		collectPause.goButtonMovie			.GetComponent<Button> ().onClick.AddListener (() => OnPauseMovie ());
+		collectPause.goButtonEnd			.GetComponent<Button> ().onClick.AddListener (() => OnPauseEnd ());
 		collectPause.goVolumeOn				.GetComponent<Button> ().onClick.AddListener (() => OnVolume (true));
 		collectPause.goVolumeOff			.GetComponent<Button> ().onClick.AddListener (() => OnVolume (false));
 		collectContinue.goButtonContinue	.GetComponent<Button> ().onClick.AddListener (() => OnContinue (CONTINUE_COMMAND_YES));
@@ -3289,6 +3292,22 @@ public class GameManager : MonoBehaviour
 
 
 
+	private void OnPauseEnd ()
+	{
+		if (state == State.Play) {
+			// 武器半分(2以上保持時).
+			if (myWeapon.now > 1)
+				myWeapon.now /= 2;
+			SoundManager.Instance.StopSe ();
+			SoundManager.Instance.PlaySe (SoundManager.SeName.SE_CANCEL);
+			//MainManager.Instance.nendAdBanner.Hide ();
+			MainManager.Instance.bannerView.Hide ();
+			MainManager.Instance.Title ();
+		}
+	}
+
+
+
 	private Player.Compass checkCompass;
 	private Vector2 checkPosition;
 	private Coroutine coroutine;
@@ -4293,6 +4312,15 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			OnPause (!isPause);
+		}
+	}
+
+
+
+	private void OnApplicationPause (bool pauseStatus)
+	{
+		if (!isPause) {
+			OnPause (true);
 		}
 	}
 
