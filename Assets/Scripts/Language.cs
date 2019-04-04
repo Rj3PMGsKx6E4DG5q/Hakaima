@@ -112,7 +112,7 @@ public class Language
 		{GAME_READY_APPEAR_SAMURAI,		"侍以外の敵をすべて倒す\nもしくはタイムが０になるまで逃げる"},
 		{GAME_READY_APPEAR_BOSS,		"ボスを倒す"},
 
-		{GAME_PAUSE,					"動画を視聴すると残機が５機増えます。"},
+		{GAME_PAUSE,					"動画を視聴すると残機が５機増えます。\nタイトルを選ぶと次回このステージの\n最初から続きが遊べます。"},
 		{GAME_CONTINUE,					"CONTINUEを選ぶとゲームオーバーしたステージの\n始めからゲームに復帰します。\n広告が出た時点で１機増えます。\nPLAY MOVIEを選ぶと動画広告が始まり、最後まで\n視聴すると残機が５機に増えてゲームに復帰出来ます。"},
 		{GAME_HELP,						"この画面は、次回以降表示されません。\nヘルプからいつでも確認出来ます。"},
 		{GAME_TUTORIAL_1,				"墓で敵を倒せます。"},
@@ -193,7 +193,7 @@ public class Language
 		{GAME_READY_APPEAR_SAMURAI,		"Beat without Security Samurai.Or run away by time zero."},
 		{GAME_READY_APPEAR_BOSS,		"Beat the Boss!"},
 		
-		{GAME_PAUSE,					"It is added 5 life\nif you will play movie."},
+		{GAME_PAUSE,					"It is added 5 life if you will play movie. Also when you press the TITLE button you can play continuing at the beginning of this stage."},
 		{GAME_CONTINUE,					"Restart to play from the stage when you choose\nCONTINUE button. And add a life if appear ads.\nThe movie ads begins when choose\nPLAY MOVIE button. If you finished to watch the\nmovie ads, you can continue to play with 5 life."},
 		{GAME_HELP,						"This screen does not draw next time after.\nAlways confirm from help available."},
 		{GAME_TUTORIAL_1,				"Beat enemies using tomb."},
