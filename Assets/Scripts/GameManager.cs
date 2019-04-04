@@ -2219,6 +2219,7 @@ public class GameManager : MonoBehaviour
 									state = State.Continue;
 									time = 0;
 									loop = true;
+									MainManager.Instance.ShowInterstitialNoMovie();
 								} else {
 									life.now--;
 									player.Rise ();
@@ -2269,9 +2270,15 @@ public class GameManager : MonoBehaviour
 						{
 							int pointX = Mathf.FloorToInt ((weapon.positionX + weapon.size / 2) / weapon.size);
 							int pointY = Mathf.FloorToInt ((weapon.positionY + weapon.size / 2) / weapon.size);
-							Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
-							if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+							// 画面外になったら即終了 2018.9.19 iwasaki.
+							if (chipList.Count <= (pointX + pointY * Data.LENGTH_X) || (pointX + pointY * Data.LENGTH_X) < 0) {
 								isEnd = true;
+							}
+							else {
+								Chip chip = chipList [pointX + pointY * Data.LENGTH_X];
+								if (chip.obstacleList.Exists (obj => !Data.GetObstacleData (obj.type).isThrough))
+									isEnd = true;
+							}
 						}
 						if (isEnd) {
 							Destroy (groupEnemyWeaponList [i].gameObject);
@@ -2636,6 +2643,8 @@ public class GameManager : MonoBehaviour
 						break;
 					case CONTINUE_COMMAND_YES:
 						{
+							// コンティニュー時のライフを指定の数に（３）
+							life.now = Data.CONTINUE_LIFE;
 							MainManager.Instance.CurrentStage (life.now, 0);
 						}
 						break;
@@ -3269,12 +3278,12 @@ public class GameManager : MonoBehaviour
 			collectPause.go.SetActive (isPause);
 			if (this.isPause) {
 				//MainManager.Instance.nendAdBanner.Show ();
-				MainManager.Instance.bannerView.Show ();
+				//MainManager.Instance.bannerView.Show ();
 				SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 				FirebaseAnalyticsManager.Instance.LogEvent (Data.FIREBASE_SCREEN_PUASE);
 			} else {
 				//MainManager.Instance.nendAdBanner.Hide ();
-				MainManager.Instance.bannerView.Hide ();
+				//MainManager.Instance.bannerView.Hide ();
 				SoundManager.Instance.PlaySe (SoundManager.SeName.SE_CANCEL);
 			}
 		}

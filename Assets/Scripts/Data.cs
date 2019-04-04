@@ -163,6 +163,8 @@ public class Data
 
 	public const int FROM_TIME_TO_SCORE_COEFFICIENT		= 6;
 
+	public const int CONTINUE_LIFE						= 2;
+
 	public const string RECORD_ENEMY_DIE_TO_TOMB		= "recordEnemyDieToTomb";
 	public const string RECORD_ENEMY_DIE_TO_HOLE		= "recordEnemyDieToHole";
 	public const string RECORD_TOMB_COLLAPSE			= "recordTombCollapse";
