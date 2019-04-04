@@ -1479,17 +1479,22 @@ public class TitleManager : MonoBehaviour
 	private void CheckBackKey ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			switch (this.state) {
-			case State.Menu:
-				if (goCaution.activeSelf) {
-					OnMenuButtonCaution (false);
-				} else {
-					OnButton (State.End);
+			//キャラクター選択はダイアログで判定
+			if (goSelectCharacter.activeSelf) {
+				goSelectCharacter.SetActive (false);
+			} else {
+				switch (this.state) {
+					case State.Menu:
+						if (goCaution.activeSelf) {
+							OnMenuButtonCaution (false);
+						} else {
+							OnButton (State.End);
+						}
+						break;
+					default:
+						OnButton (State.Menu, false);
+						break;
 				}
-				break;
-			default:
-				OnButton (State.Menu, false);
-				break;
 			}
 		}
 	}
