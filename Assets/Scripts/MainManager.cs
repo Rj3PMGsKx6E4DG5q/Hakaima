@@ -1352,6 +1352,7 @@ public class MainManager : MonoBehaviour
 		}
 
 
+
 //		string filePath = @"C:\Users\iwashidon\Documents\Hakaima\Assets\Sample\data.txt";
 //		System.Text.Encoding enc = System.Text.Encoding.GetEncoding ("utf-8");
 //		System.IO.File.WriteAllText (filePath, dataText, enc);
