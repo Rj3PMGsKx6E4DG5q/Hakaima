@@ -1496,8 +1496,12 @@ public class TitleManager : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			switch (this.state) {
 			case State.Menu:
-				if (goCaution.activeSelf) {
+				if (goGacha.activeSelf) {
+					OnGachaResultBackButton ();
+				} else if (goCaution.activeSelf) {
 					OnMenuButtonCaution (false);
+				} else if (goSelectCharacter.activeSelf) {
+					OnButton (State.Menu, false);
 				} else {
 					OnButton (State.End);
 				}
