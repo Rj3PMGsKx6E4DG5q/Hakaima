@@ -106,6 +106,7 @@ public class Data
 	public const string MORE_GAME_PACKAGENAME_ANDROID	= "market://details?id=com.KohchanStudio.ShogiPuzzle";
 	//public const string MORE_GAME_PACKAGENAME_IOS		= "http://appstore.com/将棋駒でパズル";
 	public const string MORE_GAME_PACKAGENAME_IOS		= "itms-apps://itunes.apple.com/app/id1330151898";
+	public const string PRIVACY_POLICY_URL				= "https://kohchanstudioinfo.wixsite.com/privacy-policy";
 
 	public const int TARGET_FRAME_RATE					= 60;
 	public const float DELTA_TIME						= 1f/60;
