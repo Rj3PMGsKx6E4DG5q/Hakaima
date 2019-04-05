@@ -1091,8 +1091,7 @@ public class TitleManager : MonoBehaviour
 	
 	private void OnMenuButtonStart ()
 	{
-        MainManager.Instance.donePauseMovie = false;
-        MainManager.Instance.StoryPrologue ();
+		MainManager.Instance.StoryPrologue ();
 		MainManager.Instance.RecordSave ();
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
 		//MainManager.Instance.nendAdIcon.Hide ();
@@ -1495,27 +1494,21 @@ public class TitleManager : MonoBehaviour
 	private void CheckBackKey ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-            if (goGachaResult.activeSelf)
-            {
-                OnGachaResultBackButton();
-            }
-			//キャラクター選択はダイアログで判定
-			else if (goSelectCharacter.activeSelf) {
-                SoundManager.Instance.PlaySe(SoundManager.SeName.SE_CANCEL);
-                goSelectCharacter.SetActive (false);
-			} else {
-				switch (this.state) {
-					case State.Menu:
-						if (goCaution.activeSelf) {
-							OnMenuButtonCaution (false);
-						} else {
-							OnButton (State.End);
-						}
-						break;
-					default:
-						OnButton (State.Menu, false);
-						break;
+			switch (this.state) {
+			case State.Menu:
+				if (goGacha.activeSelf) {
+					OnGachaResultBackButton ();
+				} else if (goCaution.activeSelf) {
+					OnMenuButtonCaution (false);
+				} else if (goSelectCharacter.activeSelf) {
+					OnButton (State.Menu, false);
+				} else {
+					OnButton (State.End);
 				}
+				break;
+			default:
+				OnButton (State.Menu, false);
+				break;
 			}
 		}
 	}
