@@ -442,6 +442,7 @@ public class TitleManager : MonoBehaviour
 	private GameObject goHelpArrowRight;
 	private GameObject goHelpArrowLeft;
 	private GameObject goHelpButtonBack;
+	private GameObject goHelpButtonPrivacy;
 
 	private GameObject goCatalogPage;
 	private GameObject goCatalogPoint;
@@ -618,6 +619,7 @@ public class TitleManager : MonoBehaviour
 		goHelpArrowRight				= goHelp.transform.Find ("ArrowRight").gameObject;
 		goHelpArrowLeft					= goHelp.transform.Find ("ArrowLeft").gameObject;
 		goHelpButtonBack				= goHelp.transform.Find ("ButtonBack").gameObject;
+		goHelpButtonPrivacy				= goHelp.transform.Find ("ButtonPrivacy").gameObject;
 		Destroy (goHelp.transform.Find ("Attention").gameObject);
 
 		goCautionButtonYes				= goCaution.transform.Find ("ButtonYes").gameObject;
@@ -700,6 +702,7 @@ public class TitleManager : MonoBehaviour
 		goRecordArrowLeft				.GetComponent<Button> ().onClick.AddListener (() => OnCatalogPrevPage ());
 
 		goHelpButtonBack				.GetComponent<Button> ().onClick.AddListener (() => OnButton (State.Menu, false));
+		goHelpButtonPrivacy				.GetComponent<Button> ().onClick.AddListener (() => OnPrivacyPorisy ());
 		goHelpArrowRight				.GetComponent<Button> ().onClick.AddListener (() => OnCatalogNextPage ());
 		goHelpArrowLeft					.GetComponent<Button> ().onClick.AddListener (() => OnCatalogPrevPage ());
 		goRankingSwipe					.GetComponent<EventTrigger> ().triggers.Find (obj => obj.eventID == EventTriggerType.Drag).callback.AddListener (eventData => OnSwipe ((PointerEventData)eventData));
@@ -1170,6 +1173,12 @@ public class TitleManager : MonoBehaviour
 		SoundManager.Instance.PlaySe (ok ? SoundManager.SeName.SE_OK : SoundManager.SeName.SE_CANCEL);
 	}
 
+
+	private void OnPrivacyPorisy()
+	{
+		string url = Data.PRIVACY_POLICY_URL;
+		Application.OpenURL(url);
+	}
 
 
 	private void OnVolume (bool isMute)
