@@ -4414,9 +4414,7 @@ public class GameManager : MonoBehaviour
 				return;
 			}
 
-			if (isPause) {
-				OnPause (!isPause);
-			}
+			OnPause (!isPause);
 		}
 	}
 
