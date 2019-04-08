@@ -102,7 +102,7 @@ public class MainManager : MonoBehaviour
 	public const int START_WEAPON = 0;
 	public const int INIT_GATHATICKET = 2;
 
-	public const int INFORMATION_NUMBER = 124;
+	public const int INFORMATION_NUMBER = 129;
 
 	private State state;
 	private float time;
