@@ -3365,7 +3365,7 @@ public class GameManager : MonoBehaviour
     private void OnCaution(bool isCaution)
     {
         this.isCaution = isCaution;
-        collectPause.goCaution.SetActive(this.isCaution);
+        collectPause.goCaution.SetActive(false);
         if (this.isCaution)
         {
             SoundManager.Instance.PlaySe(SoundManager.SeName.SE_OK);
@@ -3402,6 +3402,7 @@ public class GameManager : MonoBehaviour
         */
         SoundManager.Instance.PlaySe(SoundManager.SeName.SE_OK);
         collectPause.goCaution.SetActive(true);
+		isCaution = true;
     }
 
 
@@ -4411,6 +4412,10 @@ public class GameManager : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			if (isHowto) {
 				OnHowTo (false);
+				return;
+			}
+			if (isCaution) {
+				OnCaution (false);
 				return;
 			}
 
