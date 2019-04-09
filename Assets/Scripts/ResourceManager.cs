@@ -401,5 +401,12 @@ public class ResourceManager : MonoBehaviour
 		if (enemyType == Enemy.Type.Tengu)
 			spriteEnemyWeapon = Resources.Load<Sprite> ("Textures/enemy_weapon");
 	}
+
+
+
+	public Sprite GetContinuePlayerSprite (int charaId)
+	{
+		return Resources.Load<Sprite> (string.Format ("Textures/continue_player{0}", charaId));
+	}
 	
 }

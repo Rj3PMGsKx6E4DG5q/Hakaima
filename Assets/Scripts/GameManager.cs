@@ -508,6 +508,7 @@ public class GameManager : MonoBehaviour
 		public GameObject goStage;
 		public GameObject goScore;
 		public GameObject goDescription;
+		public GameObject goPlayer;
 		public GameObject goButtonContinue;
 		public GameObject goButtonMovie;
 		public GameObject goButtonEnd;
@@ -783,6 +784,7 @@ public class GameManager : MonoBehaviour
 		collectContinue.goStage				= collectContinue.go.transform.Find ("Stage(Value)").gameObject;
 		collectContinue.goScore				= collectContinue.go.transform.Find ("Score(Value)").gameObject;
 		collectContinue.goDescription		= collectContinue.go.transform.Find ("Description").gameObject;
+		collectContinue.goPlayer			= collectContinue.go.transform.Find ("Player").gameObject;
 		collectContinue.goButtonContinue	= collectContinue.go.transform.Find ("ButtonContinue").gameObject;
 		collectContinue.goButtonMovie		= collectContinue.go.transform.Find ("ButtonMovie").gameObject;
 		collectContinue.goButtonEnd			= collectContinue.go.transform.Find ("ButtonEnd").gameObject;
@@ -2635,6 +2637,7 @@ public class GameManager : MonoBehaviour
 						collectContinue.go.SetActive (true);
 						collectContinue.goStage.GetComponent<Text> ().text = string.Format ("{0}", MainManager.Instance.stage + 1);
 						collectContinue.goScore.GetComponent<Text> ().text = score.now.ToString ();
+						collectContinue.goPlayer.GetComponent<Image> ().sprite = ResourceManager.Instance.GetContinuePlayerSprite (MainManager.Instance.selectCharacter);
 						continueCommand = CONTINUE_COMMAND_NONE;
 						SoundManager.Instance.StopBgm ();
 						SoundManager.Instance.PlaySe (SoundManager.SeName.JINGLE_GAMEOVER);
