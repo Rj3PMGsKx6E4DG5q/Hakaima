@@ -501,7 +501,7 @@ public class TitleManager : MonoBehaviour
 	private Ranking ranking;
 
 	private float birdIndex;
-    private int bookedSelectCharacter;
+    //private int bookedSelectCharacter;
 
 	public Sprite spriteLogo;
 	public Sprite spriteLogoEn;
@@ -1091,8 +1091,8 @@ public class TitleManager : MonoBehaviour
 	
 	private void OnMenuButtonStart ()
 	{
-        MainManager.Instance.selectCharacter = bookedSelectCharacter;   // 2019.4.9 iwasaki 予約しておいた番号を代入
-        MainManager.Instance.SaveCharacter ();
+        //MainManager.Instance.selectCharacter = bookedSelectCharacter;   // 2019.4.9 iwasaki 予約しておいた番号を代入 => 廃止
+        //MainManager.Instance.SaveCharacter ();
         MainManager.Instance.StoryPrologue ();
 		MainManager.Instance.RecordSave ();
 		SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
@@ -1291,9 +1291,9 @@ public class TitleManager : MonoBehaviour
 			float y = goCharacter [number].transform.localPosition.y + 22;
 			goSelectCharacterFrame.transform.localPosition = new Vector3 (x, y, 0);
 			SoundManager.Instance.PlaySe (SoundManager.SeName.SE_OK);
-            bookedSelectCharacter = number;   // 2019.4.9 iwasaki 予約のみ
-            //MainManager.Instance.selectCharacter = number;
-			//MainManager.Instance.SaveCharacter ();
+            //bookedSelectCharacter = number;   // 2019.4.9 iwasaki 予約のみ => 廃止
+            MainManager.Instance.selectCharacter = number;
+			MainManager.Instance.SaveCharacter ();
 		} else {
 			SoundManager.Instance.PlaySe (SoundManager.SeName.SE_CANCEL);
 		}
